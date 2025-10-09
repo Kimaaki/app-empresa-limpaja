@@ -246,12 +246,13 @@ export default function LimpsZoneApp() {
 
   // Banners com i18n simples
   const banners = [
-    {
-      title: TT.heroTitle,
-      subtitle: TT.heroSubtitle,
-      image: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200&h=600&fit=crop',
-      cta: TT.cta
-    },
+      {
+    title: "Cuidamos do seu Espaço com Padrão Profissional",
+    subtitle: "Transformamos o seu espaço com qualidade e confiança",
+    image: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200&h=600&fit=crop',
+    cta: "Solicitar Orçamento"
+  },
+
     {
       title: TT.higi,
       subtitle: TT.higiSub,

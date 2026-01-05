@@ -1,6 +1,6 @@
 "use client";
 
-const NUM = "351920000000"; // Número português sem + e sem espaços
+const NUM = "351934071930"; // Número português sem + e sem espaços
 const MSG = "Olá, quero solicitar um serviço de limpeza da Limpszone.";
 const URL = `https://wa.me/${NUM}?text=${encodeURIComponent(MSG)}`;
 

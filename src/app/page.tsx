@@ -561,7 +561,7 @@ export default function LimpsZoneApp() {
             <div className="hidden md:flex items-center space-x-6">
               <div className="flex items-center space-x-2 text-gray-600">
                 <Phone className="h-4 w-4" />
-                <a href="tel:+351920000000" className="hover:text-blue-600">+351 920 000 000</a>
+                <a href="tel:+351934071930" className="hover:text-blue-600">+351 920 000 000</a>
               </div>
               <div className="flex items-center space-x-2 text-gray-600">
                 <Mail className="h-4 w-4" />
@@ -1515,7 +1515,7 @@ export default function LimpsZoneApp() {
               <div className="space-y-3 text-gray-400">
                 <div className="flex items-center space-x-2">
                   <Phone className="h-4 w-4" />
-                  <a href="tel:+351920000000" className="hover:text-white">+351 920 000 000</a>
+                  <a href="tel:+351934071930" className="hover:text-white">+351 934 071 930</a>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Mail className="h-4 w-4" />

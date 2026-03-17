@@ -538,13 +538,27 @@ export default function LimpsZoneApp() {
   const handleBudgetSubmit=async()=>{
     if(!budgetData.serviceTypes.length||!budgetData.materialType||!budgetData.dirtLevel||!budgetData.address){alert(T.fillReq);return}
     try{
-      const mat=materialTypes.find(m=>m.id===budgetData.materialType),dirt=dirtLevels.find(d=>d.id===budgetData.dirtLevel),nb=neighborhoods.find(n=>n.id===budgetData.neighborhood)
-      const lines=budgetData.serviceTypes.map(sid=>{const s=serviceTypes.find(st=>st.id===sid);if(!s)return'';let p=s.id==='pos-obra'?posP(s.basePrice,budgetData.posObraCompartments):s.id==='limpeza-geral'?lgP(s.basePrice,budgetData.limpezaGeralQuartos):s.basePrice*budgetData.quantity;p=p*(mat?.multiplier||1)*(dirt?.multiplier||1)*(nb?.multiplier||1);return`• ${s.name}: ${(Math.round(p*100)/100).toFixed(2)} €`}).filter(Boolean).join('\n')
-      const subj=encodeURIComponent('Nova Solicitação - Limpszone'),body=encodeURIComponent(`NOVA SOLICITAÇÃO\n\n${lines}\n\nTOTAL: ${calcP.toFixed(2)} €\n\nEndereço: ${budgetData.address}`)
-      window.location.href=`mailto:suportelimpszone@gmail.com?subject=${subj}&body=${body}`
-      setShowOk(true);setBudgetData({serviceTypes:[],materialType:'',dirtLevel:'',address:'',neighborhood:'',quantity:1,observations:'',posObraCompartments:1,limpezaGeralQuartos:1});setCalcP(0);setDisc(0);setDiscAmt(0)
+      const mat=materialTypes.find(m=>m.id===budgetData.materialType)
+      const dirt=dirtLevels.find(d=>d.id===budgetData.dirtLevel)
+      const nb=neighborhoods.find(n=>n.id===budgetData.neighborhood)
+      const emailData:ServiceFormData={
+        name:'Orçamento via Calculadora',
+        phone:'Não informado',
+        user_email:'suportelimpszone@gmail.com',
+        address:budgetData.address,
+        services:budgetData.serviceTypes.map(sid=>serviceTypes.find(st=>st.id===sid)?.name||sid),
+        material:mat?.name||budgetData.materialType,
+        dirtLevel:dirt?.name||budgetData.dirtLevel,
+        distance:nb?.name||'Não informado',
+        totalPrice:calcP.toFixed(2),
+      }
+      await sendServiceRequest(emailData)
+      toast.success(T.ok)
+      setShowOk(true)
+      setBudgetData({serviceTypes:[],materialType:'',dirtLevel:'',address:'',neighborhood:'',quantity:1,observations:'',posObraCompartments:1,limpezaGeralQuartos:1})
+      setCalcP(0);setDisc(0);setDiscAmt(0)
       setTimeout(()=>setShowOk(false),5000)
-    }catch(e){console.error(e)}
+    }catch(e){console.error(e);toast.error(T.err)}
   }
   const handleFormSubmit=async(e:React.FormEvent)=>{
     e.preventDefault()
@@ -559,6 +573,8 @@ export default function LimpsZoneApp() {
 
   const btnN={background:C.navy,color:'#fff'} as React.CSSProperties
   const btnB={background:C.blue,color:'#fff'} as React.CSSProperties
+  const WA_NUM = '351934071930'
+  const WA_URL = `https://wa.me/${WA_NUM}?text=${encodeURIComponent(es ? '¡Hola! Me gustaría solicitar un presupuesto de limpieza.' : 'Olá! Gostaria de solicitar um orçamento de limpeza.')}`
 
   // ── FloatTitle helper component
   const FTitle = ({r, lines, size='h2', center=false}: {r:React.RefObject<HTMLDivElement>, lines:string[], size?:'h1'|'h2'|'h3', center?:boolean}) => (
@@ -717,6 +733,19 @@ export default function LimpsZoneApp() {
           </div>
         </div>
       </section>
+
+      {/* ══ WHATSAPP CTA 1 — MIDDLE ══ */}
+      <div className="py-10 text-center" style={{background:'#f0fdf4'}}>
+        <p className="text-sm font-semibold mb-3" style={{color:'#166534'}}>
+          {es ? '¿Prefiere hablar directamente? ¡Estamos en WhatsApp!' : 'Prefere falar diretamente? Estamos no WhatsApp!'}
+        </p>
+        <a href={WA_URL} target="_blank" rel="noopener noreferrer"
+          className="inline-flex items-center gap-3 font-black px-8 py-4 rounded-2xl text-white shadow-xl transition-all hover:scale-105"
+          style={{background:'#25d366',fontSize:'16px',boxShadow:'0 8px 24px rgba(37,211,102,0.4)'}}>
+          <MessageCircle className="h-6 w-6"/>
+          {es ? '💬 Hablar por WhatsApp Ahora' : '💬 Falar no WhatsApp Agora'}
+        </a>
+      </div>
 
       {/* ══ WHY CHOOSE US ══ */}
       <section id="why-us" className="py-16 bg-white">
@@ -964,6 +993,26 @@ export default function LimpsZoneApp() {
         </div>
       </section>
 
+      {/* ══ WHATSAPP CTA 2 — NEAR END ══ */}
+      <div className="py-12" style={{background:`linear-gradient(135deg,#dcfce7,#d1fae5)`}}>
+        <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div>
+            <p className="text-2xl font-black mb-1" style={{color:'#14532d'}}>
+              {es ? '¿Respuesta inmediata? ¡WhatsApp!' : 'Resposta imediata? WhatsApp!'}
+            </p>
+            <p className="text-sm" style={{color:'#166534'}}>
+              {es ? 'Nuestro equipo responde en minutos. Sin esperas.' : 'A nossa equipa responde em minutos. Sem esperas.'}
+            </p>
+          </div>
+          <a href={WA_URL} target="_blank" rel="noopener noreferrer"
+            className="flex-shrink-0 inline-flex items-center gap-3 font-black px-10 py-5 rounded-2xl text-white shadow-2xl transition-all hover:scale-105"
+            style={{background:'#25d366',fontSize:'16px',boxShadow:'0 8px 32px rgba(37,211,102,0.45)'}}>
+            <MessageCircle className="h-7 w-7"/>
+            {es ? '📲 Contactar Ahora' : '📲 Contactar Agora'}
+          </a>
+        </div>
+      </div>
+
       {/* ══ FAQ ══ */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-6 max-w-3xl">
@@ -1095,6 +1144,14 @@ export default function LimpsZoneApp() {
           </form>
         </DialogContent>
       </Dialog>
+
+      {/* ══ FIXED WHATSAPP BUTTON ══ */}
+      <a href={WA_URL} target="_blank" rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 font-bold px-5 py-4 rounded-2xl shadow-2xl text-white transition-transform hover:scale-105"
+        style={{background:'#25d366',boxShadow:'0 8px 32px rgba(37,211,102,0.45)'}}>
+        <MessageCircle className="h-6 w-6"/>
+        <span className="text-sm font-black">WhatsApp</span>
+      </a>
 
       {/* ══ FOOTER ══ */}
       <footer id="footer" style={{background:`linear-gradient(180deg,${C.navy} 0%,#071322 100%)`}} className="pt-14 pb-6">

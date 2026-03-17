@@ -39,10 +39,18 @@ const GLOBAL_CSS = `
 /* Floating animation — continuous, elegant */
 @keyframes lzFloat {
   0%,100% { transform: translateY(0px); }
-  50%      { transform: translateY(-7px); }
+  50%      { transform: translateY(-8px); }
+}
+@keyframes lzFloat2 {
+  0%,100% { transform: translateY(0px); }
+  50%      { transform: translateY(-6px); }
+}
+@keyframes lzFloat3 {
+  0%,100% { transform: translateY(0px); }
+  50%      { transform: translateY(-10px); }
 }
 
-/* Scroll reveal */
+/* Scroll reveal for non-title elements */
 @keyframes lzFadeUp {
   from { opacity:0; transform:translateY(30px); }
   to   { opacity:1; transform:translateY(0); }
@@ -52,17 +60,44 @@ const GLOBAL_CSS = `
   to   { opacity:1; transform:translateY(0); }
 }
 
+/* Reveal + float combined — titles fade in then float FOREVER */
+@keyframes lzFadeUpThenFloat {
+  0%   { opacity:0; transform:translateY(30px); }
+  40%  { opacity:1; transform:translateY(0px); }
+  70%  { transform:translateY(0px); }
+  85%  { transform:translateY(-8px); }
+  100% { transform:translateY(0px); }
+}
+
 /* Base hidden state */
 .lz-r  { opacity:0; }
 .lz-rs { opacity:0; }
 
-/* Revealed = fade up + then float forever */
+/* Regular reveal (cards, images, buttons) */
 .lz-r.on  { animation: lzFadeUp 0.7s cubic-bezier(.22,1,.36,1) forwards; }
 .lz-rs.on { animation: lzFadeUpSm 0.55s cubic-bezier(.22,1,.36,1) forwards; }
 
-/* Floating title class — apply AFTER reveal via JS */
-.lz-float { animation: lzFloat 4s ease-in-out infinite; }
-.lz-float-slow { animation: lzFloat 5s ease-in-out infinite; }
+/* Title reveal — fades up then immediately starts floating loop */
+.lz-title {
+  opacity: 0;
+  display: inline-block;
+}
+.lz-title.on {
+  animation: lzFadeUp 0.7s cubic-bezier(.22,1,.36,1) forwards;
+}
+/* After reveal, float class is added by JS — overrides with infinite float */
+.lz-title.floating {
+  opacity: 1;
+  animation: lzFloat 4s ease-in-out infinite !important;
+}
+.lz-title.floating2 {
+  opacity: 1;
+  animation: lzFloat2 4.8s ease-in-out infinite !important;
+}
+.lz-title.floating3 {
+  opacity: 1;
+  animation: lzFloat3 5.5s ease-in-out infinite !important;
+}
 
 /* Title styles — big, black, impactful */
 .lz-h1 {
@@ -110,7 +145,7 @@ const GLOBAL_CSS = `
 `
 
 /* ─── HOOKS ─── */
-function useReveal(delay = 0, float = false) {
+function useReveal(delay = 0, float: false | 'float' | 'float2' | 'float3' = false) {
   const ref = useRef<HTMLDivElement>(null)
   useEffect(() => {
     const el = ref.current; if (!el) return
@@ -118,8 +153,13 @@ function useReveal(delay = 0, float = false) {
       if (e.isIntersecting) {
         setTimeout(() => {
           el.classList.add('on')
-          // After reveal animation finishes, add float
-          if (float) setTimeout(() => el.classList.add('lz-float'), 750)
+          if (float) {
+            // Wait for fade-up to finish (700ms), then switch to infinite float
+            setTimeout(() => {
+              el.classList.remove('on')
+              el.classList.add(float === 'float2' ? 'floating2' : float === 'float3' ? 'floating3' : 'floating')
+            }, 720)
+          }
         }, delay)
         ob.disconnect()
       }
@@ -383,15 +423,15 @@ export default function LimpsZoneApp() {
   const visRv = [0,1,2].map(i => reviews[(rvIdx+i)%reviews.length])
 
   // Reveal refs — titles get float:true for continuous animation after reveal
-  const rHero   = useReveal(0, true)
-  const rHow    = useReveal(0, true);  const rH1 = useReveal(0);   const rH2 = useReveal(140); const rH3 = useReveal(280)
-  const rSvcT   = useReveal(0, true);  const rSvcG = useReveal(80)
-  const rWhyT   = useReveal(0, true);  const rWhyL = useReveal(60); const rWhyR = useReveal(160)
-  const rPmL    = useReveal(0);        const rPmR  = useReveal(0, true)
-  const rRvT    = useReveal(0, true);  const rRvG  = useReveal(80)
-  const rBnT    = useReveal(0, true);  const rBnB  = useReveal(150)
-  const rCalcT  = useReveal(0, true);  const rCalcC = useReveal(80)
-  const rFaqT   = useReveal(0, true);  const rFaqL = useReveal(60)
+  const rHero   = useReveal(0, 'float')
+  const rHow    = useReveal(0, 'float2');  const rH1 = useReveal(0);   const rH2 = useReveal(140); const rH3 = useReveal(280)
+  const rSvcT   = useReveal(0, 'float3');  const rSvcG = useReveal(80)
+  const rWhyT   = useReveal(0, 'float');   const rWhyL = useReveal(60); const rWhyR = useReveal(160)
+  const rPmL    = useReveal(0);            const rPmR  = useReveal(0, 'float2')
+  const rRvT    = useReveal(0, 'float3');  const rRvG  = useReveal(80)
+  const rBnT    = useReveal(0, 'float');   const rBnB  = useReveal(150)
+  const rCalcT  = useReveal(0, 'float2');  const rCalcC = useReveal(80)
+  const rFaqT   = useReveal(0, 'float3');  const rFaqL = useReveal(60)
 
   // Service data
   const services = [
@@ -574,7 +614,7 @@ export default function LimpsZoneApp() {
           <div className="rounded-2xl p-8 max-w-[560px] shadow-2xl border" style={{background:'rgba(255,255,255,0.95)',borderColor:C.border}}>
             <span className="lz-eyebrow">{T.hBadge}</span>
             {/* BIG floating hero title */}
-            <div ref={rHero} className="lz-r lz-h1 mb-5" style={{fontSize:'clamp(40px,5vw,58px)'}}>
+            <div ref={rHero} className="lz-title lz-h1 mb-5" style={{fontSize:'clamp(40px,5vw,58px)'}}>
               <span style={{display:'block'}}>{T.hT1}</span>
               <span style={{display:'block',background:`linear-gradient(135deg,${C.blue},${C.sky})`,WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',backgroundClip:'text'}}>{T.hT2}</span>
               <span style={{display:'block'}}>{T.hT3}</span>
@@ -606,7 +646,7 @@ export default function LimpsZoneApp() {
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
             <span className="lz-eyebrow" style={{display:'block',textAlign:'center'}}>{T.howBadge}</span>
-            <div ref={rHow} className="lz-r lz-h2" style={{display:'block',textAlign:'center'}}>
+            <div ref={rHow} className="lz-title lz-h2" style={{display:'block',textAlign:'center'}}>
               <span style={{display:'block'}}>{T.howT1}</span>
               <span style={{display:'block',background:`linear-gradient(135deg,${C.blue},${C.sky})`,WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',backgroundClip:'text'}}>{T.howT2}</span>
             </div>
@@ -629,7 +669,7 @@ export default function LimpsZoneApp() {
         <div className="container mx-auto px-6">
           <div className="text-center mb-10">
             <span className="lz-eyebrow" style={{display:'block',textAlign:'center'}}>{T.svcBadge}</span>
-            <div ref={rSvcT} className="lz-r lz-h2" style={{display:'block',textAlign:'center'}}>
+            <div ref={rSvcT} className="lz-title lz-h2" style={{display:'block',textAlign:'center'}}>
               <span style={{display:'block'}}>{T.svcT1}</span>
               <span style={{display:'block',background:`linear-gradient(135deg,${C.blue},${C.sky})`,WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',backgroundClip:'text'}}>{T.svcT2}</span>
             </div>
@@ -684,7 +724,7 @@ export default function LimpsZoneApp() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <span className="lz-eyebrow">{T.whyBadge}</span>
-              <div ref={rWhyT} className="lz-r lz-h2 mb-6">
+              <div ref={rWhyT} className="lz-title lz-h2 mb-6">
                 <span style={{display:'block'}}>{T.whyT1}</span>
                 <span style={{display:'block',background:`linear-gradient(135deg,${C.blue},${C.sky})`,WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',backgroundClip:'text'}}>{T.whyT2}</span>
               </div>
@@ -723,7 +763,7 @@ export default function LimpsZoneApp() {
             </div>
             <div>
               <span className="lz-eyebrow">{T.pmBadge}</span>
-              <div ref={rPmR} className="lz-r lz-h2 mb-5">
+              <div ref={rPmR} className="lz-title lz-h2 mb-5">
                 <span style={{display:'block'}}>{T.pmT1}</span>
                 <span style={{display:'block',background:`linear-gradient(135deg,${C.blue},${C.sky})`,WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',backgroundClip:'text'}}>{T.pmT2}</span>
               </div>
@@ -744,7 +784,7 @@ export default function LimpsZoneApp() {
         <div className="container mx-auto px-6">
           <div className="text-center mb-10">
             <span className="lz-eyebrow" style={{display:'block',textAlign:'center'}}>{T.rvBadge}</span>
-            <div ref={rRvT} className="lz-r lz-h2" style={{display:'block',textAlign:'center'}}>
+            <div ref={rRvT} className="lz-title lz-h2" style={{display:'block',textAlign:'center'}}>
               <span style={{display:'block'}}>{T.rvT1}</span>
               <span style={{display:'block',background:`linear-gradient(135deg,${C.blue},${C.sky})`,WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',backgroundClip:'text'}}>{T.rvT2}</span>
             </div>
@@ -788,7 +828,7 @@ export default function LimpsZoneApp() {
       {/* ══ CTA BANNER ══ */}
       <section className="py-16" style={{background:`linear-gradient(135deg,${C.navy} 0%,${C.blue} 100%)`}}>
         <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
-          <div ref={rBnT} className="lz-r lz-h2 text-white" style={{WebkitTextFillColor:'white'}}>
+          <div ref={rBnT} className="lz-title lz-h2 text-white" style={{WebkitTextFillColor:'white'}}>
             <span style={{display:'block'}}>{T.bnT1}</span>
             <span style={{display:'block',opacity:0.85}}>{T.bnT2}</span>
             <p className="text-sm font-normal mt-3" style={{color:'#93c5fd',WebkitTextFillColor:'#93c5fd',letterSpacing:'0',fontSize:'14px',fontWeight:400}}>{T.bnS}</p>
@@ -806,7 +846,7 @@ export default function LimpsZoneApp() {
         <div className="container mx-auto px-6">
           <div className="text-center mb-10">
             <span className="lz-eyebrow" style={{display:'block',textAlign:'center'}}>{T.calcBadge}</span>
-            <div ref={rCalcT} className="lz-r lz-h2" style={{display:'block',textAlign:'center'}}>
+            <div ref={rCalcT} className="lz-title lz-h2" style={{display:'block',textAlign:'center'}}>
               <span style={{display:'block'}}>{T.calcT1}</span>
               <span style={{display:'block',background:`linear-gradient(135deg,${C.blue},${C.sky})`,WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',backgroundClip:'text'}}>{T.calcT2}</span>
             </div>
@@ -929,7 +969,7 @@ export default function LimpsZoneApp() {
         <div className="container mx-auto px-6 max-w-3xl">
           <div className="text-center mb-8">
             <span className="lz-eyebrow" style={{display:'block',textAlign:'center'}}>{T.faqBadge}</span>
-            <div ref={rFaqT} className="lz-r lz-h2" style={{display:'block',textAlign:'center'}}>
+            <div ref={rFaqT} className="lz-title lz-h2" style={{display:'block',textAlign:'center'}}>
               <span style={{display:'block'}}>{T.faqT1}</span>
               <span style={{display:'block',background:`linear-gradient(135deg,${C.blue},${C.sky})`,WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',backgroundClip:'text'}}>{T.faqT2}</span>
             </div>

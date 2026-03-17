@@ -19,96 +19,165 @@ import {
   ChevronLeft, ChevronRight
 } from 'lucide-react'
 
-/* ─────────────────────────────────────────────
-   COLOUR PALETTE  — ice-blue premium
-───────────────────────────────────────────── */
+/* ─── COLOURS ─── */
 const C = {
-  navy:    '#0f2a5e',   // deep navy – headings, footer
-  blue:    '#1d4ed8',   // primary blue – buttons, accents
-  sky:     '#2e86de',   // mid blue – hover, badges
-  iceBg:   '#f0f7ff',   // main page background – ultra-clean ice blue
-  iceMid:  '#e3f0ff',   // slightly deeper sections
-  iceCard: '#ffffff',   // pure white cards
-  border:  '#c7deff',   // soft blue border
-  text:    '#1e3a5f',   // body text – deep blue-grey
-  muted:   '#5a7fa8',   // muted text
+  navy:    '#0f2a5e',
+  blue:    '#1d4ed8',
+  sky:     '#2e86de',
+  iceBg:   '#f0f7ff',
+  iceMid:  '#e3f0ff',
+  iceCard: '#ffffff',
+  border:  '#c7deff',
+  text:    '#1e3a5f',
+  muted:   '#5a7fa8',
 }
 
-/* ─────────────────────────────────────────────
-   ANIMATION  — fade + rise on scroll
-───────────────────────────────────────────── */
-const ANIM_CSS = `
+/* ─── GLOBAL CSS ─── */
+const GLOBAL_CSS = `
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800;900&display=swap');
+
+/* Floating animation — continuous, elegant */
+@keyframes lzFloat {
+  0%,100% { transform: translateY(0px); }
+  50%      { transform: translateY(-7px); }
+}
+
+/* Scroll reveal */
 @keyframes lzFadeUp {
-  from { opacity:0; transform:translateY(28px); }
-  to   { opacity:1; transform:translateY(0);    }
+  from { opacity:0; transform:translateY(30px); }
+  to   { opacity:1; transform:translateY(0); }
 }
 @keyframes lzFadeUpSm {
   from { opacity:0; transform:translateY(16px); }
-  to   { opacity:1; transform:translateY(0);    }
+  to   { opacity:1; transform:translateY(0); }
 }
+
+/* Base hidden state */
 .lz-r  { opacity:0; }
 .lz-rs { opacity:0; }
-.lz-r.on  { animation: lzFadeUp   0.7s cubic-bezier(.22,1,.36,1) forwards; }
+
+/* Revealed = fade up + then float forever */
+.lz-r.on  { animation: lzFadeUp 0.7s cubic-bezier(.22,1,.36,1) forwards; }
 .lz-rs.on { animation: lzFadeUpSm 0.55s cubic-bezier(.22,1,.36,1) forwards; }
+
+/* Floating title class — apply AFTER reveal via JS */
+.lz-float { animation: lzFloat 4s ease-in-out infinite; }
+.lz-float-slow { animation: lzFloat 5s ease-in-out infinite; }
+
+/* Title styles — big, black, impactful */
+.lz-h1 {
+  font-family: 'Nunito Sans', 'Inter', sans-serif;
+  font-weight: 900;
+  font-size: clamp(38px, 5vw, 54px);
+  line-height: 1.05;
+  letter-spacing: -2px;
+  color: #0f2a5e;
+  display: inline-block;
+}
+.lz-h2 {
+  font-family: 'Nunito Sans', 'Inter', sans-serif;
+  font-weight: 900;
+  font-size: clamp(32px, 4vw, 46px);
+  line-height: 1.08;
+  letter-spacing: -1.5px;
+  color: #0f2a5e;
+  display: inline-block;
+}
+.lz-h3 {
+  font-family: 'Nunito Sans', 'Inter', sans-serif;
+  font-weight: 900;
+  font-size: clamp(26px, 3.5vw, 38px);
+  line-height: 1.1;
+  letter-spacing: -1px;
+  color: #0f2a5e;
+  display: inline-block;
+}
+.lz-accent {
+  background: linear-gradient(135deg, #1d4ed8, #2e86de);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.lz-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #1d4ed8;
+  margin-bottom: 10px;
+  display: block;
+}
 `
 
-function useR(delay = 0) {
+/* ─── HOOKS ─── */
+function useReveal(delay = 0, float = false) {
   const ref = useRef<HTMLDivElement>(null)
   useEffect(() => {
     const el = ref.current; if (!el) return
     const ob = new IntersectionObserver(([e]) => {
       if (e.isIntersecting) {
-        setTimeout(() => el.classList.add('on'), delay)
+        setTimeout(() => {
+          el.classList.add('on')
+          // After reveal animation finishes, add float
+          if (float) setTimeout(() => el.classList.add('lz-float'), 750)
+        }, delay)
         ob.disconnect()
       }
     }, { threshold: 0.12 })
     ob.observe(el)
     return () => ob.disconnect()
-  }, [delay])
+  }, [delay, float])
   return ref
 }
 
-/* ─────────────────────────────────────────────
-   i18n
-───────────────────────────────────────────── */
+/* ─── i18n ─── */
 type Lang = 'pt' | 'es'
-const L: Record<Lang, Record<string, string>> = {
+const TR: Record<Lang, Record<string, string>> = {
   pt: {
-    sub: 'Limpeza Profissional',
+    sub:'Limpeza Profissional',
     n1:'Serviços', n2:'Por que Nós', n3:'Testemunhos', n4:'Calculadora', n5:'Contacto', nCta:'Orçamento Grátis',
-    hBadge: 'Serviços de Limpeza Profissional',
-    hTitle: 'O Seu Espaço Impecável, Onde Quer que Esteja',
-    hDesc:  'Limpeza profissional para residências, hotéis e espaços comerciais em toda a Europa. Qualidade garantida, equipa de confiança.',
+    hBadge:'Serviços de Limpeza Profissional',
+    hT1:'O Seu Espaço', hT2:'Impecável,', hT3:'Onde Quer que Esteja',
+    hDesc:'Limpeza profissional para residências, hotéis e espaços comerciais em toda a Europa. Qualidade garantida, equipa de confiança.',
     hS1n:'500+', hS1l:'Clientes Satisfeitos', hS2n:'4.9/5', hS2l:'Avaliação',
     hCta:'Solicitar Orçamento Grátis',
-    howT:'Como Funciona', howS:'Limpo em 3 passos simples',
+    howBadge:'Como Funciona',
+    howT1:'Limpo em', howT2:'3 Passos Simples',
     hw1t:'Solicite um orçamento', hw1d:'Preencha o formulário ou ligue-nos. Resposta em menos de 1 hora.',
     hw2t:'Agendamos a visita', hw2d:'Escolha o dia e hora mais conveniente. Chegamos pontualmente.',
     hw3t:'Espaço impecável', hw3d:'Satisfação 100% garantida — se não gostar, voltamos de graça.',
-    svcT:'Os Nossos Serviços', svcS:'Soluções completas de limpeza para todos os tipos de espaços, sem contratos.',
+    svcBadge:'Os Nossos Serviços',
+    svcT1:'Soluções para', svcT2:'Cada Espaço',
+    svcS:'Limpeza profissional para todos os tipos de espaços. Sem contratos, sem complicações.',
     svcCta:'Ver Todos os Serviços e Preços',
     lm:'Saber mais', rs:'Solicitar Serviço',
     matT:'Materiais Utilizados:', arT:'Áreas Atendidas:',
     s1t:'Limpeza Residencial', s1d:'Limpeza completa de casas e apartamentos',
-    s2t:'Limpeza Comercial',   s2d:'Higienização de escritórios e espaços comerciais',
+    s2t:'Limpeza Comercial', s2d:'Higienização de escritórios e espaços comerciais',
     s3t:'Restaurantes & Hotéis', s3d:'Limpeza especializada para hotelaria e restauração',
-    s4t:'Limpeza de Vidros',  s4d:'Limpeza profissional de vidros e fachadas',
-    s5t:'Pós-Obra',           s5d:'Limpeza pesada após construções e remodelações',
+    s4t:'Limpeza de Vidros', s4d:'Limpeza profissional de vidros e fachadas',
+    s5t:'Pós-Obra', s5d:'Limpeza pesada após construções e remodelações',
     s6t:'Manutenção Predial', s6d:'Limpeza contínua de condomínios e edifícios',
-    whyT:'Por que Escolher a Limpszone?',
+    whyBadge:'Por que Nós',
+    whyT1:'A Escolha de', whyT2:'Quem Exige Qualidade',
     w1t:'Garantia de Satisfação Total', w1d:'Se o serviço não estiver ao seu gosto, voltamos sem custo adicional.',
-    w2t:'Equipa Verificada e Treinada',  w2d:'Todos passam por verificação de antecedentes e formação especializada.',
-    w3t:'Limpeza Personalizada',         w3d:'Um plano adaptado ao seu espaço, rotina e orçamento. Sem soluções genéricas.',
-    w4t:'Agendamento Fácil',             w4d:'Orçamento em menos de 1 hora. Marque online ou por telefone.',
+    w2t:'Equipa Verificada e Treinada', w2d:'Todos passam por verificação de antecedentes e formação especializada.',
+    w3t:'Limpeza Personalizada', w3d:'Um plano adaptado ao seu espaço, rotina e orçamento. Sem soluções genéricas.',
+    w4t:'Agendamento Fácil', w4d:'Orçamento em menos de 1 hora. Marque online ou por telefone.',
     wCta:'Solicitar Orçamento Gratuito',
-    pmT:'A Nossa Promessa de Qualidade',
+    pmBadge:'Qualidade Garantida',
+    pmT1:'A Nossa Promessa', pmT2:'de Excelência',
     pmD:'Utilizamos um checklist de 40 pontos em cada visita. Se algo não estiver perfeito, corrigimos sem qualquer custo adicional. Confiança e excelência em cada serviço.',
     pmCta:'Saber Mais',
-    rvT:'O que Dizem os Nossos Clientes', rvAll:'Ver Todas as Avaliações',
-    bnT:'Pronto para um espaço verdadeiramente limpo?',
+    rvBadge:'Testemunhos',
+    rvT1:'O que Dizem', rvT2:'os Nossos Clientes',
+    rvAll:'Ver Todas as Avaliações',
+    bnT1:'Pronto para um Espaço', bnT2:'Verdadeiramente Limpo?',
     bnS:'Orçamento gratuito em menos de 1 hora. Sem contratos, sem compromissos.',
     bnCta:'Solicitar Orçamento Grátis',
-    cT:'Calculadora de Orçamento', cS:'Orçamento instantâneo. Selecione as opções e veja o preço em tempo real.',
+    calcBadge:'Calculadora',
+    calcT1:'Calcule o Seu', calcT2:'Orçamento Agora',
+    cS:'Orçamento instantâneo. Selecione as opções e veja o preço em tempo real.',
     cCardT:'Configure o seu Orçamento', cCardS:'Preencha os campos para calcular o preço do seu serviço',
     st1:'1️⃣ Tipos de Serviço * (Selecione um ou mais)', st2:'2️⃣ Quantidade *',
     st3:'3️⃣ Tipo de Material *', st4:'4️⃣ Nível de Sujidade *', st5:'5️⃣ Localidade *',
@@ -117,7 +186,7 @@ const L: Record<Lang, Record<string, string>> = {
     selLoc:'Selecione a localidade', selAddr:'Digite o seu endereço completo',
     selObsPh:'Descreva manchas, áreas com bolor, danos ou outras informações...',
     promoA:'🎉 Promoção Ativa:', promoD:'de desconto por múltiplos serviços!',
-    priceT:'Preço Total Estimado', sub:'Subtotal (sem desconto):',
+    priceT:'Preço Total Estimado', subT:'Subtotal (sem desconto):',
     discA:'Desconto aplicado', finalP:'Valor final com desconto',
     selOpt:'Selecione as opções acima para ver o preço',
     discTip:'💡 Descontos: 10% para 2 serviços · 15% para 3 · 20% para 4+',
@@ -139,7 +208,8 @@ const L: Record<Lang, Record<string, string>> = {
     ok:'✅ Solicitação enviada! Entraremos em contacto em breve.',
     err:'❌ Erro ao enviar. Tente novamente.',
     okBanner:'✅ Solicitação enviada com sucesso! Em breve entraremos em contacto.',
-    faqT:'Perguntas Frequentes',
+    faqBadge:'FAQ',
+    faqT1:'Perguntas', faqT2:'Frequentes',
     q1:'O que garante a qualidade do serviço?', a1:'Checklist de 40 pontos em cada visita. Se algo não estiver perfeito, voltamos em 24h sem custo adicional.',
     q2:'Há quanto tempo a Limpszone está em atividade?', a2:'5 anos no mercado, com mais de 500 clientes satisfeitos em Portugal e Europa.',
     q3:'Preciso de estar presente durante a limpeza?', a3:'Não. Todos os profissionais passam por verificação de antecedentes. Pode sair tranquilamente.',
@@ -151,51 +221,60 @@ const L: Record<Lang, Record<string, string>> = {
     ftSu:'Domingo: 9:00 - 15:00', ftEm:'Emergências: 24/7',
     ftCopy:'© 2024 Limpszone. Todos os direitos reservados.',
     ftWA:'Falar no WhatsApp',
-    r1i:'MS', r1n:'Maria Silva',   r1r:'Proprietária de Restaurante', r1t:'A equipa fez um trabalho fantástico no nosso restaurante. Profissional, pontual e resultados impecáveis.',
-    r2i:'JS', r2n:'João Santos',   r2r:'Gerente de Hotel',            r2t:'Trabalho impecável no hotel. Os clientes elogiam sempre a qualidade da limpeza dos quartos.',
-    r3i:'AC', r3n:'Ana Costa',     r3r:'Dona de Casa',                r3t:'A minha casa ficou a brilhar! Muito atenciosas com todos os detalhes. Recomendo sem hesitar.',
-    r4i:'RM', r4n:'Rui Mendes',    r4r:'Empresário',                  r4t:'Pós-obra excelente. O escritório ficou pronto para inaugurar no próprio dia. Equipa rápida e eficiente.',
-    r5i:'CF', r5n:'Carla Ferreira',r5r:'Cliente Residencial',         r5t:'Contratei o serviço semanal. As senhoras são fantásticas, cuidadosas e sempre pontuais.',
-    r6i:'PN', r6n:'Pedro Nunes',   r6r:'Administrador de Condomínio', r6t:'Manutenção do condomínio impecável. Áreas comuns sempre limpas. Moradores muito satisfeitos!',
-    r7i:'LG', r7n:'Lena Garcia',   r7r:'Diretora de Hotel',           r7t:'Qualidade excecional na limpeza das nossas instalações. Parceria de total confiança.',
-    r8i:'TR', r8n:'Tiago Rocha',   r8r:'Proprietário de Café',        r8t:'Sempre impecável e pontual. Os clientes adoram a limpeza do espaço. Totalmente recomendado.',
+    r1i:'MS', r1n:'Maria Silva',    r1r:'Proprietária de Restaurante', r1t:'A equipa fez um trabalho fantástico no nosso restaurante. Profissional, pontual e resultados impecáveis.',
+    r2i:'JS', r2n:'João Santos',    r2r:'Gerente de Hotel',            r2t:'Trabalho impecável no hotel. Os clientes elogiam sempre a qualidade da limpeza dos quartos.',
+    r3i:'AC', r3n:'Ana Costa',      r3r:'Dona de Casa',                r3t:'A minha casa ficou a brilhar! Muito atenciosas com todos os detalhes. Recomendo sem hesitar.',
+    r4i:'RM', r4n:'Rui Mendes',     r4r:'Empresário',                  r4t:'Pós-obra excelente. O escritório ficou pronto para inaugurar no próprio dia. Muito eficiente.',
+    r5i:'CF', r5n:'Carla Ferreira', r5r:'Cliente Residencial',         r5t:'Contratei o serviço semanal. As senhoras são fantásticas, cuidadosas e sempre pontuais.',
+    r6i:'PN', r6n:'Pedro Nunes',    r6r:'Administrador de Condomínio', r6t:'Manutenção do condomínio impecável. Áreas comuns sempre limpas. Moradores muito satisfeitos!',
+    r7i:'LG', r7n:'Lena Garcia',    r7r:'Diretora de Hotel',           r7t:'Qualidade excecional na limpeza das nossas instalações. Parceria de total confiança.',
+    r8i:'TR', r8n:'Tiago Rocha',    r8r:'Proprietário de Café',        r8t:'Sempre impecável e pontual. Os clientes adoram a limpeza do espaço. Totalmente recomendado.',
   },
   es: {
-    sub: 'Limpieza Profesional',
+    sub:'Limpieza Profesional',
     n1:'Servicios', n2:'Por qué Nosotros', n3:'Testimonios', n4:'Calculadora', n5:'Contacto', nCta:'Presupuesto Gratis',
-    hBadge: 'Servicios de Limpieza Profesional',
-    hTitle: 'Su Espacio Impecable, Donde Quiera que Esté',
-    hDesc:  'Limpieza profesional para residencias, hoteles y espacios comerciales en toda Europa. Calidad garantizada, equipo de confianza.',
+    hBadge:'Servicios de Limpieza Profesional',
+    hT1:'Su Espacio', hT2:'Impecable,', hT3:'Donde Quiera que Esté',
+    hDesc:'Limpieza profesional para residencias, hoteles y espacios comerciales en toda Europa. Calidad garantizada, equipo de confianza.',
     hS1n:'500+', hS1l:'Clientes Satisfechos', hS2n:'4.9/5', hS2l:'Valoración',
     hCta:'Solicitar Presupuesto Gratis',
-    howT:'Cómo Funciona', howS:'Limpio en 3 pasos simples',
+    howBadge:'Cómo Funciona',
+    howT1:'Limpio en', howT2:'3 Pasos Simples',
     hw1t:'Solicite un presupuesto', hw1d:'Rellene el formulario o llámenos. Respuesta en menos de 1 hora.',
     hw2t:'Programamos la visita', hw2d:'Elija el día y hora más conveniente. Llegamos puntualmente.',
     hw3t:'Espacio impecable', hw3d:'Satisfacción 100% garantizada — si no le gusta, volvemos gratis.',
-    svcT:'Nuestros Servicios', svcS:'Soluciones completas de limpieza para todo tipo de espacios, sin contratos.',
+    svcBadge:'Nuestros Servicios',
+    svcT1:'Soluciones para', svcT2:'Cada Espacio',
+    svcS:'Limpieza profesional para todo tipo de espacios. Sin contratos, sin complicaciones.',
     svcCta:'Ver Todos los Servicios y Precios',
     lm:'Saber más', rs:'Solicitar Servicio',
     matT:'Materiales Utilizados:', arT:'Áreas Atendidas:',
     s1t:'Limpieza Residencial', s1d:'Limpieza completa de casas y apartamentos',
-    s2t:'Limpieza Comercial',   s2d:'Higienización de oficinas y espacios comerciales',
+    s2t:'Limpieza Comercial', s2d:'Higienización de oficinas y espacios comerciales',
     s3t:'Restaurantes y Hoteles', s3d:'Limpieza especializada para hostelería y restauración',
     s4t:'Limpieza de Cristales', s4d:'Limpieza profesional de cristales y fachadas',
-    s5t:'Post-Obra',             s5d:'Limpieza pesada después de construcciones y reformas',
+    s5t:'Post-Obra', s5d:'Limpieza pesada después de construcciones y reformas',
     s6t:'Mantenimiento de Edificios', s6d:'Limpieza continua de condominios y edificios',
-    whyT:'¿Por qué Elegir Limpszone?',
+    whyBadge:'Por qué Nosotros',
+    whyT1:'La Elección de', whyT2:'Quien Exige Calidad',
     w1t:'Garantía de Satisfacción Total', w1d:'Si el servicio no es de su agrado, volvemos sin coste adicional.',
-    w2t:'Equipo Verificado y Entrenado',  w2d:'Todos pasan por verificación de antecedentes y formación especializada.',
-    w3t:'Limpieza Personalizada',         w3d:'Un plan adaptado a su espacio, rutina y presupuesto. Sin soluciones genéricas.',
-    w4t:'Programación Fácil',             w4d:'Presupuesto en menos de 1 hora. Reserve online o por teléfono.',
+    w2t:'Equipo Verificado y Entrenado', w2d:'Todos pasan por verificación de antecedentes y formación especializada.',
+    w3t:'Limpieza Personalizada', w3d:'Un plan adaptado a su espacio, rutina y presupuesto. Sin soluciones genéricas.',
+    w4t:'Programación Fácil', w4d:'Presupuesto en menos de 1 hora. Reserve online o por teléfono.',
     wCta:'Solicitar Presupuesto Gratuito',
-    pmT:'Nuestra Promesa de Calidad',
+    pmBadge:'Calidad Garantizada',
+    pmT1:'Nuestra Promesa', pmT2:'de Excelencia',
     pmD:'Utilizamos una lista de verificación de 40 puntos en cada visita. Si algo no está perfecto, lo corregimos sin ningún coste adicional.',
     pmCta:'Saber Más',
-    rvT:'Lo que Dicen Nuestros Clientes', rvAll:'Ver Todas las Valoraciones',
-    bnT:'¿Listo para un espacio verdaderamente limpio?',
+    rvBadge:'Testimonios',
+    rvT1:'Lo que Dicen', rvT2:'Nuestros Clientes',
+    rvAll:'Ver Todas las Valoraciones',
+    bnT1:'¿Listo para un Espacio', bnT2:'Verdaderamente Limpio?',
     bnS:'Presupuesto gratuito en menos de 1 hora. Sin contratos, sin compromisos.',
     bnCta:'Solicitar Presupuesto Gratis',
-    cT:'Calculadora de Presupuesto', cS:'Presupuesto instantáneo. Seleccione las opciones y vea el precio en tiempo real.',
+    calcBadge:'Calculadora',
+    calcT1:'Calcule su', calcT2:'Presupuesto Ahora',
+    cS:'Presupuesto instantáneo. Seleccione las opciones y vea el precio en tiempo real.',
     cCardT:'Configure su Presupuesto', cCardS:'Rellene los campos para calcular el precio de su servicio',
     st1:'1️⃣ Tipos de Servicio * (Seleccione uno o más)', st2:'2️⃣ Cantidad *',
     st3:'3️⃣ Tipo de Material *', st4:'4️⃣ Nivel de Suciedad *', st5:'5️⃣ Localidad *',
@@ -204,7 +283,7 @@ const L: Record<Lang, Record<string, string>> = {
     selLoc:'Seleccione la localidad', selAddr:'Escriba su dirección completa',
     selObsPh:'Describa manchas, áreas con moho, daños u otra información...',
     promoA:'🎉 Promoción Activa:', promoD:'de descuento por múltiples servicios!',
-    priceT:'Precio Total Estimado', sub:'Subtotal (sin descuento):',
+    priceT:'Precio Total Estimado', subT:'Subtotal (sin descuento):',
     discA:'Descuento aplicado', finalP:'Valor final con descuento',
     selOpt:'Seleccione las opciones para ver el precio',
     discTip:'💡 Descuentos: 10% para 2 servicios · 15% para 3 · 20% para 4+',
@@ -226,7 +305,8 @@ const L: Record<Lang, Record<string, string>> = {
     ok:'✅ ¡Solicitud enviada! Nos pondremos en contacto pronto.',
     err:'❌ Error al enviar. Inténtelo de nuevo.',
     okBanner:'✅ ¡Solicitud enviada con éxito! Pronto nos pondremos en contacto.',
-    faqT:'Preguntas Frecuentes',
+    faqBadge:'FAQ',
+    faqT1:'Preguntas', faqT2:'Frecuentes',
     q1:'¿Qué garantiza la calidad del servicio?', a1:'Lista de 40 puntos en cada visita. Si algo no está perfecto, volvemos en 24h sin coste adicional.',
     q2:'¿Cuánto tiempo lleva Limpszone en actividad?', a2:'5 años en el mercado con más de 500 clientes satisfechos en Portugal y Europa.',
     q3:'¿Necesito estar presente durante la limpieza?', a3:'No. Todos los profesionales pasan por verificación de antecedentes.',
@@ -238,14 +318,14 @@ const L: Record<Lang, Record<string, string>> = {
     ftSu:'Domingo: 9:00 - 15:00', ftEm:'Emergencias: 24/7',
     ftCopy:'© 2024 Limpszone. Todos los derechos reservados.',
     ftWA:'Hablar por WhatsApp',
-    r1i:'MS', r1n:'Maria Silva',   r1r:'Propietaria de Restaurante', r1t:'¡El equipo hizo un trabajo fantástico en nuestro restaurante! Muy profesional y puntual.',
-    r2i:'JS', r2n:'João Santos',   r2r:'Gerente de Hotel',           r2t:'Trabajo impecable en el hotel. Los clientes siempre elogian la calidad de las habitaciones.',
-    r3i:'AC', r3n:'Ana Costa',     r3r:'Ama de Casa',                r3t:'¡Mi casa quedó brillando! Muy atentas con todos los detalles. Lo recomiendo sin dudarlo.',
-    r4i:'RM', r4n:'Rui Mendes',    r4r:'Empresario',                 r4t:'Post-obra excelente. La oficina quedó lista para inaugurar el mismo día.',
-    r5i:'CF', r5n:'Carla Ferreira',r5r:'Cliente Residencial',        r5t:'Contraté el servicio semanal. Las señoras son fantásticas, cuidadosas y siempre puntuales.',
-    r6i:'PN', r6n:'Pedro Nunes',   r6r:'Administrador de Finca',     r6t:'Mantenimiento del edificio impecable. Áreas comunes siempre limpias. Residentes muy satisfechos.',
-    r7i:'LG', r7n:'Lena Garcia',   r7r:'Directora de Hotel',         r7t:'Calidad excepcional en la limpieza de nuestras instalaciones. Socio de total confianza.',
-    r8i:'TR', r8n:'Tiago Rocha',   r8r:'Propietario de Café',        r8t:'Siempre impecable y puntual. Los clientes adoran la limpieza del local. Totalmente recomendado.',
+    r1i:'MS', r1n:'Maria Silva',    r1r:'Propietaria de Restaurante', r1t:'¡El equipo hizo un trabajo fantástico en nuestro restaurante! Muy profesional y puntual.',
+    r2i:'JS', r2n:'João Santos',    r2r:'Gerente de Hotel',           r2t:'Trabajo impecable en el hotel. Los clientes siempre elogian la calidad de las habitaciones.',
+    r3i:'AC', r3n:'Ana Costa',      r3r:'Ama de Casa',                r3t:'¡Mi casa quedó brillando! Muy atentas con todos los detalles. Lo recomiendo sin dudarlo.',
+    r4i:'RM', r4n:'Rui Mendes',     r4r:'Empresario',                 r4t:'Post-obra excelente. La oficina quedó lista para inaugurar el mismo día.',
+    r5i:'CF', r5n:'Carla Ferreira', r5r:'Cliente Residencial',        r5t:'Contraté el servicio semanal. Las señoras son fantásticas, cuidadosas y siempre puntuales.',
+    r6i:'PN', r6n:'Pedro Nunes',    r6r:'Administrador de Finca',     r6t:'Mantenimiento del edificio impecable. Áreas comunes siempre limpias. Residentes muy satisfechos.',
+    r7i:'LG', r7n:'Lena Garcia',    r7r:'Directora de Hotel',         r7t:'Calidad excepcional en la limpieza de nuestras instalaciones. Socio de total confianza.',
+    r8i:'TR', r8n:'Tiago Rocha',    r8r:'Propietario de Café',        r8t:'Siempre impecable y puntual. Los clientes adoran la limpieza del local. Totalmente recomendado.',
   }
 }
 
@@ -255,6 +335,7 @@ export default function LimpsZoneApp() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
   const [rvIdx, setRvIdx] = useState(0)
   const rvTimer = useRef<any>(null)
+  const [lang, setLang] = useState<Lang>('pt')
 
   const [formData, setFormData] = useState({
     name:'', phone:'', user_email:'', address:'',
@@ -265,13 +346,6 @@ export default function LimpsZoneApp() {
   const [fDisc, setFDisc] = useState(0)
   const [fDiscAmt, setFDiscAmt] = useState(0)
 
-  const [lang, setLang] = useState<Lang>('pt')
-  useEffect(() => {
-    if (typeof navigator !== 'undefined')
-      setLang(navigator.language?.toLowerCase().startsWith('es') ? 'es' : 'pt')
-  }, [])
-  const T = L[lang]
-
   const [budgetData, setBudgetData] = useState({
     serviceTypes:[] as string[], materialType:'', dirtLevel:'', address:'',
     neighborhood:'', quantity:1, observations:'', posObraCompartments:1, limpezaGeralQuartos:1
@@ -280,124 +354,132 @@ export default function LimpsZoneApp() {
   const [disc, setDisc] = useState(0)
   const [discAmt, setDiscAmt] = useState(0)
 
-  // Inject animation CSS
   useEffect(() => {
-    if (document.getElementById('lz-css')) return
+    if (typeof navigator !== 'undefined')
+      setLang(navigator.language?.toLowerCase().startsWith('es') ? 'es' : 'pt')
+  }, [])
+
+  // Inject global CSS
+  useEffect(() => {
+    if (document.getElementById('lz-g')) return
     const s = document.createElement('style')
-    s.id = 'lz-css'; s.textContent = ANIM_CSS
+    s.id = 'lz-g'; s.textContent = GLOBAL_CSS
     document.head.appendChild(s)
   }, [])
 
-  // Reviews auto-advance
+  const T = TR[lang]
+  const es = lang === 'es'
+
+  // Reviews
   const reviews = [1,2,3,4,5,6,7,8].map(i => ({
-    init: T[`r${i}i`], name: T[`r${i}n`], role: T[`r${i}r`], text: T[`r${i}t`]
+    init:T[`r${i}i`], name:T[`r${i}n`], role:T[`r${i}r`], text:T[`r${i}t`]
   }))
   useEffect(() => {
-    rvTimer.current = setInterval(() => setRvIdx(p => (p+1) % reviews.length), 4000)
+    rvTimer.current = setInterval(() => setRvIdx(p => (p+1)%reviews.length), 4000)
     return () => clearInterval(rvTimer.current)
   }, [reviews.length])
   const prevRv = () => { clearInterval(rvTimer.current); setRvIdx(p => (p-1+reviews.length)%reviews.length) }
   const nextRv = () => { clearInterval(rvTimer.current); setRvIdx(p => (p+1)%reviews.length) }
   const visRv = [0,1,2].map(i => reviews[(rvIdx+i)%reviews.length])
 
-  // Reveal refs
-  const rHero  = useR(0);   const rHow   = useR(0)
-  const rH1    = useR(0);   const rH2    = useR(130); const rH3 = useR(260)
-  const rSvcT  = useR(0);   const rSvcG  = useR(80)
-  const rWhyT  = useR(0);   const rWhyL  = useR(60);  const rWhyR = useR(160)
-  const rPmL   = useR(0);   const rPmR   = useR(120)
-  const rRvT   = useR(0);   const rRvG   = useR(80)
-  const rBnL   = useR(0);   const rBnR   = useR(150)
-  const rCalcT = useR(0);   const rCalcC = useR(80)
-  const rFaqT  = useR(0);   const rFaqL  = useR(60)
+  // Reveal refs — titles get float:true for continuous animation after reveal
+  const rHero   = useReveal(0, true)
+  const rHow    = useReveal(0, true);  const rH1 = useReveal(0);   const rH2 = useReveal(140); const rH3 = useReveal(280)
+  const rSvcT   = useReveal(0, true);  const rSvcG = useReveal(80)
+  const rWhyT   = useReveal(0, true);  const rWhyL = useReveal(60); const rWhyR = useReveal(160)
+  const rPmL    = useReveal(0);        const rPmR  = useReveal(0, true)
+  const rRvT    = useReveal(0, true);  const rRvG  = useReveal(80)
+  const rBnT    = useReveal(0, true);  const rBnB  = useReveal(150)
+  const rCalcT  = useReveal(0, true);  const rCalcC = useReveal(80)
+  const rFaqT   = useReveal(0, true);  const rFaqL = useReveal(60)
 
   // Service data
-  const es = lang === 'es'
   const services = [
-    { id:'residencial', t:T.s1t, d:T.s1d, icon:Home, img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=260&fit=crop',
+    { id:'residencial', t:T.s1t, d:T.s1d, icon:Home,          img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=260&fit=crop',
       mats:es?['Aspirador profesional','Productos biodegradables','Paños de microfibra','Equipos de seguridad']:['Aspirador profissional','Produtos biodegradáveis','Panos de microfibra','Equipamentos de segurança'],
       areas:es?['Dormitorios','Salones','Cocinas','Baños','Áreas externas']:['Quartos','Salas','Cozinhas','Casas de banho','Áreas externas'] },
-    { id:'comercial',   t:T.s2t, d:T.s2d, icon:Building2, img:'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=260&fit=crop',
+    { id:'comercial',   t:T.s2t, d:T.s2d, icon:Building2,     img:'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=260&fit=crop',
       mats:es?['Máquinas industriales','Desinfectantes profesionales','Equipos de limpieza','Productos especializados']:['Máquinas industriais','Desinfetantes profissionais','Equipamentos de limpeza','Produtos especializados'],
       areas:es?['Oficinas','Recepciones','Baños','Pasillos','Áreas comunes']:['Escritórios','Recepções','Casas de banho','Corredores','Áreas comuns'] },
-    { id:'restaurantes',t:T.s3t, d:T.s3d, icon:UtensilsCrossed, img:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=260&fit=crop',
+    { id:'restaurantes',t:T.s3t, d:T.s3d, icon:UtensilsCrossed,img:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=260&fit=crop',
       mats:es?['Sanitizantes alimentarios','Equipos industriales','Productos antibacterianos','Materiales certificados']:['Sanitizantes alimentares','Equipamentos industriais','Produtos anti-bacterianos','Materiais certificados'],
       areas:es?['Cocinas','Salones','Habitaciones','Baños','Áreas de servicio']:['Cozinhas','Salões','Quartos','Casas de banho','Áreas de serviço'] },
-    { id:'vidros',  t:T.s4t, d:T.s4d, icon:Sparkles, img:'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=400&h=260&fit=crop',
+    { id:'vidros',      t:T.s4t, d:T.s4d, icon:Sparkles,      img:'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=400&h=260&fit=crop',
       mats:es?['Rastrillos profesionales','Productos específicos','Equipos de altura','Paños especiales']:['Rodos profissionais','Produtos específicos','Equipamentos de altura','Panos especiais'],
       areas:es?['Ventanas','Fachadas','Escaparates','Divisorias','Espejos']:['Janelas','Fachadas','Montras','Divisórias','Espelhos'] },
-    { id:'pos-obra',t:T.s5t, d:T.s5d, icon:Shield, img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=260&fit=crop',
+    { id:'pos-obra',    t:T.s5t, d:T.s5d, icon:Shield,        img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=260&fit=crop',
       mats:es?['Equipos pesados','Productos específicos','Herramientas especializadas','EPIs completos']:['Equipamentos pesados','Produtos específicos','Ferramentas especializadas','EPIs completos'],
       areas:es?['Retirada de escombros','Limpieza de paredes','Pavimentos','Acabados','Detallado']:['Remoção de entulho','Limpeza de paredes','Pavimentos','Acabamentos','Detalhamento'] },
-    { id:'manutencao',t:T.s6t, d:T.s6d, icon:Award, img:'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&h=260&fit=crop',
+    { id:'manutencao',  t:T.s6t, d:T.s6d, icon:Award,         img:'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&h=260&fit=crop',
       mats:es?['Máquinas industriales','Productos profesionales','Equipos de seguridad','Herramientas especializadas']:['Máquinas industriais','Produtos profissionais','Equipamentos de segurança','Ferramentas especializadas'],
       areas:es?['Áreas comunes','Garajes','Ascensores','Escaleras','Fachadas']:['Áreas comuns','Garagens','Elevadores','Escadas','Fachadas'] },
   ]
 
   const serviceTypes = [
-    { id:'sofa',                   name:es?'Limpieza de Sofá':'Limpeza de Sofá',                                    basePrice:45  },
-    { id:'hipermeabilizacao-sofa', name:es?'Hipermeabilización de Sofá':'Hipermeabilização de Sofá',                basePrice:160 },
-    { id:'colchao-solteiro',       name:es?'Colchón Individual':'Colchão de Solteiro',                              basePrice:40  },
-    { id:'colchao-casal',          name:es?'Colchón de Matrimonio':'Colchão de Casal',                              basePrice:50  },
-    { id:'tapetes',                name:es?'Alfombra':'Tapete',                                                      basePrice:10  },
-    { id:'pos-obra',               name:es?'Limpieza Post-Obra':'Limpeza Pós-Obras',                                basePrice:125 },
-    { id:'cadeiras',               name:es?'Limpieza de Sillas':'Limpeza de Cadeiras',                              basePrice:8   },
-    { id:'armarios',               name:es?'Limpieza de Armarios':'Limpeza de Armários',                            basePrice:13  },
-    { id:'cortinas',               name:es?'Limpieza de Cortinas':'Limpeza de Cortinas',                            basePrice:15  },
-    { id:'vidros',                 name:es?'Limpieza de Cristales':'Limpeza de Vidros',                             basePrice:12  },
-    { id:'escritorios',            name:es?'Higienización de Oficinas/Hoteles':'Higienização de Escritórios/Hotéis',basePrice:30  },
-    { id:'wc-sanitarios',          name:es?'Limpieza de Baños':'Limpeza de WC / Sanitários / Lavatórios',           basePrice:11  },
-    { id:'fogoes-fornos',          name:es?'Limpieza de Cocinas / Hornos':'Limpeza de Fogões / Fornos',             basePrice:15  },
-    { id:'limpeza-geral',          name:es?'Limpieza General de Casa Amueblada':'Limpeza Geral de Casa Mobilada',   basePrice:50  },
+    { id:'sofa',name:es?'Limpieza de Sofá':'Limpeza de Sofá',basePrice:45 },
+    { id:'hipermeabilizacao-sofa',name:es?'Hipermeabilización de Sofá':'Hipermeabilização de Sofá',basePrice:160 },
+    { id:'colchao-solteiro',name:es?'Colchón Individual':'Colchão de Solteiro',basePrice:40 },
+    { id:'colchao-casal',name:es?'Colchón de Matrimonio':'Colchão de Casal',basePrice:50 },
+    { id:'tapetes',name:es?'Alfombra':'Tapete',basePrice:10 },
+    { id:'pos-obra',name:es?'Limpieza Post-Obra':'Limpeza Pós-Obras',basePrice:125 },
+    { id:'cadeiras',name:es?'Limpieza de Sillas':'Limpeza de Cadeiras',basePrice:8 },
+    { id:'armarios',name:es?'Limpieza de Armarios':'Limpeza de Armários',basePrice:13 },
+    { id:'cortinas',name:es?'Limpieza de Cortinas':'Limpeza de Cortinas',basePrice:15 },
+    { id:'vidros',name:es?'Limpieza de Cristales':'Limpeza de Vidros',basePrice:12 },
+    { id:'escritorios',name:es?'Higienización de Oficinas/Hoteles':'Higienização de Escritórios/Hotéis',basePrice:30 },
+    { id:'wc-sanitarios',name:es?'Limpieza de Baños':'Limpeza de WC / Sanitários / Lavatórios',basePrice:11 },
+    { id:'fogoes-fornos',name:es?'Limpieza de Cocinas / Hornos':'Limpeza de Fogões / Fornos',basePrice:15 },
+    { id:'limpeza-geral',name:es?'Limpieza General de Casa Amueblada':'Limpeza Geral de Casa Mobilada',basePrice:50 },
   ]
   const materialTypes = [
-    { id:'tecido',   name:es?'Tela común':'Tecido comum',       multiplier:1.0  },
-    { id:'couro',    name:es?'Cuero natural':'Couro natural',   multiplier:1.15 },
-    { id:'napa',     name:'Napa',                               multiplier:1.20 },
-    { id:'camurca',  name:es?'Ante':'Camurça',                  multiplier:1.20 },
-    { id:'madeira',  name:es?'Madera':'Madeira',                multiplier:1.10 },
-    { id:'aluminio', name:es?'Aluminio':'Alumínio',             multiplier:1.0  },
-    { id:'vidro',    name:es?'Cristal':'Vidro',                 multiplier:1.0  },
-    { id:'azulejo',  name:'Azulejo',                            multiplier:1.0  },
-    { id:'aco',      name:es?'Acero inox':'Aço inox',           multiplier:1.10 },
+    { id:'tecido',name:es?'Tela común':'Tecido comum',multiplier:1.0 },
+    { id:'couro',name:es?'Cuero natural':'Couro natural',multiplier:1.15 },
+    { id:'napa',name:'Napa',multiplier:1.20 },
+    { id:'camurca',name:es?'Ante':'Camurça',multiplier:1.20 },
+    { id:'madeira',name:es?'Madera':'Madeira',multiplier:1.10 },
+    { id:'aluminio',name:es?'Aluminio':'Alumínio',multiplier:1.0 },
+    { id:'vidro',name:es?'Cristal':'Vidro',multiplier:1.0 },
+    { id:'azulejo',name:'Azulejo',multiplier:1.0 },
+    { id:'aco',name:es?'Acero inox':'Aço inox',multiplier:1.10 },
   ]
   const dirtLevels = [
-    { id:'leve',    name:es?'Leve':'Leve',                           multiplier:1.0  },
-    { id:'media',   name:es?'Media':'Média',                         multiplier:1.15 },
-    { id:'pesada',  name:es?'Pesada':'Pesada',                       multiplier:1.30 },
-    { id:'manchas', name:es?'Con manchas difíciles':'Com manchas difíceis', multiplier:1.30 },
+    { id:'leve',name:es?'Leve':'Leve',multiplier:1.0 },
+    { id:'media',name:es?'Media':'Média',multiplier:1.15 },
+    { id:'pesada',name:es?'Pesada':'Pesada',multiplier:1.30 },
+    { id:'manchas',name:es?'Con manchas difíciles':'Com manchas difíceis',multiplier:1.30 },
   ]
   const distanceOptions = [
-    { id:'centro',      name:es?'Centro':'Centro',                   multiplier:1.0  },
-    { id:'fora-centro', name:es?'Fuera del Centro':'Fora do Centro', multiplier:1.10 },
-    { id:'periferia',   name:es?'Periferia':'Periferia',             multiplier:1.20 },
+    { id:'centro',name:es?'Centro':'Centro',multiplier:1.0 },
+    { id:'fora-centro',name:es?'Fuera del Centro':'Fora do Centro',multiplier:1.10 },
+    { id:'periferia',name:es?'Periferia':'Periferia',multiplier:1.20 },
   ]
   const neighborhoods = [
-    { id:'centro',  name:'Centro',  multiplier:1.0  }, { id:'lisboa',  name:'Lisboa',  multiplier:1.0  },
-    { id:'porto',   name:'Porto',   multiplier:1.0  }, { id:'cascais', name:'Cascais', multiplier:1.05 },
-    { id:'sintra',  name:'Sintra',  multiplier:1.05 }, { id:'oeiras',  name:'Oeiras',  multiplier:1.10 },
-    { id:'almada',  name:'Almada',  multiplier:1.15 }, { id:'setubal', name:'Setúbal', multiplier:1.20 },
-    { id:'braga',   name:'Braga',   multiplier:1.20 }, { id:'outro',   name:es?'Otra localidad':'Outra localidade', multiplier:1.10 },
+    { id:'centro',name:'Centro',multiplier:1.0 },{ id:'lisboa',name:'Lisboa',multiplier:1.0 },
+    { id:'porto',name:'Porto',multiplier:1.0 },{ id:'cascais',name:'Cascais',multiplier:1.05 },
+    { id:'sintra',name:'Sintra',multiplier:1.05 },{ id:'oeiras',name:'Oeiras',multiplier:1.10 },
+    { id:'almada',name:'Almada',multiplier:1.15 },{ id:'setubal',name:'Setúbal',multiplier:1.20 },
+    { id:'braga',name:'Braga',multiplier:1.20 },
+    { id:'outro',name:es?'Otra localidad':'Outra localidade',multiplier:1.10 },
   ]
 
-  const calcDisc = (n:number) => n>=4?20:n>=3?15:n>=2?10:0
-  const posP  = (b:number,c:number) => b+Math.max(0,c-1)*15
-  const lgP   = (b:number,q:number) => b+Math.max(0,q-1)*15
+  const calcDisc=(n:number)=>n>=4?20:n>=3?15:n>=2?10:0
+  const posP=(b:number,c:number)=>b+Math.max(0,c-1)*15
+  const lgP=(b:number,q:number)=>b+Math.max(0,q-1)*15
 
-  const runFormCalc = () => {
+  const runFormCalc=()=>{
     if(!formData.services.length||!formData.material||!formData.dirtLevel||!formData.distance){setFPrice(0);setFDisc(0);setFDiscAmt(0);return}
     const mat=materialTypes.find(m=>m.name===formData.material),dirt=dirtLevels.find(d=>d.name===formData.dirtLevel),dist=distanceOptions.find(d=>d.name===formData.distance)
     if(mat&&dirt&&dist){
-      let t=0; formData.services.forEach(sn=>{const s=serviceTypes.find(st=>st.name===sn);if(s){let p=s.id==='pos-obra'?posP(s.basePrice,formData.posObraCompartments):s.id==='limpeza-geral'?lgP(s.basePrice,formData.limpezaGeralQuartos):s.basePrice*formData.quantity;t+=p*mat.multiplier*dirt.multiplier*dist.multiplier}})
+      let t=0;formData.services.forEach(sn=>{const s=serviceTypes.find(st=>st.name===sn);if(s){let p=s.id==='pos-obra'?posP(s.basePrice,formData.posObraCompartments):s.id==='limpeza-geral'?lgP(s.basePrice,formData.limpezaGeralQuartos):s.basePrice*formData.quantity;t+=p*mat.multiplier*dirt.multiplier*dist.multiplier}})
       const dp=calcDisc(formData.services.length),dv=t*dp/100
       setFPrice(Math.round((t-dv)*100)/100);setFDisc(dp);setFDiscAmt(Math.round(dv*100)/100)
     }
   }
-  const runBudgetCalc = () => {
+  const runBudgetCalc=()=>{
     if(!budgetData.serviceTypes.length||!budgetData.materialType||!budgetData.dirtLevel){setCalcP(0);setDisc(0);setDiscAmt(0);return}
     const mat=materialTypes.find(m=>m.id===budgetData.materialType),dirt=dirtLevels.find(d=>d.id===budgetData.dirtLevel),nb=neighborhoods.find(n=>n.id===budgetData.neighborhood)||{multiplier:1.0}
     if(mat&&dirt){
-      let t=0; budgetData.serviceTypes.forEach(sid=>{const s=serviceTypes.find(st=>st.id===sid);if(s){let p=s.id==='pos-obra'?posP(s.basePrice,budgetData.posObraCompartments):s.id==='limpeza-geral'?lgP(s.basePrice,budgetData.limpezaGeralQuartos):s.basePrice*budgetData.quantity;t+=p*mat.multiplier*dirt.multiplier*nb.multiplier}})
+      let t=0;budgetData.serviceTypes.forEach(sid=>{const s=serviceTypes.find(st=>st.id===sid);if(s){let p=s.id==='pos-obra'?posP(s.basePrice,budgetData.posObraCompartments):s.id==='limpeza-geral'?lgP(s.basePrice,budgetData.limpezaGeralQuartos):s.basePrice*budgetData.quantity;t+=p*mat.multiplier*dirt.multiplier*nb.multiplier}})
       const dp=calcDisc(budgetData.serviceTypes.length),dv=t*dp/100
       setCalcP(Math.round((t-dv)*100)/100);setDisc(dp);setDiscAmt(Math.round(dv*100)/100)
     }
@@ -435,26 +517,30 @@ export default function LimpsZoneApp() {
     }catch(e){toast.error(T.err)}
   }
 
-  // Shared styles
-  const btnN  = {background:C.navy, color:'#fff'} as React.CSSProperties
-  const btnB  = {background:C.blue, color:'#fff'} as React.CSSProperties
-  const eyebrow = {color:C.blue, fontSize:'11px', fontWeight:700, letterSpacing:'3px', textTransform:'uppercase' as const, marginBottom:'8px'}
-  const h2style = {color:C.navy, letterSpacing:'-0.5px'} as React.CSSProperties
+  const btnN={background:C.navy,color:'#fff'} as React.CSSProperties
+  const btnB={background:C.blue,color:'#fff'} as React.CSSProperties
+
+  // ── FloatTitle helper component
+  const FTitle = ({r, lines, size='h2', center=false}: {r:React.RefObject<HTMLDivElement>, lines:string[], size?:'h1'|'h2'|'h3', center?:boolean}) => (
+    <div ref={r} className={`lz-r ${size === 'h1' ? 'lz-h1' : size === 'h3' ? 'lz-h3' : 'lz-h2'}`} style={{textAlign: center ? 'center' : 'left'}}>
+      {lines.map((line, i) => (
+        <span key={i} style={{display:'block'}}>{line}</span>
+      ))}
+    </div>
+  )
 
   return (
-    <div className="min-h-screen" style={{background:C.iceBg, fontFamily:"'Nunito Sans','Inter',sans-serif", color:C.text}}>
+    <div className="min-h-screen" style={{background:C.iceBg,fontFamily:"'Nunito Sans','Inter',sans-serif",color:C.text}}>
 
-      {/* SUCCESS TOAST */}
       {showOk&&(
         <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-green-500 text-white px-6 py-4 rounded-xl shadow-xl flex items-center gap-2">
           <CheckCircle className="h-5 w-5"/><span className="font-semibold">{T.okBanner}</span>
         </div>
       )}
 
-      {/* ══ HEADER ══════════════════════════════════════════ */}
+      {/* ══ HEADER ══ */}
       <header className="bg-white/90 backdrop-blur-md border-b sticky top-0 z-50" style={{borderColor:C.border}}>
         <div className="container mx-auto px-6 flex items-center justify-between h-16">
-          {/* Logo */}
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl flex items-center justify-center shadow-sm" style={{background:`linear-gradient(135deg,${C.blue},${C.sky})`}}>
               <Sparkles className="h-5 w-5 text-white"/>
@@ -464,14 +550,12 @@ export default function LimpsZoneApp() {
               <p className="text-xs leading-none" style={{color:C.muted}}>{T.sub}</p>
             </div>
           </div>
-          {/* Nav */}
           <nav className="hidden lg:flex items-center gap-5">
             {[[T.n1,'services'],[T.n2,'why-us'],[T.n3,'reviews'],[T.n4,'budget-calculator'],[T.n5,'footer']].map(([label,id])=>(
               <a key={id} href={`#${id}`} onClick={e=>{e.preventDefault();go(id)}}
                 className="text-sm font-semibold transition-colors hover:text-blue-600 cursor-pointer" style={{color:C.text}}>{label}</a>
             ))}
           </nav>
-          {/* Right */}
           <div className="flex items-center gap-3">
             <button onClick={()=>go('budget-calculator')} className="hidden md:flex items-center gap-2 text-sm font-bold px-5 py-2.5 rounded-xl shadow-sm" style={btnN}>
               <Calculator className="h-4 w-4"/>{T.nCta}
@@ -481,20 +565,24 @@ export default function LimpsZoneApp() {
         </div>
       </header>
 
-      {/* ══ HERO ════════════════════════════════════════════ */}
+      {/* ══ HERO ══ */}
       <section id="hero" className="relative overflow-hidden" style={{minHeight:520}}>
         <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1400&h=580&fit=crop&fp-y=0.35"
           alt="Limpeza" className="w-full object-cover absolute inset-0" style={{minHeight:520,height:'100%'}}/>
-        {/* Ice-blue tinted overlay */}
-        <div className="absolute inset-0" style={{background:'linear-gradient(120deg, rgba(15,42,94,0.35) 0%, rgba(224,240,255,0.15) 70%)'}}/>
+        <div className="absolute inset-0" style={{background:'linear-gradient(120deg,rgba(15,42,94,0.38) 0%,rgba(224,240,255,0.1) 70%)'}}/>
         <div className="relative container mx-auto px-6 py-20 flex items-center" style={{minHeight:520}}>
-          <div ref={rHero} className="lz-r rounded-2xl p-8 max-w-[540px] shadow-2xl border" style={{background:'rgba(255,255,255,0.95)',borderColor:C.border,backdropFilter:'blur(12px)'}}>
-            <p style={eyebrow}>{T.hBadge}</p>
-            <h1 className="text-3xl font-black leading-tight mb-4" style={{...h2style,color:C.navy}}>{T.hTitle}</h1>
+          <div className="rounded-2xl p-8 max-w-[560px] shadow-2xl border" style={{background:'rgba(255,255,255,0.95)',borderColor:C.border}}>
+            <span className="lz-eyebrow">{T.hBadge}</span>
+            {/* BIG floating hero title */}
+            <div ref={rHero} className="lz-r lz-h1 mb-5" style={{fontSize:'clamp(40px,5vw,58px)'}}>
+              <span style={{display:'block'}}>{T.hT1}</span>
+              <span style={{display:'block',background:`linear-gradient(135deg,${C.blue},${C.sky})`,WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',backgroundClip:'text'}}>{T.hT2}</span>
+              <span style={{display:'block'}}>{T.hT3}</span>
+            </div>
             <p className="text-sm leading-relaxed mb-6" style={{color:C.muted}}>{T.hDesc}</p>
             <div className="flex items-center gap-6 mb-7">
               <div className="flex items-center gap-3">
-                <span className="text-2xl">💬💬💬</span>
+                <span style={{fontSize:28}}>💬💬💬</span>
                 <div>
                   <p className="text-2xl font-black leading-none" style={{color:C.navy}}>{T.hS1n}</p>
                   <p className="text-xs font-semibold" style={{color:C.muted}}>{T.hS1l}</p>
@@ -513,41 +601,44 @@ export default function LimpsZoneApp() {
         </div>
       </section>
 
-      {/* ══ HOW IT WORKS ════════════════════════════════════ */}
+      {/* ══ HOW IT WORKS ══ */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-6">
-          <div ref={rHow} className="lz-r text-center mb-10">
-            <p style={eyebrow} className="text-center">{T.howT}</p>
-            <h2 className="text-2xl font-black" style={h2style}>{T.howS}</h2>
+          <div className="text-center mb-12">
+            <span className="lz-eyebrow" style={{display:'block',textAlign:'center'}}>{T.howBadge}</span>
+            <div ref={rHow} className="lz-r lz-h2" style={{display:'block',textAlign:'center'}}>
+              <span style={{display:'block'}}>{T.howT1}</span>
+              <span style={{display:'block',background:`linear-gradient(135deg,${C.blue},${C.sky})`,WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',backgroundClip:'text'}}>{T.howT2}</span>
+            </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            {[[rH1,0],[rH2,1],[rH3,2]].map(([ref,i])=>{
-              const step = [[T.hw1t,T.hw1d,'1'],[T.hw2t,T.hw2d,'2'],[T.hw3t,T.hw3d,'3']][i as number]
-              return (
-                <div key={i as number} ref={ref as React.RefObject<HTMLDivElement>} className="lz-rs text-center relative">
-                  {(i as number)<2&&<div className="hidden md:block absolute top-6 left-1/2 w-full h-0.5 border-t-2 border-dashed" style={{borderColor:C.border}}/>}
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center text-xl font-black text-white mx-auto mb-4 relative z-10 shadow-md" style={{background:`linear-gradient(135deg,${C.blue},${C.sky})`}}>{step[2]}</div>
-                  <p className="font-black text-gray-800 mb-1">{step[0]}</p>
-                  <p className="text-sm leading-relaxed" style={{color:C.muted}}>{step[1]}</p>
-                </div>
-              )
-            })}
+            {[[rH1,T.hw1t,T.hw1d,'1',0],[rH2,T.hw2t,T.hw2d,'2',1],[rH3,T.hw3t,T.hw3d,'3',2]].map(([ref,title,desc,num,idx])=>(
+              <div key={idx as number} ref={ref as React.RefObject<HTMLDivElement>} className="lz-rs text-center relative">
+                {(idx as number)<2&&<div className="hidden md:block absolute top-6 left-1/2 w-full h-0.5 border-t-2 border-dashed" style={{borderColor:C.border}}/>}
+                <div className="w-14 h-14 rounded-xl flex items-center justify-center text-2xl font-black text-white mx-auto mb-4 relative z-10 shadow-md" style={{background:`linear-gradient(135deg,${C.blue},${C.sky})`}}>{num as string}</div>
+                <p className="font-black text-lg text-gray-800 mb-1">{title as string}</p>
+                <p className="text-sm leading-relaxed" style={{color:C.muted}}>{desc as string}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ══ SERVICES ════════════════════════════════════════ */}
+      {/* ══ SERVICES ══ */}
       <section id="services" className="py-16" style={{background:C.iceMid}}>
         <div className="container mx-auto px-6">
-          <div ref={rSvcT} className="lz-r text-center mb-10">
-            <p style={eyebrow} className="text-center">{T.n1}</p>
-            <h2 className="text-3xl font-black mb-3" style={h2style}>{T.svcT}</h2>
-            <p className="text-sm max-w-2xl mx-auto leading-relaxed" style={{color:C.muted}}>{T.svcS}</p>
+          <div className="text-center mb-10">
+            <span className="lz-eyebrow" style={{display:'block',textAlign:'center'}}>{T.svcBadge}</span>
+            <div ref={rSvcT} className="lz-r lz-h2" style={{display:'block',textAlign:'center'}}>
+              <span style={{display:'block'}}>{T.svcT1}</span>
+              <span style={{display:'block',background:`linear-gradient(135deg,${C.blue},${C.sky})`,WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',backgroundClip:'text'}}>{T.svcT2}</span>
+            </div>
+            <p className="text-sm mt-3 max-w-2xl mx-auto leading-relaxed" style={{color:C.muted}}>{T.svcS}</p>
           </div>
           <div ref={rSvcG} className="lz-r grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {services.map(svc=>{
               const Icon=svc.icon
-              return (
+              return(
                 <div key={svc.id} className="rounded-xl overflow-hidden hover:shadow-xl transition-all hover:-translate-y-1 border" style={{background:C.iceCard,borderColor:C.border}}>
                   <div className="relative">
                     <img src={svc.img} alt={svc.t} className="w-full h-48 object-cover"/>
@@ -579,7 +670,6 @@ export default function LimpsZoneApp() {
               )
             })}
           </div>
-          {/* CTA 2 */}
           <div className="text-center mt-10">
             <button onClick={()=>go('budget-calculator')} className="inline-flex items-center gap-2 font-bold px-8 py-3 rounded-xl text-sm shadow-md" style={btnN}>
               <Calculator className="h-4 w-4"/>{T.svcCta}
@@ -588,14 +678,15 @@ export default function LimpsZoneApp() {
         </div>
       </section>
 
-      {/* ══ WHY CHOOSE US ═══════════════════════════════════ */}
+      {/* ══ WHY CHOOSE US ══ */}
       <section id="why-us" className="py-16 bg-white">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <div ref={rWhyT} className="lz-r">
-                <p style={eyebrow}>{T.n2}</p>
-                <h2 className="text-2xl font-black mb-5" style={h2style}>{T.whyT}</h2>
+              <span className="lz-eyebrow">{T.whyBadge}</span>
+              <div ref={rWhyT} className="lz-r lz-h2 mb-6">
+                <span style={{display:'block'}}>{T.whyT1}</span>
+                <span style={{display:'block',background:`linear-gradient(135deg,${C.blue},${C.sky})`,WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',backgroundClip:'text'}}>{T.whyT2}</span>
               </div>
               <div ref={rWhyL} className="lz-r">
                 {[[T.w1t,T.w1d],[T.w2t,T.w2d],[T.w3t,T.w3d],[T.w4t,T.w4d]].map((item,i)=>(
@@ -609,7 +700,6 @@ export default function LimpsZoneApp() {
                     <p className="text-xs leading-relaxed ml-7" style={{color:C.muted}}>{item[1]}</p>
                   </div>
                 ))}
-                {/* CTA 3 */}
                 <button onClick={()=>go('budget-calculator')} className="mt-4 flex items-center gap-2 font-bold px-6 py-3 rounded-xl text-sm shadow-md" style={btnN}>
                   {T.wCta}<ArrowRight className="h-4 w-4"/>
                 </button>
@@ -623,7 +713,7 @@ export default function LimpsZoneApp() {
         </div>
       </section>
 
-      {/* ══ PROMISE ═════════════════════════════════════════ */}
+      {/* ══ PROMISE ══ */}
       <section className="py-16" style={{background:C.iceMid}}>
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -631,11 +721,13 @@ export default function LimpsZoneApp() {
               <img src="https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=600&h=400&fit=crop"
                 alt="Qualidade" className="w-full h-72 object-cover rounded-2xl shadow-xl"/>
             </div>
-            <div ref={rPmR} className="lz-r">
-              <p style={eyebrow}>{es?'Calidad Garantizada':'Qualidade Garantida'}</p>
-              <h2 className="text-2xl font-black mb-4" style={h2style}>{T.pmT}</h2>
+            <div>
+              <span className="lz-eyebrow">{T.pmBadge}</span>
+              <div ref={rPmR} className="lz-r lz-h2 mb-5">
+                <span style={{display:'block'}}>{T.pmT1}</span>
+                <span style={{display:'block',background:`linear-gradient(135deg,${C.blue},${C.sky})`,WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',backgroundClip:'text'}}>{T.pmT2}</span>
+              </div>
               <p className="text-sm leading-relaxed mb-6" style={{color:C.muted}}>{T.pmD}</p>
-              {/* CTA 4 */}
               <button onClick={()=>go('budget-calculator')} className="flex items-center gap-2 font-bold px-6 py-3 rounded-xl text-sm shadow-md" style={btnN}>
                 {T.pmCta}<ArrowRight className="h-4 w-4"/>
               </button>
@@ -644,15 +736,18 @@ export default function LimpsZoneApp() {
         </div>
       </section>
 
-      {/* ══ IMPACTO ═════════════════════════════════════════ */}
+      {/* ══ IMPACTO ══ */}
       <ImpactoHigienizacao onSolicitarServico={()=>setIsFormOpen(true)}/>
 
-      {/* ══ REVIEWS CAROUSEL ════════════════════════════════ */}
+      {/* ══ REVIEWS ══ */}
       <section id="reviews" className="py-16 bg-white">
         <div className="container mx-auto px-6">
-          <div ref={rRvT} className="lz-r text-center mb-10">
-            <p style={eyebrow} className="text-center">{T.n3}</p>
-            <h2 className="text-3xl font-black" style={h2style}>{T.rvT}</h2>
+          <div className="text-center mb-10">
+            <span className="lz-eyebrow" style={{display:'block',textAlign:'center'}}>{T.rvBadge}</span>
+            <div ref={rRvT} className="lz-r lz-h2" style={{display:'block',textAlign:'center'}}>
+              <span style={{display:'block'}}>{T.rvT1}</span>
+              <span style={{display:'block',background:`linear-gradient(135deg,${C.blue},${C.sky})`,WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',backgroundClip:'text'}}>{T.rvT2}</span>
+            </div>
           </div>
           <div ref={rRvG} className="lz-r">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
@@ -670,7 +765,6 @@ export default function LimpsZoneApp() {
                 </div>
               ))}
             </div>
-            {/* Carousel controls */}
             <div className="flex items-center justify-center gap-4">
               <button onClick={prevRv} className="w-10 h-10 rounded-full border-2 flex items-center justify-center hover:bg-blue-50 transition-colors" style={{borderColor:C.blue}}>
                 <ChevronLeft className="h-5 w-5" style={{color:C.blue}}/>
@@ -691,31 +785,32 @@ export default function LimpsZoneApp() {
         </div>
       </section>
 
-      {/* ══ CTA BANNER ══════════════════════════════════════ */}
+      {/* ══ CTA BANNER ══ */}
       <section className="py-16" style={{background:`linear-gradient(135deg,${C.navy} 0%,${C.blue} 100%)`}}>
-        <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div ref={rBnL} className="lz-r">
-            <h2 className="text-2xl font-black text-white mb-1">{T.bnT}</h2>
-            <p className="text-sm" style={{color:'#93c5fd'}}>{T.bnS}</p>
+        <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
+          <div ref={rBnT} className="lz-r lz-h2 text-white" style={{WebkitTextFillColor:'white'}}>
+            <span style={{display:'block'}}>{T.bnT1}</span>
+            <span style={{display:'block',opacity:0.85}}>{T.bnT2}</span>
+            <p className="text-sm font-normal mt-3" style={{color:'#93c5fd',WebkitTextFillColor:'#93c5fd',letterSpacing:'0',fontSize:'14px',fontWeight:400}}>{T.bnS}</p>
           </div>
-          <div ref={rBnR} className="lz-r flex-shrink-0">
-            {/* CTA 5 */}
-            <button onClick={()=>go('budget-calculator')} className="flex items-center gap-2 font-bold px-8 py-4 rounded-xl text-sm shadow-lg" style={{background:'#fff',color:C.navy}}>
+          <div ref={rBnB} className="lz-r flex-shrink-0">
+            <button onClick={()=>go('budget-calculator')} className="flex items-center gap-2 font-bold px-9 py-4 rounded-xl text-sm shadow-xl" style={{background:'#fff',color:C.navy}}>
               <Calculator className="h-4 w-4"/>{T.bnCta}
             </button>
           </div>
         </div>
       </section>
 
-      {/* ══ BUDGET CALCULATOR ═══════════════════════════════ */}
+      {/* ══ BUDGET CALCULATOR ══ */}
       <section id="budget-calculator" className="py-16" style={{background:C.iceBg}}>
         <div className="container mx-auto px-6">
-          <div ref={rCalcT} className="lz-r text-center mb-10">
-            <div className="flex items-center justify-center gap-3 mb-2">
-              <Calculator className="h-8 w-8" style={{color:C.navy}}/>
-              <h2 className="text-3xl font-black" style={h2style}>{T.cT}</h2>
+          <div className="text-center mb-10">
+            <span className="lz-eyebrow" style={{display:'block',textAlign:'center'}}>{T.calcBadge}</span>
+            <div ref={rCalcT} className="lz-r lz-h2" style={{display:'block',textAlign:'center'}}>
+              <span style={{display:'block'}}>{T.calcT1}</span>
+              <span style={{display:'block',background:`linear-gradient(135deg,${C.blue},${C.sky})`,WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',backgroundClip:'text'}}>{T.calcT2}</span>
             </div>
-            <p className="text-sm max-w-2xl mx-auto" style={{color:C.muted}}>{T.cS}</p>
+            <p className="text-sm mt-3 max-w-2xl mx-auto" style={{color:C.muted}}>{T.cS}</p>
           </div>
           <div ref={rCalcC} className="lz-r max-w-4xl mx-auto">
             <div className="rounded-2xl overflow-hidden shadow-2xl border" style={{borderColor:C.border}}>
@@ -725,7 +820,6 @@ export default function LimpsZoneApp() {
               </div>
               <div className="p-8 bg-white">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Service checkboxes */}
                   <div className="md:col-span-2">
                     <Label className="text-sm font-black text-gray-700 mb-3 block">{T.st1}</Label>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -805,12 +899,11 @@ export default function LimpsZoneApp() {
                     <Textarea value={budgetData.observations} onChange={e=>updB('observations',e.target.value)} placeholder={T.selObsPh} className="min-h-[80px]"/>
                   </div>
                 </div>
-                {/* Price display */}
                 <div className="mt-8 p-6 rounded-2xl border-2 text-center" style={{background:'#f0fdf4',borderColor:'#bbf7d0'}}>
                   <h3 className="text-xl font-black text-gray-800 mb-2">{T.priceT}</h3>
                   {calcP>0&&(
                     <div className="mb-3 space-y-1">
-                      <p className="text-sm text-gray-500">{T.sub} <span className="font-bold">{(calcP+discAmt).toFixed(2)} €</span></p>
+                      <p className="text-sm text-gray-500">{T.subT} <span className="font-bold">{(calcP+discAmt).toFixed(2)} €</span></p>
                       {disc>0&&<p className="text-sm text-red-500">{T.discA} (-{disc}%): <span className="font-bold">-{discAmt.toFixed(2)} €</span></p>}
                     </div>
                   )}
@@ -818,7 +911,6 @@ export default function LimpsZoneApp() {
                   <p className="text-sm text-gray-400">{calcP>0?T.finalP:T.selOpt}</p>
                   {calcP>0&&<p className="text-xs text-gray-400 mt-2">{T.discTip}</p>}
                 </div>
-                {/* CTA 6 */}
                 <div className="mt-6 text-center">
                   <button onClick={handleBudgetSubmit} disabled={!budgetData.serviceTypes.length||!budgetData.materialType||!budgetData.dirtLevel||!budgetData.address}
                     className="inline-flex items-center gap-2 font-bold px-10 py-3 rounded-xl text-sm disabled:opacity-50 disabled:cursor-not-allowed shadow-md" style={btnB}>
@@ -832,11 +924,15 @@ export default function LimpsZoneApp() {
         </div>
       </section>
 
-      {/* ══ FAQ ══════════════════════════════════════════════ */}
+      {/* ══ FAQ ══ */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-6 max-w-3xl">
-          <div ref={rFaqT} className="lz-r text-center mb-8">
-            <h2 className="text-3xl font-black" style={h2style}>{T.faqT}</h2>
+          <div className="text-center mb-8">
+            <span className="lz-eyebrow" style={{display:'block',textAlign:'center'}}>{T.faqBadge}</span>
+            <div ref={rFaqT} className="lz-r lz-h2" style={{display:'block',textAlign:'center'}}>
+              <span style={{display:'block'}}>{T.faqT1}</span>
+              <span style={{display:'block',background:`linear-gradient(135deg,${C.blue},${C.sky})`,WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',backgroundClip:'text'}}>{T.faqT2}</span>
+            </div>
           </div>
           <div ref={rFaqL} className="lz-r space-y-3">
             {[[T.q1,T.a1],[T.q2,T.a2],[T.q3,T.a3],[T.q4,T.a4]].map((item,i)=>(
@@ -852,7 +948,7 @@ export default function LimpsZoneApp() {
         </div>
       </section>
 
-      {/* ══ MODAL FORM ═══════════════════════════════════════ */}
+      {/* ══ MODAL FORM ══ */}
       <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
         <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto">
           <DialogHeader>
@@ -946,7 +1042,7 @@ export default function LimpsZoneApp() {
             {fPrice>0&&(
               <div className="p-4 rounded-xl border-2 text-center" style={{background:'#f0fdf4',borderColor:'#bbf7d0'}}>
                 <p className="text-sm font-black text-gray-700 mb-1">{T.priceTotal}</p>
-                <p className="text-xs text-gray-400">{T.sub} <span className="font-bold">{(fPrice+fDiscAmt).toFixed(2)} €</span></p>
+                <p className="text-xs text-gray-400">{T.subT} <span className="font-bold">{(fPrice+fDiscAmt).toFixed(2)} €</span></p>
                 {fDisc>0&&<p className="text-xs text-red-500">{T.discA} (-{fDisc}%): -{fDiscAmt.toFixed(2)} €</p>}
                 <p className="text-3xl font-black text-green-600">{fPrice.toFixed(2)} €</p>
                 <p className="text-xs text-gray-400">{T.finalP}</p>
@@ -960,11 +1056,10 @@ export default function LimpsZoneApp() {
         </DialogContent>
       </Dialog>
 
-      {/* ══ FOOTER ═══════════════════════════════════════════ */}
+      {/* ══ FOOTER ══ */}
       <footer id="footer" style={{background:`linear-gradient(180deg,${C.navy} 0%,#071322 100%)`}} className="pt-14 pb-6">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10 pb-10 border-b" style={{borderColor:'rgba(255,255,255,0.08)'}}>
-            {/* Brand */}
             <div>
               <div className="flex items-center gap-2 mb-3">
                 <div className="w-8 h-8 rounded-xl flex items-center justify-center shadow" style={{background:`linear-gradient(135deg,${C.blue},${C.sky})`}}>
@@ -982,23 +1077,20 @@ export default function LimpsZoneApp() {
                 <p className="text-xs font-bold text-green-400">{T.ftEm}</p>
               </div>
             </div>
-            {/* Services */}
             <div>
-              <p className="text-xs font-black uppercase tracking-widest mb-4 text-white pb-2 border-b inline-block" style={{borderColor:'#2563eb'}}>{T.ftSvc}</p>
+              <p className="text-xs font-black uppercase tracking-widest mb-4 text-white pb-2 border-b inline-block" style={{borderColor:C.blue}}>{T.ftSvc}</p>
               {[T.s1t,T.s2t,T.s3t,T.s4t,T.s5t,T.s6t].map(s=>(
                 <a key={s} href="#services" onClick={e=>{e.preventDefault();go('services')}} className="block text-xs mb-2 transition-colors hover:text-blue-400 cursor-pointer" style={{color:'#94a3b8'}}>{s}</a>
               ))}
             </div>
-            {/* Company */}
             <div>
-              <p className="text-xs font-black uppercase tracking-widest mb-4 text-white pb-2 border-b inline-block" style={{borderColor:'#2563eb'}}>{T.ftCo}</p>
+              <p className="text-xs font-black uppercase tracking-widest mb-4 text-white pb-2 border-b inline-block" style={{borderColor:C.blue}}>{T.ftCo}</p>
               {[[T.n2,'why-us'],[T.n3,'reviews'],[T.n4,'budget-calculator'],['FAQ','budget-calculator']].map(([label,id])=>(
                 <a key={label} href={`#${id}`} onClick={e=>{e.preventDefault();go(id)}} className="block text-xs mb-2 transition-colors hover:text-blue-400 cursor-pointer" style={{color:'#94a3b8'}}>{label}</a>
               ))}
             </div>
-            {/* Contact */}
             <div>
-              <p className="text-xs font-black uppercase tracking-widest mb-4 text-white pb-2 border-b inline-block" style={{borderColor:'#2563eb'}}>{T.ftCtc}</p>
+              <p className="text-xs font-black uppercase tracking-widest mb-4 text-white pb-2 border-b inline-block" style={{borderColor:C.blue}}>{T.ftCtc}</p>
               <div className="space-y-3">
                 <div className="flex items-center gap-2"><Phone className="h-3 w-3" style={{color:'#60a5fa'}}/><a href="tel:+351934071930" className="text-xs hover:text-blue-400 transition-colors" style={{color:'#94a3b8'}}>+351 934 071 930</a></div>
                 <div className="flex items-center gap-2"><Mail className="h-3 w-3" style={{color:'#60a5fa'}}/><a href="mailto:suportelimpszone@gmail.com" className="text-xs hover:text-blue-400 transition-colors" style={{color:'#94a3b8'}}>suportelimpszone@gmail.com</a></div>

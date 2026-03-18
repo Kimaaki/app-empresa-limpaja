@@ -261,14 +261,14 @@ const TR: Record<Lang, Record<string, string>> = {
     ftSu:'Domingo: 9:00 - 15:00', ftEm:'Emergências: 24/7',
     ftCopy:'© 2024 Limpszone. Todos os direitos reservados.',
     ftWA:'Falar no WhatsApp',
-    r1i:'MS', r1n:'Maria Silva',    r1r:'Proprietária de Restaurante', r1t:'A equipa fez um trabalho fantástico no nosso restaurante. Profissional, pontual e resultados impecáveis.',
-    r2i:'JS', r2n:'João Santos',    r2r:'Gerente de Hotel',            r2t:'Trabalho impecável no hotel. Os clientes elogiam sempre a qualidade da limpeza dos quartos.',
-    r3i:'AC', r3n:'Ana Costa',      r3r:'Dona de Casa',                r3t:'A minha casa ficou a brilhar! Muito atenciosas com todos os detalhes. Recomendo sem hesitar.',
-    r4i:'RM', r4n:'Rui Mendes',     r4r:'Empresário',                  r4t:'Pós-obra excelente. O escritório ficou pronto para inaugurar no próprio dia. Muito eficiente.',
-    r5i:'CF', r5n:'Carla Ferreira', r5r:'Cliente Residencial',         r5t:'Contratei o serviço semanal. As senhoras são fantásticas, cuidadosas e sempre pontuais.',
-    r6i:'PN', r6n:'Pedro Nunes',    r6r:'Administrador de Condomínio', r6t:'Manutenção do condomínio impecável. Áreas comuns sempre limpas. Moradores muito satisfeitos!',
-    r7i:'LG', r7n:'Lena Garcia',    r7r:'Diretora de Hotel',           r7t:'Qualidade excecional na limpeza das nossas instalações. Parceria de total confiança.',
-    r8i:'TR', r8n:'Tiago Rocha',    r8r:'Proprietário de Café',        r8t:'Sempre impecável e pontual. Os clientes adoram a limpeza do espaço. Totalmente recomendado.',
+    r1i:'MS', r1n:'Maria Silva',    r1r:'Proprietária de Restaurante', r1t:'A equipa fez um trabalho fantástico no nosso restaurante. Profissional, pontual e resultados impecáveis.',    r1p:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&fp-y=0.3',
+    r2i:'JS', r2n:'João Santos',    r2r:'Gerente de Hotel',            r2t:'Trabalho impecável no hotel. Os clientes elogiam sempre a qualidade da limpeza dos quartos.',               r2p:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&fp-y=0.2',
+    r3i:'AC', r3n:'Ana Costa',      r3r:'Dona de Casa',                r3t:'A minha casa ficou a brilhar! Muito atenciosas com todos os detalhes. Recomendo sem hesitar.',               r3p:'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&fp-y=0.2',
+    r4i:'RM', r4n:'Rui Mendes',     r4r:'Empresário',                  r4t:'Pós-obra excelente. O escritório ficou pronto para inaugurar no próprio dia. Muito eficiente.',              r4p:'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&fp-y=0.2',
+    r5i:'CF', r5n:'Carla Ferreira', r5r:'Cliente Residencial',         r5t:'Contratei o serviço semanal. As senhoras são fantásticas, cuidadosas e sempre pontuais.',                   r5p:'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=80&h=80&fit=crop&fp-y=0.2',
+    r6i:'PN', r6n:'Pedro Nunes',    r6r:'Administrador de Condomínio', r6t:'Manutenção do condomínio impecável. Áreas comuns sempre limpas. Moradores muito satisfeitos!',              r6p:'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&fp-y=0.2',
+    r7i:'LG', r7n:'Lena Garcia',    r7r:'Diretora de Hotel',           r7t:'Qualidade excecional na limpeza das nossas instalações. Parceria de total confiança.',                       r7p:'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=80&h=80&fit=crop&fp-y=0.2',
+    r8i:'TR', r8n:'Tiago Rocha',    r8r:'Proprietário de Café',        r8t:'Sempre impecável e pontual. Os clientes adoram a limpeza do espaço. Totalmente recomendado.',               r8p:'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=80&h=80&fit=crop&fp-y=0.2',
   },
   es: {
     sub:'Limpieza Profesional',
@@ -358,14 +358,14 @@ const TR: Record<Lang, Record<string, string>> = {
     ftSu:'Domingo: 9:00 - 15:00', ftEm:'Emergencias: 24/7',
     ftCopy:'© 2024 Limpszone. Todos los derechos reservados.',
     ftWA:'Hablar por WhatsApp',
-    r1i:'MS', r1n:'Maria Silva',    r1r:'Propietaria de Restaurante', r1t:'¡El equipo hizo un trabajo fantástico en nuestro restaurante! Muy profesional y puntual.',
-    r2i:'JS', r2n:'João Santos',    r2r:'Gerente de Hotel',           r2t:'Trabajo impecable en el hotel. Los clientes siempre elogian la calidad de las habitaciones.',
-    r3i:'AC', r3n:'Ana Costa',      r3r:'Ama de Casa',                r3t:'¡Mi casa quedó brillando! Muy atentas con todos los detalles. Lo recomiendo sin dudarlo.',
-    r4i:'RM', r4n:'Rui Mendes',     r4r:'Empresario',                 r4t:'Post-obra excelente. La oficina quedó lista para inaugurar el mismo día.',
-    r5i:'CF', r5n:'Carla Ferreira', r5r:'Cliente Residencial',        r5t:'Contraté el servicio semanal. Las señoras son fantásticas, cuidadosas y siempre puntuales.',
-    r6i:'PN', r6n:'Pedro Nunes',    r6r:'Administrador de Finca',     r6t:'Mantenimiento del edificio impecable. Áreas comunes siempre limpias. Residentes muy satisfechos.',
-    r7i:'LG', r7n:'Lena Garcia',    r7r:'Directora de Hotel',         r7t:'Calidad excepcional en la limpieza de nuestras instalaciones. Socio de total confianza.',
-    r8i:'TR', r8n:'Tiago Rocha',    r8r:'Propietario de Café',        r8t:'Siempre impecable y puntual. Los clientes adoran la limpieza del local. Totalmente recomendado.',
+    r1i:'MS', r1n:'Maria Silva',    r1r:'Propietaria de Restaurante', r1t:'¡El equipo hizo un trabajo fantástico en nuestro restaurante! Muy profesional y puntual.',    r1p:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&fp-y=0.3',
+    r2i:'JS', r2n:'João Santos',    r2r:'Gerente de Hotel',           r2t:'Trabajo impecable en el hotel. Los clientes siempre elogian la calidad de las habitaciones.',          r2p:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&fp-y=0.2',
+    r3i:'AC', r3n:'Ana Costa',      r3r:'Ama de Casa',                r3t:'¡Mi casa quedó brillando! Muy atentas con todos los detalles. Lo recomiendo sin dudarlo.',            r3p:'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&fp-y=0.2',
+    r4i:'RM', r4n:'Rui Mendes',     r4r:'Empresario',                 r4t:'Post-obra excelente. La oficina quedó lista para inaugurar el mismo día.',                             r4p:'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&fp-y=0.2',
+    r5i:'CF', r5n:'Carla Ferreira', r5r:'Cliente Residencial',        r5t:'Contraté el servicio semanal. Las señoras son fantásticas, cuidadosas y siempre puntuales.',           r5p:'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=80&h=80&fit=crop&fp-y=0.2',
+    r6i:'PN', r6n:'Pedro Nunes',    r6r:'Administrador de Finca',     r6t:'Mantenimiento del edificio impecable. Áreas comunes siempre limpias. Residentes muy satisfechos.',    r6p:'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&fp-y=0.2',
+    r7i:'LG', r7n:'Lena Garcia',    r7r:'Directora de Hotel',         r7t:'Calidad excepcional en la limpieza de nuestras instalaciones. Socio de total confianza.',              r7p:'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=80&h=80&fit=crop&fp-y=0.2',
+    r8i:'TR', r8n:'Tiago Rocha',    r8r:'Propietario de Café',        r8t:'Siempre impecable y puntual. Los clientes adoran la limpieza del local. Totalmente recomendado.',      r8p:'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=80&h=80&fit=crop&fp-y=0.2',
   }
 }
 
@@ -412,7 +412,7 @@ export default function LimpsZoneApp() {
 
   // Reviews
   const reviews = [1,2,3,4,5,6,7,8].map(i => ({
-    init:T[`r${i}i`], name:T[`r${i}n`], role:T[`r${i}r`], text:T[`r${i}t`]
+    init:T[`r${i}i`], name:T[`r${i}n`], role:T[`r${i}r`], text:T[`r${i}t`], photo:T[`r${i}p`]
   }))
   useEffect(() => {
     rvTimer.current = setInterval(() => setRvIdx(p => (p+1)%reviews.length), 4000)
@@ -493,13 +493,29 @@ export default function LimpsZoneApp() {
     { id:'fora-centro',name:es?'Fuera del Centro':'Fora do Centro',multiplier:1.10 },
     { id:'periferia',name:es?'Periferia':'Periferia',multiplier:1.20 },
   ]
-  const neighborhoods = [
-    { id:'centro',name:'Centro',multiplier:1.0 },{ id:'lisboa',name:'Lisboa',multiplier:1.0 },
-    { id:'porto',name:'Porto',multiplier:1.0 },{ id:'cascais',name:'Cascais',multiplier:1.05 },
-    { id:'sintra',name:'Sintra',multiplier:1.05 },{ id:'oeiras',name:'Oeiras',multiplier:1.10 },
-    { id:'almada',name:'Almada',multiplier:1.15 },{ id:'setubal',name:'Setúbal',multiplier:1.20 },
-    { id:'braga',name:'Braga',multiplier:1.20 },
-    { id:'outro',name:es?'Otra localidad':'Outra localidade',multiplier:1.10 },
+  const neighborhoods = es ? [
+    { id:'centro',    name:'Centro ciudad',  multiplier:1.0  },
+    { id:'madrid',    name:'Madrid',         multiplier:1.0  },
+    { id:'barcelona', name:'Barcelona',      multiplier:1.0  },
+    { id:'valencia',  name:'Valencia',       multiplier:1.05 },
+    { id:'sevilla',   name:'Sevilla',        multiplier:1.05 },
+    { id:'bilbao',    name:'Bilbao',         multiplier:1.10 },
+    { id:'malaga',    name:'Málaga',         multiplier:1.10 },
+    { id:'zaragoza',  name:'Zaragoza',       multiplier:1.15 },
+    { id:'alicante',  name:'Alicante',       multiplier:1.15 },
+    { id:'murcia',    name:'Murcia',         multiplier:1.15 },
+    { id:'otro',      name:'Otra localidad', multiplier:1.10 },
+  ] : [
+    { id:'centro',  name:'Centro',           multiplier:1.0  },
+    { id:'lisboa',  name:'Lisboa',           multiplier:1.0  },
+    { id:'porto',   name:'Porto',            multiplier:1.0  },
+    { id:'cascais', name:'Cascais',          multiplier:1.05 },
+    { id:'sintra',  name:'Sintra',           multiplier:1.05 },
+    { id:'oeiras',  name:'Oeiras',           multiplier:1.10 },
+    { id:'almada',  name:'Almada',           multiplier:1.15 },
+    { id:'setubal', name:'Setúbal',          multiplier:1.20 },
+    { id:'braga',   name:'Braga',            multiplier:1.20 },
+    { id:'outro',   name:'Outra localidade', multiplier:1.10 },
   ]
 
   const calcDisc=(n:number)=>n>=4?20:n>=3?15:n>=2?10:0
@@ -805,8 +821,152 @@ export default function LimpsZoneApp() {
         </div>
       </section>
 
-      {/* ══ IMPACTO ══ */}
-      <ImpactoHigienizacao onSolicitarServico={()=>setIsFormOpen(true)}/>
+      {/* ══ TRUST & SOCIAL PROOF ══ */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-6">
+
+          {/* Google Reviews bar */}
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 p-6 rounded-2xl border mb-14" style={{background:'#f8faff',borderColor:C.border}}>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center justify-center w-14 h-14 rounded-2xl shadow-md" style={{background:'#fff',border:`1.5px solid ${C.border}`}}>
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                  <path d="M29.09 16.32c0-1.01-.09-1.98-.25-2.91H16v5.51h7.35a6.28 6.28 0 0 1-2.72 4.12v3.42h4.4c2.58-2.37 4.06-5.87 4.06-10.14z" fill="#4285F4"/>
+                  <path d="M16 30c3.69 0 6.79-1.22 9.05-3.31l-4.4-3.42c-1.22.82-2.79 1.31-4.65 1.31-3.57 0-6.6-2.41-7.68-5.65H3.77v3.53A13.99 13.99 0 0 0 16 30z" fill="#34A853"/>
+                  <path d="M8.32 18.93A8.39 8.39 0 0 1 7.88 16c0-1.02.17-2 .44-2.93V9.54H3.77A14 14 0 0 0 2 16c0 2.26.54 4.4 1.77 6.46l4.55-3.53z" fill="#FBBC05"/>
+                  <path d="M16 6.41c2.01 0 3.82.69 5.24 2.05l3.93-3.93C22.78 2.37 19.68 1 16 1A13.99 13.99 0 0 0 3.77 9.54l4.55 3.53C9.4 9.82 12.43 6.41 16 6.41z" fill="#EA4335"/>
+                </svg>
+              </div>
+              <div>
+                <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{color:C.muted}}>Google Reviews</p>
+                <div className="flex items-center gap-2">
+                  <div className="flex gap-0.5">{[...Array(5)].map((_,j)=><Star key={j} className="h-5 w-5 fill-yellow-400 text-yellow-400"/>)}</div>
+                  <span className="text-2xl font-black" style={{color:C.navy}}>4.9</span>
+                  <span className="text-sm font-semibold" style={{color:C.muted}}>(127 avaliações)</span>
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center gap-6">
+              <div className="text-center">
+                <p className="text-3xl font-black" style={{color:C.blue}}>500+</p>
+                <p className="text-xs font-semibold" style={{color:C.muted}}>Clientes</p>
+              </div>
+              <div className="w-px h-10" style={{background:C.border}}/>
+              <div className="text-center">
+                <p className="text-3xl font-black" style={{color:C.blue}}>5★</p>
+                <p className="text-xs font-semibold" style={{color:C.muted}}>Avaliação Média</p>
+              </div>
+              <div className="w-px h-10" style={{background:C.border}}/>
+              <div className="text-center">
+                <p className="text-3xl font-black" style={{color:C.blue}}>98%</p>
+                <p className="text-xs font-semibold" style={{color:C.muted}}>Satisfação</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Premium icon trust items */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-14">
+            {[
+              {
+                icon: (
+                  <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                    <circle cx="18" cy="18" r="17" stroke={C.blue} strokeWidth="1.5"/>
+                    <path d="M12 18.5L16 22.5L24 14" stroke={C.blue} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                ),
+                title: es ? 'Garantía Total' : 'Garantia Total',
+                desc: es ? 'Si no queda perfecto, volvemos gratis' : 'Se não ficar perfeito, voltamos de graça'
+              },
+              {
+                icon: (
+                  <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                    <path d="M18 4L21.5 13.5H32L23.5 19.5L27 29L18 23L9 29L12.5 19.5L4 13.5H14.5L18 4Z" stroke={C.blue} strokeWidth="1.5" strokeLinejoin="round"/>
+                  </svg>
+                ),
+                title: es ? 'Profesionales Certificados' : 'Profissionais Certificados',
+                desc: es ? 'Equipo seleccionado y formado' : 'Equipa selecionada e treinada'
+              },
+              {
+                icon: (
+                  <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                    <rect x="4" y="8" width="28" height="20" rx="4" stroke={C.blue} strokeWidth="1.5"/>
+                    <path d="M4 14H32" stroke={C.blue} strokeWidth="1.5"/>
+                    <path d="M10 20H16M10 24H20" stroke={C.blue} strokeWidth="1.5" strokeLinecap="round"/>
+                  </svg>
+                ),
+                title: es ? 'Sin Contratos' : 'Sem Contratos',
+                desc: es ? 'Flexibilidad total, cancele cuando quiera' : 'Total flexibilidade, cancele quando quiser'
+              },
+              {
+                icon: (
+                  <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                    <circle cx="18" cy="18" r="14" stroke={C.blue} strokeWidth="1.5"/>
+                    <path d="M18 10V18L23 21" stroke={C.blue} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                ),
+                title: es ? 'Respuesta en 1h' : 'Resposta em 1h',
+                desc: es ? 'Presupuesto inmediato, sin esperas' : 'Orçamento imediato, sem esperas'
+              },
+            ].map((item, i) => (
+              <div key={i} className="flex flex-col items-center text-center p-6 rounded-2xl border transition-all hover:shadow-lg hover:-translate-y-1" style={{background:C.iceBg,borderColor:C.border}}>
+                <div className="mb-4 p-3 rounded-2xl" style={{background:'#dbeafe'}}>
+                  {item.icon}
+                </div>
+                <p className="font-black text-base mb-2" style={{color:C.navy}}>{item.title}</p>
+                <p className="text-xs leading-relaxed" style={{color:C.muted}}>{item.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Mini screenshots / SEO proof */}
+          <div className="rounded-2xl p-8 border" style={{background:C.iceMid,borderColor:C.border}}>
+            <div className="flex flex-col md:flex-row items-center gap-8">
+              <div className="flex-1">
+                <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{color:C.blue}}>
+                  {es ? 'Presencia Online Verificada' : 'Presença Online Verificada'}
+                </p>
+                <p className="text-2xl font-black mb-3" style={{color:C.navy}}>
+                  {es ? 'Encontre-nos no Google' : 'Encontre-nos no Google'}
+                </p>
+                <p className="text-sm leading-relaxed mb-4" style={{color:C.muted}}>
+                  {es
+                    ? 'Limpszone aparece en los primeros resultados de Google. Más de 127 reseñas verificadas con una puntuación de 4.9 estrellas.'
+                    : 'A Limpszone aparece nos primeiros resultados do Google. Mais de 127 avaliações verificadas com pontuação de 4.9 estrelas.'}
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="flex gap-0.5">{[...Array(5)].map((_,j)=><Star key={j} className="h-4 w-4 fill-yellow-400 text-yellow-400"/>)}</div>
+                  <span className="text-sm font-black" style={{color:C.navy}}>4.9/5</span>
+                  <span className="text-xs" style={{color:C.muted}}>· 127 {es?'reseñas':'avaliações'}</span>
+                </div>
+              </div>
+              {/* Fake Google search result card */}
+              <div className="flex-1 bg-white rounded-2xl p-5 shadow-xl border" style={{borderColor:C.border,maxWidth:380}}>
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-5 h-5 rounded-full" style={{background:'linear-gradient(135deg,#4285F4,#34A853)'}}/>
+                  <div>
+                    <p className="text-xs font-semibold" style={{color:C.navy}}>limpszone.solutions</p>
+                    <p className="text-xs" style={{color:C.muted}}>https://www.limpszone.solutions</p>
+                  </div>
+                </div>
+                <p className="text-sm font-black mb-1" style={{color:'#1a0dab'}}>
+                  Limpszone – {es?'Limpieza Profesional Portugal':'Limpeza Profissional Portugal'}
+                </p>
+                <p className="text-xs leading-relaxed mb-3" style={{color:C.muted}}>
+                  {es
+                    ? 'Servicios de limpieza profesional para toda Europa. Presupuesto gratis en 1h. Equipo certificado. ⭐ 4.9/5 · +500 clientes satisfechos.'
+                    : 'Serviços de limpeza profissional para toda a Europa. Orçamento grátis em 1h. Equipa certificada. ⭐ 4.9/5 · +500 clientes satisfeitos.'}
+                </p>
+                <div className="flex items-center gap-2 p-2 rounded-lg" style={{background:'#f8f9fa'}}>
+                  <div className="flex gap-0.5">{[...Array(5)].map((_,j)=><Star key={j} className="h-3 w-3 fill-yellow-400 text-yellow-400"/>)}</div>
+                  <span className="text-xs font-bold" style={{color:'#202124'}}>4,9</span>
+                  <span className="text-xs" style={{color:C.muted}}>·</span>
+                  <span className="text-xs" style={{color:'#4285F4'}}>127 {es?'reseñas en Google':'avaliações no Google'}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
 
       {/* ══ REVIEWS ══ */}
       <section id="reviews" className="py-16 bg-white">
@@ -823,7 +983,11 @@ export default function LimpsZoneApp() {
               {visRv.map((r,i)=>(
                 <div key={i} className="rounded-xl p-6 border shadow-sm transition-all duration-500" style={{background:C.iceCard,borderColor:C.border}}>
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-black text-white flex-shrink-0 shadow-sm" style={{background:`linear-gradient(135deg,${C.navy},${C.blue})`}}>{r.init}</div>
+                    {r.photo ? (
+                      <img src={r.photo} alt={r.name} className="w-10 h-10 rounded-full object-cover flex-shrink-0 shadow-sm" style={{border:`2px solid ${C.border}`}}/>
+                    ) : (
+                      <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-black text-white flex-shrink-0 shadow-sm" style={{background:`linear-gradient(135deg,${C.navy},${C.blue})`}}>{r.init}</div>
+                    )}
                     <div>
                       <p className="text-sm font-black" style={{color:C.navy}}>{r.name}</p>
                       <p className="text-xs" style={{color:C.muted}}>{r.role}</p>

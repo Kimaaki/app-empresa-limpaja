@@ -614,8 +614,8 @@ export default function LimpsZoneApp() {
       <header className="bg-white/90 backdrop-blur-md border-b sticky top-0 z-50" style={{borderColor:C.border}}>
         <div className="container mx-auto px-6 flex items-center justify-between h-16">
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2">
-              <img src="/logo.png" alt="Limpszone" style={{height:'48px',width:'auto',objectFit:'contain'}}/>
+            <div className="flex items-center">
+              <img src="/logo.png" alt="Limpszone" style={{height:'72px',width:'auto',objectFit:'contain'}}/>
             </div>
           </div>
           <nav className="hidden lg:flex items-center gap-5">
@@ -1371,9 +1371,10 @@ export default function LimpsZoneApp() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10 pb-10 border-b" style={{borderColor:'rgba(255,255,255,0.08)'}}>
             <div>
               <div className="mb-4">
-                <img src="/logo.png" alt="Limpszone" style={{height:'52px',width:'auto',objectFit:'contain',filter:'brightness(0) invert(1)',opacity:0.9}}/>
+                <span style={{fontSize:'24px',fontWeight:900,letterSpacing:'-0.5px'}}>
+                  <span style={{color:'#60a5fa'}}>Limps</span><span style={{color:'#fff'}}>Zone</span>
+                </span>
               </div>
-              <p className="text-xs leading-relaxed mb-4" style={{color:'#94a3b8'}}>{T.ftDesc}</p>
               <a href="tel:+351934071930" className="text-base font-black block mb-1" style={{color:'#60a5fa'}}>📞 +351 934 071 930</a>
               <p className="text-xs" style={{color:'#64748b'}}>suportelimpszone@gmail.com</p>
               <div className="mt-4 space-y-1">

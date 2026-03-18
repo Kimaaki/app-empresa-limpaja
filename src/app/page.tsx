@@ -1314,16 +1314,12 @@ export default function LimpsZoneApp() {
       </a>
 
       {/* ══ FOOTER ══ */}
-      <footer id="footer" className="pt-14 pb-6" style={{background:`linear-gradient(180deg,${C.navy} 0%,#071322 100%)`,position:'relative',overflow:'hidden'}}>
+      <footer id="footer" className="pt-14 pb-0" style={{background:`linear-gradient(180deg,${C.navy} 0%,#071322 100%)`,position:'relative',overflow:'hidden'}}>
         {/* Decorative background icons */}
         <div style={{position:'absolute',inset:0,pointerEvents:'none',overflow:'hidden'}}>
-          {/* Spray bottle */}
           <svg style={{position:'absolute',top:'8%',left:'3%',opacity:0.04}} width="120" height="120" viewBox="0 0 60 60" fill="none">
             <path d="M22 10h10v6h-4v34H18V16h-4v-3l8-3zM32 16h8v4h-8zM36 12l4-4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            <circle cx="42" cy="10" r="3" stroke="white" strokeWidth="2"/>
-            <path d="M40 20 Q44 22 44 26 Q44 30 40 30" stroke="white" strokeWidth="2" strokeLinecap="round"/>
           </svg>
-          {/* Bubbles cluster */}
           <svg style={{position:'absolute',top:'20%',right:'2%',opacity:0.05}} width="160" height="160" viewBox="0 0 80 80" fill="none">
             <circle cx="20" cy="20" r="12" stroke="white" strokeWidth="1.5"/>
             <circle cx="50" cy="15" r="8" stroke="white" strokeWidth="1.5"/>
@@ -1331,88 +1327,131 @@ export default function LimpsZoneApp() {
             <circle cx="25" cy="55" r="10" stroke="white" strokeWidth="1.5"/>
             <circle cx="45" cy="60" r="6" stroke="white" strokeWidth="1.5"/>
           </svg>
-          {/* Broom / mop */}
-          <svg style={{position:'absolute',bottom:'15%',left:'8%',opacity:0.04}} width="100" height="100" viewBox="0 0 50 50" fill="none">
+          <svg style={{position:'absolute',bottom:'30%',left:'8%',opacity:0.04}} width="100" height="100" viewBox="0 0 50 50" fill="none">
             <path d="M10 5L40 35" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
             <path d="M32 27L44 42H20L32 27z" stroke="white" strokeWidth="1.5" strokeLinejoin="round"/>
           </svg>
-          {/* Heart with plus (health) */}
           <svg style={{position:'absolute',top:'55%',left:'25%',opacity:0.03}} width="110" height="110" viewBox="0 0 55 55" fill="none">
             <path d="M27.5 46S8 33 8 19a11 11 0 0 1 19.5-7A11 11 0 0 1 47 19C47 33 27.5 46 27.5 46z" stroke="white" strokeWidth="2"/>
             <path d="M22 27h11M27.5 21.5v11" stroke="white" strokeWidth="2" strokeLinecap="round"/>
           </svg>
-          {/* Sparkle / shine star */}
-          <svg style={{position:'absolute',top:'10%',left:'45%',opacity:0.04}} width="90" height="90" viewBox="0 0 45 45" fill="none">
-            <path d="M22.5 4V41M4 22.5H41M8 8L37 37M37 8L8 37" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
-            <circle cx="22.5" cy="22.5" r="4" stroke="white" strokeWidth="1.5"/>
-          </svg>
-          {/* Droplet */}
           <svg style={{position:'absolute',bottom:'8%',right:'12%',opacity:0.05}} width="80" height="80" viewBox="0 0 40 40" fill="none">
             <path d="M20 5C20 5 8 18 8 26a12 12 0 0 0 24 0C32 18 20 5 20 5z" stroke="white" strokeWidth="1.8"/>
-            <path d="M14 27a7 7 0 0 0 5 5" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
           </svg>
-          {/* Leaf (eco/natural) */}
           <svg style={{position:'absolute',bottom:'30%',right:'28%',opacity:0.04}} width="100" height="100" viewBox="0 0 50 50" fill="none">
             <path d="M10 40C10 40 12 20 30 15C45 10 44 10 44 10C44 10 42 28 28 35C18 40 10 40 10 40z" stroke="white" strokeWidth="1.8"/>
-            <path d="M10 40C15 32 22 25 35 18" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
           </svg>
-          {/* Checkmark shield */}
           <svg style={{position:'absolute',top:'35%',right:'18%',opacity:0.04}} width="90" height="90" viewBox="0 0 45 45" fill="none">
             <path d="M22.5 4L6 11v12c0 10 7.5 18.5 16.5 20C31.5 41.5 39 33 39 23V11L22.5 4z" stroke="white" strokeWidth="1.8"/>
             <path d="M14 22l6 6 11-11" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
-          {/* Clock / time */}
-          <svg style={{position:'absolute',top:'65%',left:'60%',opacity:0.03}} width="80" height="80" viewBox="0 0 40 40" fill="none">
-            <circle cx="20" cy="20" r="15" stroke="white" strokeWidth="1.8"/>
-            <path d="M20 10v10l6 4" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
         </div>
+
         <div className="container mx-auto px-6" style={{position:'relative',zIndex:1}}>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10 pb-10 border-b" style={{borderColor:'rgba(255,255,255,0.08)'}}>
+
+          {/* Main footer grid */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-10 pt-2">
+
+            {/* Brand + socials */}
             <div>
-              <div className="mb-4">
-                <span style={{fontSize:'24px',fontWeight:900,letterSpacing:'-0.5px'}}>
-                  <span style={{color:'#60a5fa'}}>Limps</span><span style={{color:'#fff'}}>Zone</span>
-                </span>
+              <div className="mb-5">
+                <img src="/logo.png" alt="Limpszone" style={{height:'70px',width:'auto',objectFit:'contain',mixBlendMode:'lighten'}}/>
               </div>
-              <a href="tel:+351934071930" className="text-base font-black block mb-1" style={{color:'#60a5fa'}}>📞 +351 934 071 930</a>
-              <p className="text-xs" style={{color:'#64748b'}}>suportelimpszone@gmail.com</p>
-              <div className="mt-4 space-y-1">
+              <a href="tel:+351934071930" className="text-base font-black block mb-1" style={{color:'#60a5fa'}}>
+                📞 +351 934 071 930
+              </a>
+              <p className="text-xs mb-5" style={{color:'#64748b'}}>suportelimpszone@gmail.com</p>
+              {/* Social icons */}
+              <div className="flex items-center gap-3 mb-5">
+                <a href="https://www.facebook.com/share/1Dtx6cbZmc/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-full flex items-center justify-center transition-opacity hover:opacity-80"
+                  style={{background:'#1877f2'}}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                  </svg>
+                </a>
+                <a href="https://www.instagram.com/limpszone?igsh=Z2M5M2J0ZDdiMDVs" target="_blank" rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-full flex items-center justify-center transition-opacity hover:opacity-80"
+                  style={{background:'linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)'}}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                    <circle cx="12" cy="12" r="4"/>
+                    <circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none"/>
+                  </svg>
+                </a>
+                <WhatsAppButton className="w-9 h-9 rounded-full flex items-center justify-center transition-opacity hover:opacity-80" style={{background:'#25d366'}}>
+                  <MessageCircle className="h-4 w-4 text-white"/>
+                </WhatsAppButton>
+              </div>
+              <div className="space-y-1">
                 <p className="text-xs" style={{color:'#64748b'}}>{T.ftMF}</p>
                 <p className="text-xs" style={{color:'#64748b'}}>{T.ftSa}</p>
                 <p className="text-xs" style={{color:'#64748b'}}>{T.ftSu}</p>
                 <p className="text-xs font-bold text-green-400">{T.ftEm}</p>
               </div>
             </div>
+
+            {/* Services */}
             <div>
-              <p className="text-xs font-black uppercase tracking-widest mb-4 text-white pb-2 border-b inline-block" style={{borderColor:C.blue}}>{T.ftSvc}</p>
+              <p className="text-sm font-black uppercase tracking-widest mb-5 text-white pb-2 border-b" style={{borderColor:C.blue}}>{T.ftSvc}</p>
               {[T.s1t,T.s2t,T.s3t,T.s4t,T.s5t,T.s6t].map(s=>(
-                <a key={s} href="#services" onClick={e=>{e.preventDefault();go('services')}} className="block text-xs mb-2 transition-colors hover:text-blue-400 cursor-pointer" style={{color:'#94a3b8'}}>{s}</a>
+                <a key={s} href="#services" onClick={e=>{e.preventDefault();go('services')}}
+                  className="block text-sm mb-3 transition-colors hover:text-blue-400 cursor-pointer" style={{color:'#94a3b8'}}>{s}</a>
               ))}
             </div>
+
+            {/* Company */}
             <div>
-              <p className="text-xs font-black uppercase tracking-widest mb-4 text-white pb-2 border-b inline-block" style={{borderColor:C.blue}}>{T.ftCo}</p>
+              <p className="text-sm font-black uppercase tracking-widest mb-5 text-white pb-2 border-b" style={{borderColor:C.blue}}>{T.ftCo}</p>
               {[[T.n2,'why-us'],[T.n3,'reviews'],[T.n4,'budget-calculator'],['FAQ','budget-calculator']].map(([label,id])=>(
-                <a key={label} href={`#${id}`} onClick={e=>{e.preventDefault();go(id)}} className="block text-xs mb-2 transition-colors hover:text-blue-400 cursor-pointer" style={{color:'#94a3b8'}}>{label}</a>
+                <a key={label} href={`#${id}`} onClick={e=>{e.preventDefault();go(id)}}
+                  className="block text-sm mb-3 transition-colors hover:text-blue-400 cursor-pointer" style={{color:'#94a3b8'}}>{label}</a>
               ))}
             </div>
+
+            {/* Contact */}
             <div>
-              <p className="text-xs font-black uppercase tracking-widest mb-4 text-white pb-2 border-b inline-block" style={{borderColor:C.blue}}>{T.ftCtc}</p>
+              <p className="text-sm font-black uppercase tracking-widest mb-5 text-white pb-2 border-b" style={{borderColor:C.blue}}>{T.ftCtc}</p>
               <div className="space-y-3">
-                <div className="flex items-center gap-2"><Phone className="h-3 w-3" style={{color:'#60a5fa'}}/><a href="tel:+351934071930" className="text-xs hover:text-blue-400 transition-colors" style={{color:'#94a3b8'}}>+351 934 071 930</a></div>
-                <div className="flex items-center gap-2"><Mail className="h-3 w-3" style={{color:'#60a5fa'}}/><a href="mailto:suportelimpszone@gmail.com" className="text-xs hover:text-blue-400 transition-colors" style={{color:'#94a3b8'}}>suportelimpszone@gmail.com</a></div>
-                <div className="flex items-center gap-2"><MapPin className="h-3 w-3" style={{color:'#60a5fa'}}/><span className="text-xs" style={{color:'#94a3b8'}}>Portugal, Europa</span></div>
-                <div className="flex items-center gap-2"><Clock className="h-3 w-3 text-green-400"/><span className="text-xs font-bold text-green-400">24/7</span></div>
+                <div className="flex items-center gap-2">
+                  <Phone className="h-4 w-4 flex-shrink-0" style={{color:'#60a5fa'}}/>
+                  <a href="tel:+351934071930" className="text-sm hover:text-blue-400 transition-colors" style={{color:'#94a3b8'}}>+351 934 071 930</a>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Mail className="h-4 w-4 flex-shrink-0" style={{color:'#60a5fa'}}/>
+                  <a href="mailto:suportelimpszone@gmail.com" className="text-sm hover:text-blue-400 transition-colors" style={{color:'#94a3b8'}}>suportelimpszone@gmail.com</a>
+                </div>
+                <div className="flex items-center gap-2">
+                  <MapPin className="h-4 w-4 flex-shrink-0" style={{color:'#60a5fa'}}/>
+                  <span className="text-sm" style={{color:'#94a3b8'}}>Portugal & Europa</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Clock className="h-4 w-4 flex-shrink-0 text-green-400"/>
+                  <span className="text-sm font-bold text-green-400">24/7</span>
+                </div>
               </div>
-              <WhatsAppButton className="mt-4 inline-flex items-center gap-2 text-white text-xs font-bold px-4 py-2 rounded-xl" style={{background:'#25d366'}}>
-                <MessageCircle className="h-3 w-3"/>{T.ftWA}
+              <WhatsAppButton className="mt-5 inline-flex items-center gap-2 text-white text-sm font-bold px-5 py-2.5 rounded-xl" style={{background:'#25d366'}}>
+                <MessageCircle className="h-4 w-4"/>{T.ftWA}
               </WhatsAppButton>
             </div>
           </div>
-          <div className="text-center">
-            <p className="text-xs" style={{color:'#475569'}}>{T.ftCopy}</p>
-            <p className="text-xs italic mt-1" style={{color:'#334155'}}>{T.ftTag}</p>
+
+          {/* Divider */}
+          <div className="border-t" style={{borderColor:'rgba(255,255,255,0.08)'}}/>
+
+          {/* Legal text */}
+          <div className="py-6 text-center space-y-2">
+            <p className="text-xs leading-relaxed mx-auto" style={{color:'#475569',maxWidth:'720px'}}>
+              {es
+                ? 'La información presentada es indicativa. La disponibilidad de los servicios y los detalles finales, incluido el precio y la programación, siempre serán confirmados antes de la realización del servicio.'
+                : 'As informações apresentadas são indicativas. A disponibilidade dos serviços e os detalhes finais, incluindo preço e agendamento, serão sempre confirmados antes da realização do serviço.'}
+            </p>
+            <p className="text-xs font-semibold" style={{color:'#334155'}}>
+              {es ? 'Cuidamos de su espacio como si fuera nuestro.' : 'Cuidamos do seu espaço como se fosse nosso.'}
+            </p>
+            <p className="text-xs" style={{color:'#334155'}}>{T.ftCopy}</p>
           </div>
+
         </div>
       </footer>
 

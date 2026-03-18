@@ -614,20 +614,8 @@ export default function LimpsZoneApp() {
       <header className="bg-white/90 backdrop-blur-md border-b sticky top-0 z-50" style={{borderColor:C.border}}>
         <div className="container mx-auto px-6 flex items-center justify-between h-16">
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-sm flex-shrink-0" style={{background:`linear-gradient(135deg,${C.blue},${C.sky})`}}>
-                <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-                  <circle cx="11" cy="11" r="9" stroke="white" strokeWidth="1.5"/>
-                  <path d="M7 11.5C7 11.5 8.5 14 11 14C13.5 14 15 11.5 15 11.5" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
-                  <path d="M8 8.5C8.5 8 9.5 7.5 11 7.5C12.5 7.5 13.5 8 14 8.5" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
-                  <circle cx="8.5" cy="10" r="1" fill="white"/>
-                  <circle cx="13.5" cy="10" r="1" fill="white"/>
-                </svg>
-              </div>
-              <div>
-                <div><span className="text-xl font-black" style={{color:C.navy}}>LIMPS</span><span className="text-xl font-black" style={{color:C.blue}}>ZONE</span></div>
-                <p className="text-xs leading-none" style={{color:C.muted}}>{T.sub}</p>
-              </div>
+            <div className="flex items-center gap-2">
+              <img src="/logo.png" alt="Limpszone" style={{height:'48px',width:'auto',objectFit:'contain'}}/>
             </div>
           </div>
           <nav className="hidden lg:flex items-center gap-5">
@@ -1382,11 +1370,8 @@ export default function LimpsZoneApp() {
         <div className="container mx-auto px-6" style={{position:'relative',zIndex:1}}>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10 pb-10 border-b" style={{borderColor:'rgba(255,255,255,0.08)'}}>
             <div>
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-8 h-8 rounded-xl flex items-center justify-center shadow" style={{background:`linear-gradient(135deg,${C.blue},${C.sky})`}}>
-                  <Sparkles className="h-4 w-4 text-white"/>
-                </div>
-                <span className="text-lg font-black text-white">LIMPS<span style={{color:'#60a5fa'}}>ZONE</span></span>
+              <div className="mb-4">
+                <img src="/logo.png" alt="Limpszone" style={{height:'52px',width:'auto',objectFit:'contain',filter:'brightness(0) invert(1)',opacity:0.9}}/>
               </div>
               <p className="text-xs leading-relaxed mb-4" style={{color:'#94a3b8'}}>{T.ftDesc}</p>
               <a href="tel:+351934071930" className="text-base font-black block mb-1" style={{color:'#60a5fa'}}>📞 +351 934 071 930</a>

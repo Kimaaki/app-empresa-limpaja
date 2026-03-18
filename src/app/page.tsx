@@ -614,12 +614,20 @@ export default function LimpsZoneApp() {
       <header className="bg-white/90 backdrop-blur-md border-b sticky top-0 z-50" style={{borderColor:C.border}}>
         <div className="container mx-auto px-6 flex items-center justify-between h-16">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl flex items-center justify-center shadow-sm" style={{background:`linear-gradient(135deg,${C.blue},${C.sky})`}}>
-              <Sparkles className="h-5 w-5 text-white"/>
-            </div>
-            <div>
-              <div><span className="text-xl font-black" style={{color:C.navy}}>LIMPS</span><span className="text-xl font-black" style={{color:C.blue}}>ZONE</span></div>
-              <p className="text-xs leading-none" style={{color:C.muted}}>{T.sub}</p>
+            <div className="flex items-center gap-1">
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-sm flex-shrink-0" style={{background:`linear-gradient(135deg,${C.blue},${C.sky})`}}>
+                <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                  <circle cx="11" cy="11" r="9" stroke="white" strokeWidth="1.5"/>
+                  <path d="M7 11.5C7 11.5 8.5 14 11 14C13.5 14 15 11.5 15 11.5" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+                  <path d="M8 8.5C8.5 8 9.5 7.5 11 7.5C12.5 7.5 13.5 8 14 8.5" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+                  <circle cx="8.5" cy="10" r="1" fill="white"/>
+                  <circle cx="13.5" cy="10" r="1" fill="white"/>
+                </svg>
+              </div>
+              <div>
+                <div><span className="text-xl font-black" style={{color:C.navy}}>LIMPS</span><span className="text-xl font-black" style={{color:C.blue}}>ZONE</span></div>
+                <p className="text-xs leading-none" style={{color:C.muted}}>{T.sub}</p>
+              </div>
             </div>
           </div>
           <nav className="hidden lg:flex items-center gap-5">
@@ -948,7 +956,7 @@ export default function LimpsZoneApp() {
                   </div>
                 </div>
                 <p className="text-sm font-black mb-1" style={{color:'#1a0dab'}}>
-                  Limpszone – {es?'Limpieza Profesional Portugal':'Limpeza Profissional Portugal'}
+                  Limpszone – {es?'Limpieza Profesional':'Limpeza Profissional'}
                 </p>
                 <p className="text-xs leading-relaxed mb-3" style={{color:C.muted}}>
                   {es
@@ -1318,8 +1326,60 @@ export default function LimpsZoneApp() {
       </a>
 
       {/* ══ FOOTER ══ */}
-      <footer id="footer" style={{background:`linear-gradient(180deg,${C.navy} 0%,#071322 100%)`}} className="pt-14 pb-6">
-        <div className="container mx-auto px-6">
+      <footer id="footer" className="pt-14 pb-6" style={{background:`linear-gradient(180deg,${C.navy} 0%,#071322 100%)`,position:'relative',overflow:'hidden'}}>
+        {/* Decorative background icons */}
+        <div style={{position:'absolute',inset:0,pointerEvents:'none',overflow:'hidden'}}>
+          {/* Spray bottle */}
+          <svg style={{position:'absolute',top:'8%',left:'3%',opacity:0.04}} width="120" height="120" viewBox="0 0 60 60" fill="none">
+            <path d="M22 10h10v6h-4v34H18V16h-4v-3l8-3zM32 16h8v4h-8zM36 12l4-4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <circle cx="42" cy="10" r="3" stroke="white" strokeWidth="2"/>
+            <path d="M40 20 Q44 22 44 26 Q44 30 40 30" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+          </svg>
+          {/* Bubbles cluster */}
+          <svg style={{position:'absolute',top:'20%',right:'2%',opacity:0.05}} width="160" height="160" viewBox="0 0 80 80" fill="none">
+            <circle cx="20" cy="20" r="12" stroke="white" strokeWidth="1.5"/>
+            <circle cx="50" cy="15" r="8" stroke="white" strokeWidth="1.5"/>
+            <circle cx="60" cy="45" r="14" stroke="white" strokeWidth="1.5"/>
+            <circle cx="25" cy="55" r="10" stroke="white" strokeWidth="1.5"/>
+            <circle cx="45" cy="60" r="6" stroke="white" strokeWidth="1.5"/>
+          </svg>
+          {/* Broom / mop */}
+          <svg style={{position:'absolute',bottom:'15%',left:'8%',opacity:0.04}} width="100" height="100" viewBox="0 0 50 50" fill="none">
+            <path d="M10 5L40 35" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
+            <path d="M32 27L44 42H20L32 27z" stroke="white" strokeWidth="1.5" strokeLinejoin="round"/>
+          </svg>
+          {/* Heart with plus (health) */}
+          <svg style={{position:'absolute',top:'55%',left:'25%',opacity:0.03}} width="110" height="110" viewBox="0 0 55 55" fill="none">
+            <path d="M27.5 46S8 33 8 19a11 11 0 0 1 19.5-7A11 11 0 0 1 47 19C47 33 27.5 46 27.5 46z" stroke="white" strokeWidth="2"/>
+            <path d="M22 27h11M27.5 21.5v11" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+          </svg>
+          {/* Sparkle / shine star */}
+          <svg style={{position:'absolute',top:'10%',left:'45%',opacity:0.04}} width="90" height="90" viewBox="0 0 45 45" fill="none">
+            <path d="M22.5 4V41M4 22.5H41M8 8L37 37M37 8L8 37" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+            <circle cx="22.5" cy="22.5" r="4" stroke="white" strokeWidth="1.5"/>
+          </svg>
+          {/* Droplet */}
+          <svg style={{position:'absolute',bottom:'8%',right:'12%',opacity:0.05}} width="80" height="80" viewBox="0 0 40 40" fill="none">
+            <path d="M20 5C20 5 8 18 8 26a12 12 0 0 0 24 0C32 18 20 5 20 5z" stroke="white" strokeWidth="1.8"/>
+            <path d="M14 27a7 7 0 0 0 5 5" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+          </svg>
+          {/* Leaf (eco/natural) */}
+          <svg style={{position:'absolute',bottom:'30%',right:'28%',opacity:0.04}} width="100" height="100" viewBox="0 0 50 50" fill="none">
+            <path d="M10 40C10 40 12 20 30 15C45 10 44 10 44 10C44 10 42 28 28 35C18 40 10 40 10 40z" stroke="white" strokeWidth="1.8"/>
+            <path d="M10 40C15 32 22 25 35 18" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+          </svg>
+          {/* Checkmark shield */}
+          <svg style={{position:'absolute',top:'35%',right:'18%',opacity:0.04}} width="90" height="90" viewBox="0 0 45 45" fill="none">
+            <path d="M22.5 4L6 11v12c0 10 7.5 18.5 16.5 20C31.5 41.5 39 33 39 23V11L22.5 4z" stroke="white" strokeWidth="1.8"/>
+            <path d="M14 22l6 6 11-11" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          {/* Clock / time */}
+          <svg style={{position:'absolute',top:'65%',left:'60%',opacity:0.03}} width="80" height="80" viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="20" r="15" stroke="white" strokeWidth="1.8"/>
+            <path d="M20 10v10l6 4" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </div>
+        <div className="container mx-auto px-6" style={{position:'relative',zIndex:1}}>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10 pb-10 border-b" style={{borderColor:'rgba(255,255,255,0.08)'}}>
             <div>
               <div className="flex items-center gap-2 mb-3">

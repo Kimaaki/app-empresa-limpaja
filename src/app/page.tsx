@@ -775,8 +775,8 @@ export default function LimpsZoneApp() {
               </div>
             </div>
             <div ref={rWhyR} className="lz-r">
-              <img src="https://images.unsplash.com/photo-1622560480654-d96214fdc887?w=600&h=500&fit=crop&fp-y=0.3"
-                alt="Equipa" className="w-full object-cover rounded-2xl shadow-xl" style={{maxHeight:440}}/>
+              <img src="https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?w=600&h=500&fit=crop&fp-y=0.2"
+                alt="Equipa de limpeza profissional" className="w-full object-cover rounded-2xl shadow-xl" style={{maxHeight:440}}/>
             </div>
           </div>
         </div>

@@ -615,7 +615,7 @@ export default function LimpsZoneApp() {
         <div className="container mx-auto px-6 flex items-center justify-between h-16">
           <div className="flex items-center gap-3">
             <div className="flex items-center">
-              <img src="/logo.png" alt="Limpszone" style={{height:'72px',width:'auto',objectFit:'contain'}}/>
+              <img src="/logo.png" alt="Limpszone" style={{height:'50px',width:'180px',objectFit:'contain',mixBlendMode:'multiply'}}/>
             </div>
           </div>
           <nav className="hidden lg:flex items-center gap-5">

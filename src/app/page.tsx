@@ -1101,7 +1101,7 @@ export default function LimpsZoneApp() {
 
   const [budgetData, setBudgetData] = useState({
     serviceTypes:[] as string[], materialType:'', dirtLevel:'', address:'',
-    neighborhood:'', quantity:1, observations:'', posObraCompartments:1, limpezaGeralQuartos:1
+    neighborhood:'', distance:'local', quantity:1, observations:'', posObraCompartments:1, limpezaGeralQuartos:1
   })
   const [calcP, setCalcP] = useState(0)
   const [disc, setDisc] = useState(0)
@@ -1197,20 +1197,48 @@ export default function LimpsZoneApp() {
   ]
 
   const serviceTypes = [
-    { id:'sofa',name:es?'Limpieza de Sofá':'Limpeza de Sofá',basePrice:45 },
-    { id:'hipermeabilizacao-sofa',name:es?'Hipermeabilización de Sofá':'Hipermeabilização de Sofá',basePrice:160 },
-    { id:'colchao-solteiro',name:es?'Colchón Individual':'Colchão de Solteiro',basePrice:40 },
-    { id:'colchao-casal',name:es?'Colchón de Matrimonio':'Colchão de Casal',basePrice:50 },
-    { id:'tapetes',name:es?'Alfombra':'Tapete',basePrice:10 },
-    { id:'pos-obra',name:es?'Limpieza Post-Obra':'Limpeza Pós-Obras',basePrice:125 },
-    { id:'cadeiras',name:es?'Limpieza de Sillas':'Limpeza de Cadeiras',basePrice:8 },
-    { id:'armarios',name:es?'Limpieza de Armarios':'Limpeza de Armários',basePrice:13 },
-    { id:'cortinas',name:es?'Limpieza de Cortinas':'Limpeza de Cortinas',basePrice:15 },
-    { id:'vidros',name:es?'Limpieza de Cristales':'Limpeza de Vidros',basePrice:12 },
-    { id:'escritorios',name:es?'Higienización de Oficinas/Hoteles':'Higienização de Escritórios/Hotéis',basePrice:30 },
-    { id:'wc-sanitarios',name:es?'Limpieza de Baños':'Limpeza de WC / Sanitários / Lavatórios',basePrice:11 },
-    { id:'fogoes-fornos',name:es?'Limpieza de Cocinas / Hornos':'Limpeza de Fogões / Fornos',basePrice:15 },
-    { id:'limpeza-geral',name:es?'Limpieza General de Casa Amueblada':'Limpeza Geral de Casa Mobilada',basePrice:50 },
+    { id:'sofa',
+      name:es?'Higienización Profunda de Sofás (ácaros, olores y manchas)':'Higienização Profunda de Sofás (ácaros, odores e manchas)',
+      basePrice: lang==='es'?55:45 },
+    { id:'hipermeabilizacao-sofa',
+      name:es?'Impermeabilización Profesional de Sofás':'Hipermeabilização Profissional de Sofás',
+      basePrice: lang==='es'?200:160 },
+    { id:'colchao-solteiro',
+      name:es?'Desinfección de Colchón Individual (anti-ácaros y bacterias)':'Desinfeção de Colchão Solteiro (anti-ácaros e bactérias)',
+      basePrice: lang==='es'?60:40 },
+    { id:'colchao-casal',
+      name:es?'Desinfección de Colchón de Matrimonio (anti-ácaros y bacterias)':'Desinfeção de Colchão de Casal (anti-ácaros e bactérias)',
+      basePrice: lang==='es'?85:50 },
+    { id:'tapetes',
+      name:es?'Limpieza Profunda de Alfombras y Moquetas':'Limpeza Profunda de Tapetes e Carpetes',
+      basePrice: lang==='es'?14:10 },
+    { id:'pos-obra',
+      name:es?'Limpieza Post-Obra (maquinaria industrial)':'Limpeza Pós-Obra (máquinas industriais)',
+      basePrice: lang==='es'?180:125 },
+    { id:'cadeiras',
+      name:es?'Higienización de Sillas y Taburetes':'Higienização de Cadeiras e Bancos',
+      basePrice: lang==='es'?14:8 },
+    { id:'armarios',
+      name:es?'Limpieza Interior de Armarios y Despensas':'Limpeza Interior de Armários e Roupeiros',
+      basePrice: lang==='es'?20:13 },
+    { id:'cortinas',
+      name:es?'Higienización de Cortinas (sin desmontaje)':'Higienização de Cortinas (sem desmontagem)',
+      basePrice: lang==='es'?28:15 },
+    { id:'vidros',
+      name:es?'Limpieza Profesional de Cristales y Fachadas':'Limpeza Profissional de Vidros e Fachadas',
+      basePrice: lang==='es'?18:12 },
+    { id:'escritorios',
+      name:es?'Higienización de Oficinas, Hoteles y Comercios':'Higienização de Escritórios, Hotéis e Comércio',
+      basePrice: lang==='es'?45:30 },
+    { id:'wc-sanitarios',
+      name:es?'Desinfección Total de Baños y Sanitarios':'Desinfeção Total de WC, Sanitários e Lavatórios',
+      basePrice: lang==='es'?18:11 },
+    { id:'fogoes-fornos',
+      name:es?'Limpieza Profunda de Cocinas y Hornos Industriales':'Limpeza Profunda de Fogões e Fornos',
+      basePrice: lang==='es'?25:15 },
+    { id:'limpeza-geral',
+      name:es?'Limpieza General Completa de Vivienda':'Limpeza Geral Completa de Casa Mobilada',
+      basePrice: lang==='es'?80:50 },
   ]
   const materialTypes = [
     { id:'tecido',name:es?'Tela común':'Tecido comum',multiplier:1.0 },
@@ -1230,9 +1258,11 @@ export default function LimpsZoneApp() {
     { id:'manchas',name:es?'Con manchas difíciles':'Com manchas difíceis',multiplier:1.30 },
   ]
   const distanceOptions = [
-    { id:'centro',name:es?'Centro':'Centro',multiplier:1.0 },
-    { id:'fora-centro',name:es?'Fuera del Centro':'Fora do Centro',multiplier:1.10 },
-    { id:'periferia',name:es?'Periferia':'Periferia',multiplier:1.20 },
+    { id:'local',    name:es?'Hasta 10 km — gratis':'Até 10 km — grátis',       flat:0,  multiplier:1.0  },
+    { id:'near',     name:es?'10–20 km — +10€':'10–20 km — +10€',              flat:10, multiplier:1.0  },
+    { id:'mid',      name:es?'20–40 km — +15€':'20–40 km — +15€',              flat:15, multiplier:1.0  },
+    { id:'far',      name:es?'40–70 km — +25€':'40–70 km — +25€',              flat:25, multiplier:1.0  },
+    { id:'vfar',     name:es?'+70 km — +40€':'+70 km — +40€',                  flat:40, multiplier:1.0  },
   ]
   const neighborhoods = lang !== 'pt' ? [
     { id:'centro',    name:'Centro ciudad',  multiplier:1.0  },
@@ -1274,11 +1304,26 @@ export default function LimpsZoneApp() {
   }
   const runBudgetCalc=()=>{
     if(!budgetData.serviceTypes.length||!budgetData.materialType||!budgetData.dirtLevel){setCalcP(0);setDisc(0);setDiscAmt(0);return}
-    const mat=materialTypes.find(m=>m.id===budgetData.materialType),dirt=dirtLevels.find(d=>d.id===budgetData.dirtLevel),nb=neighborhoods.find(n=>n.id===budgetData.neighborhood)||{multiplier:1.0}
+    const mat=materialTypes.find(m=>m.id===budgetData.materialType)
+    const dirt=dirtLevels.find(d=>d.id===budgetData.dirtLevel)
+    const nb=neighborhoods.find(n=>n.id===budgetData.neighborhood)||{multiplier:1.0}
+    const dist=distanceOptions.find(d=>d.id===budgetData.distance)||{flat:0,multiplier:1.0}
     if(mat&&dirt){
-      let t=0;budgetData.serviceTypes.forEach(sid=>{const s=serviceTypes.find(st=>st.id===sid);if(s){let p=s.id==='pos-obra'?posP(s.basePrice,budgetData.posObraCompartments):s.id==='limpeza-geral'?lgP(s.basePrice,budgetData.limpezaGeralQuartos):s.basePrice*budgetData.quantity;t+=p*mat.multiplier*dirt.multiplier*nb.multiplier}})
-      const dp=calcDisc(budgetData.serviceTypes.length),dv=t*dp/100
-      setCalcP(Math.round((t-dv)*100)/100);setDisc(dp);setDiscAmt(Math.round(dv*100)/100)
+      let t=0
+      budgetData.serviceTypes.forEach(sid=>{
+        const s=serviceTypes.find(st=>st.id===sid)
+        if(s){
+          let p=s.id==='pos-obra'?posP(s.basePrice,budgetData.posObraCompartments):s.id==='limpeza-geral'?lgP(s.basePrice,budgetData.limpezaGeralQuartos):s.basePrice*budgetData.quantity
+          t+=p*mat.multiplier*dirt.multiplier*nb.multiplier
+        }
+      })
+      const dp=calcDisc(budgetData.serviceTypes.length)
+      const dv=t*dp/100
+      const tAfterDisc=Math.round((t-dv)*100)/100
+      const distFlat=(dist as any).flat||0
+      setCalcP(Math.round((tAfterDisc+distFlat)*100)/100)
+      setDisc(dp)
+      setDiscAmt(Math.round(dv*100)/100)
     }
   }
 
@@ -1312,7 +1357,7 @@ export default function LimpsZoneApp() {
       await sendServiceRequest(emailData)
       toast.success(T.ok)
       setShowOk(true)
-      setBudgetData({serviceTypes:[],materialType:'',dirtLevel:'',address:'',neighborhood:'',quantity:1,observations:'',posObraCompartments:1,limpezaGeralQuartos:1})
+      setBudgetData({serviceTypes:[],materialType:'',dirtLevel:'',address:'',neighborhood:'',distance:'local',quantity:1,observations:'',posObraCompartments:1,limpezaGeralQuartos:1})
       setCalcP(0);setDisc(0);setDiscAmt(0)
       setTimeout(()=>setShowOk(false),5000)
     }catch(e){console.error(e);toast.error(T.err)}
@@ -1811,8 +1856,19 @@ export default function LimpsZoneApp() {
           <div ref={rCalcC} className="lz-r max-w-4xl mx-auto">
             <div className="rounded-2xl overflow-hidden shadow-2xl border" style={{borderColor:C.border}}>
               <div className="p-6 text-white" style={{background:`linear-gradient(135deg,${C.navy},${C.blue})`}}>
-                <h3 className="text-xl font-black flex items-center gap-2"><DollarSign className="h-5 w-5"/>{T.cCardT}</h3>
+                <div className="flex items-center justify-between mb-1">
+                  <h3 className="text-xl font-black flex items-center gap-2"><DollarSign className="h-5 w-5"/>{T.cCardT}</h3>
+                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold" style={{background:'rgba(255,255,255,0.15)'}}>
+                    <span style={{fontSize:'16px'}}>{lang==='es'?'🇪🇸':'🇵🇹'}</span>
+                    <span>{lang==='es'?'Precios España':'Preços Portugal'}</span>
+                  </div>
+                </div>
                 <p className="text-sm mt-1" style={{color:'#93c5fd'}}>{T.cCardS}</p>
+                {lang==='es'&&(
+                  <p className="text-xs mt-1" style={{color:'#bfdbfe'}}>
+                    ✦ {es?'Tarifas premium para España':'Tarifas premium para Espanha'}
+                  </p>
+                )}
               </div>
               <div className="p-8 bg-white">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -1826,6 +1882,14 @@ export default function LimpsZoneApp() {
                         </div>
                       ))}
                     </div>
+                    {budgetData.serviceTypes.length===1&&(
+                      <div className="mt-3 p-3 rounded-xl border flex items-center gap-2" style={{background:'#fffbeb',borderColor:'#fde68a'}}>
+                        <Zap className="h-4 w-4 text-amber-500"/>
+                        <span className="text-amber-700 font-semibold text-sm">
+                          {es?'💡 Añade 1 servicio más y obtén un 10% de descuento automático!':'💡 Adiciona mais 1 serviço e obtém 10% de desconto automático!'}
+                        </span>
+                      </div>
+                    )}
                     {budgetData.serviceTypes.length>=2&&(
                       <div className="mt-3 p-3 rounded-xl border flex items-center gap-2" style={{background:'#f0fdf4',borderColor:'#bbf7d0'}}>
                         <Zap className="h-4 w-4 text-green-600"/>
@@ -1886,9 +1950,27 @@ export default function LimpsZoneApp() {
                       <SelectContent>{neighborhoods.map(n=><SelectItem key={n.id} value={n.id}>{n.name}</SelectItem>)}</SelectContent>
                     </Select>
                   </div>
+                  <div>
+                    <Label className="text-sm font-black text-gray-700 mb-3 block">
+                      {es?'🚗 Distancia':'🚗 Distância'} *
+                    </Label>
+                    <Select value={budgetData.distance||'local'} onValueChange={v=>updB('distance',v)}>
+                      <SelectTrigger className="h-10"><SelectValue/></SelectTrigger>
+                      <SelectContent>{distanceOptions.map(d=><SelectItem key={d.id} value={d.id}>{d.name}</SelectItem>)}</SelectContent>
+                    </Select>
+                  </div>
                   <div className="md:col-span-2">
                     <Label className="text-sm font-black text-gray-700 mb-3 block">{T.stA}</Label>
-                    <Input value={budgetData.address} onChange={e=>updB('address',e.target.value)} placeholder={T.selAddr} className="h-10"/>
+                    <Input value={budgetData.address} onChange={e=>{
+                    const v=e.target.value
+                    updB('address',v)
+                    // Auto-detect Spain from address keywords
+                    const esKeywords=['españa','espanha','spain','madrid','barcelona','valencia','sevilla','bilbao','málaga','malaga','zaragoza','alicante','murcia','granada','córdoba','cordoba','valladolid','vigo','gijón','gijon','hospitalet','vitoria','coruña','coruna']
+                    const lv=v.toLowerCase()
+                    if(esKeywords.some(k=>lv.includes(k))) {
+                      if(lang==='pt') setLang('es')
+                    }
+                  }} placeholder={T.selAddr} className="h-10"/>
                   </div>
                   <div className="md:col-span-2">
                     <Label className="text-sm font-black text-gray-700 mb-3 block">{T.stO}</Label>
@@ -1906,6 +1988,33 @@ export default function LimpsZoneApp() {
                   <div className="text-5xl font-black text-green-600 mb-1">{calcP>0?`${calcP.toFixed(2)} €`:'0,00 €'}</div>
                   <p className="text-sm text-gray-400">{calcP>0?T.finalP:T.selOpt}</p>
                   {calcP>0&&<p className="text-xs text-gray-400 mt-2">{T.discTip}</p>}
+                  {calcP>0&&budgetData.serviceTypes.length<4&&(
+                    <div className="mt-4 p-4 rounded-xl border" style={{background:'#f0f7ff',borderColor:'#c7deff'}}>
+                      <p className="text-xs font-bold mb-2" style={{color:'#0f2a5e'}}>
+                        {es?'🎯 Clientes que añaden estos servicios ahorran más:':'🎯 Clientes que adicionam estes serviços poupam mais:'}
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {[
+                          {id:'colchao-casal',pt:'+ Colchão de Casal',es:'+ Colchón de Matrimonio'},
+                          {id:'cortinas',pt:'+ Higienização de Cortinas',es:'+ Higienización de Cortinas'},
+                          {id:'wc-sanitarios',pt:'+ Desinfeção de WC',es:'+ Desinfección de Baños'},
+                          {id:'tapetes',pt:'+ Tapetes e Carpetes',es:'+ Alfombras'},
+                        ].filter(s=>!budgetData.serviceTypes.includes(s.id)).slice(0,3).map(s=>(
+                          <button key={s.id}
+                            onClick={()=>togSvc(s.id)}
+                            className="text-xs px-3 py-1.5 rounded-full font-semibold transition-colors hover:opacity-80"
+                            style={{background:'#1d4ed8',color:'#fff'}}>
+                            {es?s.es:s.pt}
+                          </button>
+                        ))}
+                      </div>
+                      <p className="text-xs mt-2" style={{color:'#5a7fa8'}}>
+                        {es
+                          ?`Añade ${4-budgetData.serviceTypes.length} servicio${4-budgetData.serviceTypes.length>1?'s':''} más para llegar al 20% de descuento máximo`
+                          :`Adiciona mais ${4-budgetData.serviceTypes.length} serviço${4-budgetData.serviceTypes.length>1?'s':''} para atingir 20% de desconto máximo`}
+                      </p>
+                    </div>
+                  )}
                 </div>
                 <div className="mt-6 text-center">
                   <button onClick={handleBudgetSubmit} disabled={!budgetData.serviceTypes.length||!budgetData.materialType||!budgetData.dirtLevel||!budgetData.address}
@@ -2229,4 +2338,6 @@ export default function LimpsZoneApp() {
         </div>
       </footer>
 
-    </div
+    </div>
+  )
+}

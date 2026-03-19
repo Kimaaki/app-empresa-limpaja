@@ -1083,6 +1083,7 @@ const TR: Record<Lang, Record<string, string>> = {
 
 export default function LimpsZoneApp() {
   const [isFormOpen, setIsFormOpen] = useState(false)
+  const [showLangMenu, setShowLangMenu] = useState(false)
   const [showOk, setShowOk] = useState(false)
   const [openFaq, setOpenFaq] = useState<number | null>(null)
   const [rvIdx, setRvIdx] = useState(0)
@@ -1107,7 +1108,7 @@ export default function LimpsZoneApp() {
   const [discAmt, setDiscAmt] = useState(0)
 
   useEffect(() => {
-    if (typeof navigator !== 'undefined')
+    if (typeof navigator !== 'undefined') {
       const nl = navigator.language?.toLowerCase() || 'pt'
       if (nl.startsWith('es')) setLang('es')
       else if (nl.startsWith('en')) setLang('en')
@@ -1119,6 +1120,7 @@ export default function LimpsZoneApp() {
       else if (nl.startsWith('zh')) setLang('zh')
       else if (nl.startsWith('ro')) setLang('ro')
       else setLang('pt')
+    }
   }, [])
 
   // Close lang menu on outside click
@@ -1148,7 +1150,6 @@ export default function LimpsZoneApp() {
     ar:'AR', ru:'RU', it:'IT', zh:'ZH', ro:'RO'
   }
   const ALL_LANGS: Lang[] = ['pt','es','en','de','fr','ar','ru','it','zh','ro']
-  const [showLangMenu, setShowLangMenu] = useState(false)
 
   // Reviews
   const reviews = [1,2,3,4,5,6,7,8].map(i => ({
@@ -2228,6 +2229,4 @@ export default function LimpsZoneApp() {
         </div>
       </footer>
 
-    </div>
-  )
-}
+    </div

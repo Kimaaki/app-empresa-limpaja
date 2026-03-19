@@ -366,9 +366,7 @@ const TR: Record<Lang, Record<string, string>> = {
     r6i:'PN', r6n:'Pedro Nunes',    r6r:'Administrador de Finca',     r6t:'Mantenimiento del edificio impecable. Áreas comunes siempre limpias. Residentes muy satisfechos.',    r6p:'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&fp-y=0.2',
     r7i:'LG', r7n:'Lena Garcia',    r7r:'Directora de Hotel',         r7t:'Calidad excepcional en la limpieza de nuestras instalaciones. Socio de total confianza.',              r7p:'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=80&h=80&fit=crop&fp-y=0.2',
     r8i:'TR', r8n:'Tiago Rocha',    r8r:'Propietario de Café',        r8t:'Siempre impecable y puntual. Los clientes adoran la limpieza del local. Totalmente recomendado.',      r8p:'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=80&h=80&fit=crop&fp-y=0.2',
-  }
-}
-,
+  },
   en: {
     sub:'Professional Cleaning',
     n1:'Services', n2:'Why Us', n3:'Testimonials', n4:'Calculator', n5:'Contact', nCta:'Free Quote',
@@ -1081,6 +1079,7 @@ const TR: Record<Lang, Record<string, string>> = {
     r7i:'LG', r7n:'Lena Garcia', r7r:'Director de Hotel', r7t:'Calitate excepțională în curățenia instalațiilor noastre. Un parteneriat de totală încredere.', r7p:'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=80&h=80&fit=crop&fp-y=0.2',
     r8i:'TR', r8n:'Tiago Rocha', r8r:'Proprietar de Cafenea', r8t:'Mereu impecabil și punctual. Clienții adoră curățenia spațiului. Complet recomandat.', r8p:'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=80&h=80&fit=crop&fp-y=0.2',
   }
+}
 
 export default function LimpsZoneApp() {
   const [isFormOpen, setIsFormOpen] = useState(false)

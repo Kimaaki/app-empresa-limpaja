@@ -98,6 +98,10 @@ const GLOBAL_CSS = `
   opacity: 1;
   animation: lzFloat3 5.5s ease-in-out infinite !important;
 }
+.group:hover .group-hover\:opacity-100 { opacity: 1 !important; }
+.group:hover .group-hover\:visible { visibility: visible !important; }
+.opacity-0 { opacity: 0; }
+.invisible { visibility: hidden; }
 
 /* Title styles — big, black, impactful */
 .lz-h1 {
@@ -198,6 +202,7 @@ const TR: Record<Lang, Record<string, string>> = {
     s4t:'Limpeza de Vidros', s4d:'Limpeza profissional de vidros e fachadas',
     s5t:'Pós-Obra', s5d:'Limpeza pesada após construções e remodelações',
     s6t:'Manutenção Predial', s6d:'Limpeza contínua de condomínios e edifícios',
+    s7t:'Detailing Interior de Automóvel', s7d:'Higienização e desinfeção profunda de bancos, tapetes e interior',
     whyBadge:'Por que Nós',
     whyT1:'A Escolha de', whyT2:'Quem Exige Qualidade',
     w1t:'Garantia de Satisfação Total', w1d:'Se o serviço não estiver ao seu gosto, voltamos sem custo adicional.',
@@ -295,6 +300,7 @@ const TR: Record<Lang, Record<string, string>> = {
     s4t:'Limpieza de Cristales', s4d:'Limpieza profesional de cristales y fachadas',
     s5t:'Post-Obra', s5d:'Limpieza pesada después de construcciones y reformas',
     s6t:'Mantenimiento de Edificios', s6d:'Limpieza continua de condominios y edificios',
+    s7t:'Detailing Interior de Vehículo', s7d:'Higienización y desinfección profunda de asientos, alfombrillas e interior',
     whyBadge:'Por qué Nosotros',
     whyT1:'La Elección de', whyT2:'Quien Exige Calidad',
     w1t:'Garantía de Satisfacción Total', w1d:'Si el servicio no es de su agrado, volvemos sin coste adicional.',
@@ -390,6 +396,7 @@ const TR: Record<Lang, Record<string, string>> = {
     s4t:'Window Cleaning', s4d:'Professional cleaning of windows and facades',
     s5t:'Post-Construction', s5d:'Heavy cleaning after construction and renovations',
     s6t:'Building Maintenance', s6d:'Continuous cleaning of condominiums and buildings',
+    s7t:'Car Interior Detailing', s7d:'Deep cleaning and disinfection of seats, carpets and full interior',
     whyBadge:'Why Us', whyT1:'The Choice of', whyT2:'Those Who Demand Quality',
     w1t:'Total Satisfaction Guarantee', w1d:'If the service is not to your liking, we return at no extra cost.',
     w2t:'Verified & Trained Team', w2d:'All staff undergo background checks and specialist training.',
@@ -479,6 +486,7 @@ const TR: Record<Lang, Record<string, string>> = {
     s4t:'Fensterreinigung', s4d:'Professionelle Reinigung von Fenstern und Fassaden',
     s5t:'Baureinigung', s5d:'Schwere Reinigung nach Bau und Renovierungen',
     s6t:'Gebäudepflege', s6d:'Kontinuierliche Reinigung von Wohnanlagen und Gebäuden',
+    s7t:'Auto-Innenreinigung Premium', s7d:'Tiefenreinigung und Desinfektion von Sitzen, Matten und Innenraum',
     whyBadge:'Warum Wir', whyT1:'Die Wahl von', whyT2:'Anspruchsvollen Kunden',
     w1t:'Vollständige Zufriedenheitsgarantie', w1d:'Wenn der Service nicht Ihren Vorstellungen entspricht, kommen wir kostenlos zurück.',
     w2t:'Geprüftes & geschultes Team', w2d:'Alle Mitarbeiter werden überprüft und speziell geschult.',
@@ -568,6 +576,7 @@ const TR: Record<Lang, Record<string, string>> = {
     s4t:"Nettoyage de Vitres", s4d:"Nettoyage professionnel de vitres et façades",
     s5t:"Après Travaux", s5d:"Nettoyage lourd après constructions et rénovations",
     s6t:"Entretien d'Immeubles", s6d:"Nettoyage continu de copropriétés et immeubles",
+    s7t:"Detailing Intérieur de Véhicule", s7d:"Nettoyage profond et désinfection des sièges, tapis et habitacle",
     whyBadge:"Pourquoi Nous", whyT1:"Le Choix de", whyT2:"Ceux Qui Exigent la Qualité",
     w1t:"Garantie de Satisfaction Totale", w1d:"Si le service ne vous convient pas, nous revenons sans frais supplémentaires.",
     w2t:"Équipe Vérifiée et Formée", w2d:"Tout le personnel passe des vérifications et une formation spécialisée.",
@@ -657,6 +666,7 @@ const TR: Record<Lang, Record<string, string>> = {
     s4t:'تنظيف الزجاج', s4d:'تنظيف احترافي للنوافذ والواجهات',
     s5t:'تنظيف ما بعد البناء', s5d:'تنظيف مكثف بعد البناء والتجديد',
     s6t:'صيانة المباني', s6d:'تنظيف مستمر للمجمعات السكنية والمباني',
+    s7t:'تنظيف داخلي احترافي للسيارة', s7d:'تنظيف عميق وتعقيم المقاعد والسجاد وكامل المقصورة',
     whyBadge:'لماذا نحن', whyT1:'خيار من', whyT2:'يطلب الجودة',
     w1t:'ضمان الرضا الكامل', w1d:'إذا لم تكن راضياً عن الخدمة، نعود بدون تكلفة إضافية.',
     w2t:'فريق موثق ومدرب', w2d:'جميع الموظفين يخضعون لفحص الخلفيات والتدريب المتخصص.',
@@ -746,6 +756,7 @@ const TR: Record<Lang, Record<string, string>> = {
     s4t:'Мойка окон', s4d:'Профессиональная мойка окон и фасадов',
     s5t:'Уборка после строительства', s5d:'Тяжёлая уборка после строительных и ремонтных работ',
     s6t:'Обслуживание зданий', s6d:'Постоянная уборка жилых комплексов и зданий',
+    s7t:'Детейлинг салона автомобиля', s7d:'Глубокая чистка и дезинфекция сидений, ковриков и всего салона',
     whyBadge:'Почему мы', whyT1:'Выбор тех,', whyT2:'Кто ценит качество',
     w1t:'Полная гарантия удовлетворённости', w1d:'Если услуга вас не устроила, мы вернёмся без дополнительной оплаты.',
     w2t:'Проверенная и обученная команда', w2d:'Все сотрудники проходят проверку биографических данных и специальную подготовку.',
@@ -835,6 +846,7 @@ const TR: Record<Lang, Record<string, string>> = {
     s4t:"Pulizia Vetri", s4d:"Pulizia professionale di vetri e facciate",
     s5t:"Post-Costruzione", s5d:"Pulizia pesante dopo costruzioni e ristrutturazioni",
     s6t:"Manutenzione Edifici", s6d:"Pulizia continua di condomini ed edifici",
+    s7t:"Detailing Interno Veicolo", s7d:"Pulizia profonda e disinfezione di sedili, tappetini e abitacolo",
     whyBadge:"Perché Noi", whyT1:"La Scelta di Chi", whyT2:"Esige Qualità",
     w1t:"Garanzia di Soddisfazione Totale", w1d:"Se il servizio non è di suo gradimento, torniamo senza costi aggiuntivi.",
     w2t:"Team Verificato e Formato", w2d:"Tutto il personale viene verificato e riceve formazione specializzata.",
@@ -924,6 +936,7 @@ const TR: Record<Lang, Record<string, string>> = {
     s4t:'玻璃清洁', s4d:'专业清洁窗户和外立面',
     s5t:'施工后清洁', s5d:'建筑和装修后的深度清洁',
     s6t:'楼宇维护', s6d:'公寓楼和建筑物的持续清洁',
+    s7t:'汽车内饰深度清洁', s7d:'座椅、地毯及全车内饰的深度清洁与消毒',
     whyBadge:'为何选择我们', whyT1:'追求品质者', whyT2:'的首选',
     w1t:'完全满意保证', w1d:'如果服务不符合您的期望，我们将免费返工。',
     w2t:'经过验证的专业团队', w2d:'所有员工均经过背景调查和专业培训。',
@@ -1013,6 +1026,7 @@ const TR: Record<Lang, Record<string, string>> = {
     s4t:'Curățenie Geamuri', s4d:'Curățenie profesională a geamurilor și fațadelor',
     s5t:'Post-Construcție', s5d:'Curățenie grea după construcții și renovări',
     s6t:'Întreținere Clădiri', s6d:'Curățenie continuă a condominiilor și clădirilor',
+    s7t:'Detailing Interior Auto', s7d:'Curățenie profundă și dezinfecție a scaunelor, covorașelor și habitaclului',
     whyBadge:'De ce Noi', whyT1:'Alegerea Celor', whyT2:'Care Cer Calitate',
     w1t:'Garanție Totală de Satisfacție', w1d:'Dacă serviciul nu este pe placul tău, revenim fără costuri suplimentare.',
     w2t:'Echipă Verificată și Instruită', w2d:'Toți angajații trec prin verificări de antecedente și formare specializată.',
@@ -1101,7 +1115,7 @@ export default function LimpsZoneApp() {
 
   const [budgetData, setBudgetData] = useState({
     serviceTypes:[] as string[], materialType:'', dirtLevel:'', address:'',
-    neighborhood:'', distance:'local', quantity:1, observations:'', posObraCompartments:1, limpezaGeralQuartos:1
+    neighborhood:'', distance:'local', quantity:1, observations:'', posObraCompartments:1, limpezaGeralQuartos:1, sofaPlaces:1
   })
   const [calcP, setCalcP] = useState(0)
   const [disc, setDisc] = useState(0)
@@ -1194,6 +1208,9 @@ export default function LimpsZoneApp() {
     { id:'manutencao',  t:T.s6t, d:T.s6d, icon:Award,         img:'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&h=260&fit=crop',
       mats:es?['Máquinas industriales','Productos profesionales','Equipos de seguridad','Herramientas especializadas']:['Máquinas industriais','Produtos profissionais','Equipamentos de segurança','Ferramentas especializadas'],
       areas:es?['Áreas comunes','Garajes','Ascensores','Escaleras','Fachadas']:['Áreas comuns','Garagens','Elevadores','Escadas','Fachadas'] },
+    { id:'auto-detailing', t:T.s7t, d:T.s7d, icon:Sparkles, img:'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?w=400&h=260&fit=crop',
+      mats:es?['Aspirador industrial','Ozono y aromas premium','Desinfectantes certificados','Microfibras especiales']:['Aspirador industrial','Ozono e aromas premium','Desinfetantes certificados','Microfibras especiais'],
+      areas:es?['Asientos y tapicería','Alfombrillas y suelo','Techo y laterales','Maletero completo','Volante y salpicadero']:['Bancos e estofos','Tapetes e chão','Teto e laterais','Mala completa','Volante e tablier'] },
   ]
 
   const serviceTypes = [
@@ -1239,6 +1256,12 @@ export default function LimpsZoneApp() {
     { id:'limpeza-geral',
       name:es?'Limpieza General Completa de Vivienda':'Limpeza Geral Completa de Casa Mobilada',
       basePrice: lang==='es'?80:50 },
+    { id:'auto-interior',
+      name:es?'Detailing Interior de Vehículo (bancos, tapetes, desinfección)':'Detailing Interior Automóvel (bancos, tapetes, desinfeção)',
+      basePrice: lang==='es'?120:80 },
+    { id:'auto-completo',
+      name:es?'Detailing Completo Premium (interior + aromas + ozono)':'Detailing Completo Premium (interior + aromas + ozono)',
+      basePrice: lang==='es'?180:130 },
   ]
   const materialTypes = [
     { id:'tecido',name:es?'Tela común':'Tecido comum',multiplier:1.0 },
@@ -1313,7 +1336,9 @@ export default function LimpsZoneApp() {
       budgetData.serviceTypes.forEach(sid=>{
         const s=serviceTypes.find(st=>st.id===sid)
         if(s){
+          const sofaMult=s.id==='sofa'?[1,1.4,1.8,2.2,2.6][Math.min(budgetData.sofaPlaces-1,4)]:1
           let p=s.id==='pos-obra'?posP(s.basePrice,budgetData.posObraCompartments):s.id==='limpeza-geral'?lgP(s.basePrice,budgetData.limpezaGeralQuartos):s.basePrice*budgetData.quantity
+          p=p*sofaMult
           t+=p*mat.multiplier*dirt.multiplier*nb.multiplier
         }
       })
@@ -1357,7 +1382,7 @@ export default function LimpsZoneApp() {
       await sendServiceRequest(emailData)
       toast.success(T.ok)
       setShowOk(true)
-      setBudgetData({serviceTypes:[],materialType:'',dirtLevel:'',address:'',neighborhood:'',distance:'local',quantity:1,observations:'',posObraCompartments:1,limpezaGeralQuartos:1})
+      setBudgetData({serviceTypes:[],materialType:'',dirtLevel:'',address:'',neighborhood:'',distance:'local',quantity:1,observations:'',posObraCompartments:1,limpezaGeralQuartos:1,sofaPlaces:1})
       setCalcP(0);setDisc(0);setDiscAmt(0)
       setTimeout(()=>setShowOk(false),5000)
     }catch(e){console.error(e);toast.error(T.err)}
@@ -1400,12 +1425,54 @@ export default function LimpsZoneApp() {
       <header className="bg-white/90 backdrop-blur-md border-b sticky top-0 z-50" style={{borderColor:C.border}}>
         <div className="container mx-auto px-6 flex items-center justify-between h-16">
           <div className="flex items-center gap-3">
-            <div className="flex items-center">
-              <img src="/logo.png" alt="Limpszone" style={{height:'50px',width:'180px',objectFit:'contain',mixBlendMode:'multiply'}}/>
+            <div className="flex items-center gap-2">
+              <img src="/logo.png" alt="Limpszone" style={{height:'46px',width:'auto',objectFit:'contain',mixBlendMode:'multiply'}}/>
+              <div className="hidden sm:block">
+                <span className="text-xl font-black" style={{color:C.navy}}>LIMPS</span><span className="text-xl font-black" style={{color:C.blue}}>ZONE</span>
+                <p className="text-xs leading-none mt-0.5" style={{color:C.muted}}>{T.sub}</p>
+              </div>
             </div>
           </div>
           <nav className="hidden lg:flex items-center gap-5">
-            {[[T.n1,'services'],[T.n2,'why-us'],[T.n3,'reviews'],[T.n4,'budget-calculator'],[T.n5,'footer']].map(([label,id])=>(
+            {/* Services with dropdown */}
+            <div className="relative group">
+              <a href="#services" onClick={e=>{e.preventDefault();go('services')}}
+                className="text-sm font-semibold transition-colors hover:text-blue-600 cursor-pointer flex items-center gap-1" style={{color:C.text}}>
+                {T.n1}
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M2 4l4 4 4-4" stroke={C.text} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </a>
+              {/* Dropdown */}
+              <div className="absolute top-full left-0 mt-2 rounded-xl shadow-xl border overflow-hidden z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150"
+                style={{background:'#fff',borderColor:C.border,minWidth:'280px'}}>
+                {[
+                  {id:'residencial', label:es?'Limpieza Residencial':'Limpeza Residencial', icon:'🏠'},
+                  {id:'comercial',   label:es?'Limpieza Comercial':'Limpeza Comercial',     icon:'🏢'},
+                  {id:'restaurantes',label:es?'Restaurantes & Hoteles':'Restaurantes & Hotéis',icon:'🍽️'},
+                  {id:'vidros',      label:es?'Limpieza de Cristales':'Limpeza de Vidros',  icon:'✨'},
+                  {id:'pos-obra',    label:es?'Post-Obra':'Pós-Obra',                       icon:'🏗️'},
+                  {id:'manutencao',  label:es?'Mantenimiento de Edificios':'Manutenção Predial',icon:'🏛️'},
+                  {id:'auto-detailing',label:es?'Detailing Interior de Vehículo':'Detailing Interior Automóvel',icon:'🚗'},
+                ].map(svc=>(
+                  <a key={svc.id} href="#services" onClick={e=>{e.preventDefault();go('services')}}
+                    className="flex items-center gap-3 px-4 py-3 text-sm hover:bg-blue-50 transition-colors cursor-pointer border-b last:border-b-0"
+                    style={{color:C.navy,borderColor:C.border}}>
+                    <span style={{fontSize:'16px'}}>{svc.icon}</span>
+                    <span className="font-semibold">{svc.label}</span>
+                  </a>
+                ))}
+                <div className="px-4 py-3" style={{background:C.iceMid}}>
+                  <button onClick={()=>go('budget-calculator')}
+                    className="w-full text-xs font-bold py-2 rounded-lg text-white text-center"
+                    style={{background:C.blue}}>
+                    {es?'Ver precios y calcular →':'Ver preços e calcular →'}
+                  </button>
+                </div>
+              </div>
+            </div>
+            {/* Other nav links */}
+            {[[T.n2,'why-us'],[T.n3,'reviews'],[T.n4,'budget-calculator'],[T.n5,'footer']].map(([label,id])=>(
               <a key={id} href={`#${id}`} onClick={e=>{e.preventDefault();go(id)}}
                 className="text-sm font-semibold transition-colors hover:text-blue-600 cursor-pointer" style={{color:C.text}}>{label}</a>
             ))}
@@ -1414,7 +1481,16 @@ export default function LimpsZoneApp() {
             <button onClick={()=>go('budget-calculator')} className="hidden md:flex items-center gap-2 text-sm font-bold px-5 py-2.5 rounded-xl shadow-sm" style={btnN}>
               <Calculator className="h-4 w-4"/>{T.nCta}
             </button>
-            <a href="tel:+351934071930" className="text-base font-black hidden md:block" style={{color:C.blue}}>+351 934 071 930</a>
+            {/* WhatsApp button instead of phone number */}
+            <a href={WA_URL} target="_blank" rel="noopener noreferrer"
+              className="hidden md:flex items-center gap-2 font-bold px-4 py-2 rounded-xl text-white text-sm"
+              style={{background:'#25d366'}}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.524 5.843L.057 23.571a.5.5 0 0 0 .614.614l5.728-1.467A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.929 0-3.73-.518-5.276-1.422l-.378-.223-3.927 1.006 1.006-3.927-.223-.378A9.953 9.953 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+              </svg>
+              WhatsApp
+            </a>
             {/* Language Selector */}
             <div className="relative">
               <button onClick={()=>setShowLangMenu(!showLangMenu)}
@@ -1906,6 +1982,33 @@ export default function LimpsZoneApp() {
                         <Button type="button" variant="outline" size="sm" onClick={()=>updB('posObraCompartments',budgetData.posObraCompartments+1)} className="h-10 w-10"><Plus className="h-4 w-4"/></Button>
                       </div>
                       <p className="text-xs text-gray-400 mt-1">{T.posN}</p>
+                    </div>
+                  )}
+                  {budgetData.serviceTypes.includes('sofa')&&(
+                    <div className="md:col-span-2">
+                      <Label className="text-sm font-black text-gray-700 mb-3 block">
+                        🛋️ {es?'Número de Plazas del Sofá *':'Número de Lugares do Sofá *'}
+                      </Label>
+                      <div className="flex items-center gap-3 flex-wrap">
+                        {[1,2,3,4,5].map(n=>(
+                          <button key={n} type="button"
+                            onClick={()=>updB('sofaPlaces',n)}
+                            className="flex flex-col items-center justify-center w-16 h-16 rounded-xl border-2 font-bold text-sm transition-all"
+                            style={{
+                              borderColor: budgetData.sofaPlaces===n ? '#1d4ed8' : '#c7deff',
+                              background: budgetData.sofaPlaces===n ? '#e3f0ff' : '#fff',
+                              color: budgetData.sofaPlaces===n ? '#0f2a5e' : '#5a7fa8'
+                            }}>
+                            <span style={{fontSize:'20px'}}>{'🛋️'.repeat(Math.min(n,3))}</span>
+                            <span>{n} {n===1?(es?'plaza':'lugar'):(es?'plazas':'lugares')}</span>
+                          </button>
+                        ))}
+                      </div>
+                      <p className="text-xs text-gray-400 mt-2">
+                        {es
+                          ?'El precio se ajusta automáticamente según el número de plazas'
+                          :'O preço ajusta-se automaticamente conforme o número de lugares'}
+                      </p>
                     </div>
                   )}
                   {budgetData.serviceTypes.includes('limpeza-geral')&&(

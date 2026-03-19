@@ -202,7 +202,7 @@ const TR: Record<Lang, Record<string, string>> = {
     s4t:'Limpeza de Vidros', s4d:'Limpeza profissional de vidros e fachadas',
     s5t:'Pós-Obra', s5d:'Limpeza pesada após construções e remodelações',
     s6t:'Manutenção Predial', s6d:'Limpeza contínua de condomínios e edifícios',
-    s7t:'Detailing Interior de Automóvel', s7d:'Higienização e desinfeção profunda de bancos, tapetes e interior',
+    s7t:'Limpeza Profissional de Interior de Carro', s7d:'Higienização e desinfeção profunda de bancos, tapetes e interior do veículo',
     whyBadge:'Por que Nós',
     whyT1:'A Escolha de', whyT2:'Quem Exige Qualidade',
     w1t:'Garantia de Satisfação Total', w1d:'Se o serviço não estiver ao seu gosto, voltamos sem custo adicional.',
@@ -300,7 +300,7 @@ const TR: Record<Lang, Record<string, string>> = {
     s4t:'Limpieza de Cristales', s4d:'Limpieza profesional de cristales y fachadas',
     s5t:'Post-Obra', s5d:'Limpieza pesada después de construcciones y reformas',
     s6t:'Mantenimiento de Edificios', s6d:'Limpieza continua de condominios y edificios',
-    s7t:'Detailing Interior de Vehículo', s7d:'Higienización y desinfección profunda de asientos, alfombrillas e interior',
+    s7t:'Limpieza Profesional de Interior de Coche', s7d:'Higienización y desinfección profunda de asientos, alfombrillas e interior del vehículo',
     whyBadge:'Por qué Nosotros',
     whyT1:'La Elección de', whyT2:'Quien Exige Calidad',
     w1t:'Garantía de Satisfacción Total', w1d:'Si el servicio no es de su agrado, volvemos sin coste adicional.',
@@ -396,7 +396,7 @@ const TR: Record<Lang, Record<string, string>> = {
     s4t:'Window Cleaning', s4d:'Professional cleaning of windows and facades',
     s5t:'Post-Construction', s5d:'Heavy cleaning after construction and renovations',
     s6t:'Building Maintenance', s6d:'Continuous cleaning of condominiums and buildings',
-    s7t:'Car Interior Detailing', s7d:'Deep cleaning and disinfection of seats, carpets and full interior',
+    s7t:'Professional Car Interior Cleaning', s7d:'Deep cleaning and disinfection of seats, carpets and full car interior',
     whyBadge:'Why Us', whyT1:'The Choice of', whyT2:'Those Who Demand Quality',
     w1t:'Total Satisfaction Guarantee', w1d:'If the service is not to your liking, we return at no extra cost.',
     w2t:'Verified & Trained Team', w2d:'All staff undergo background checks and specialist training.',
@@ -486,7 +486,7 @@ const TR: Record<Lang, Record<string, string>> = {
     s4t:'Fensterreinigung', s4d:'Professionelle Reinigung von Fenstern und Fassaden',
     s5t:'Baureinigung', s5d:'Schwere Reinigung nach Bau und Renovierungen',
     s6t:'Gebäudepflege', s6d:'Kontinuierliche Reinigung von Wohnanlagen und Gebäuden',
-    s7t:'Auto-Innenreinigung Premium', s7d:'Tiefenreinigung und Desinfektion von Sitzen, Matten und Innenraum',
+    s7t:'Professionelle Auto-Innenreinigung', s7d:'Tiefenreinigung und Desinfektion von Sitzen, Matten und Fahrzeuginnenraum',
     whyBadge:'Warum Wir', whyT1:'Die Wahl von', whyT2:'Anspruchsvollen Kunden',
     w1t:'Vollständige Zufriedenheitsgarantie', w1d:'Wenn der Service nicht Ihren Vorstellungen entspricht, kommen wir kostenlos zurück.',
     w2t:'Geprüftes & geschultes Team', w2d:'Alle Mitarbeiter werden überprüft und speziell geschult.',
@@ -576,7 +576,7 @@ const TR: Record<Lang, Record<string, string>> = {
     s4t:"Nettoyage de Vitres", s4d:"Nettoyage professionnel de vitres et façades",
     s5t:"Après Travaux", s5d:"Nettoyage lourd après constructions et rénovations",
     s6t:"Entretien d'Immeubles", s6d:"Nettoyage continu de copropriétés et immeubles",
-    s7t:"Detailing Intérieur de Véhicule", s7d:"Nettoyage profond et désinfection des sièges, tapis et habitacle",
+    s7t:"Nettoyage Intérieur de Voiture", s7d:"Nettoyage profond et désinfection des sièges, tapis et habitacle du véhicule",
     whyBadge:"Pourquoi Nous", whyT1:"Le Choix de", whyT2:"Ceux Qui Exigent la Qualité",
     w1t:"Garantie de Satisfaction Totale", w1d:"Si le service ne vous convient pas, nous revenons sans frais supplémentaires.",
     w2t:"Équipe Vérifiée et Formée", w2d:"Tout le personnel passe des vérifications et une formation spécialisée.",
@@ -666,7 +666,7 @@ const TR: Record<Lang, Record<string, string>> = {
     s4t:'تنظيف الزجاج', s4d:'تنظيف احترافي للنوافذ والواجهات',
     s5t:'تنظيف ما بعد البناء', s5d:'تنظيف مكثف بعد البناء والتجديد',
     s6t:'صيانة المباني', s6d:'تنظيف مستمر للمجمعات السكنية والمباني',
-    s7t:'تنظيف داخلي احترافي للسيارة', s7d:'تنظيف عميق وتعقيم المقاعد والسجاد وكامل المقصورة',
+    s7t:'تنظيف داخلي احترافي للسيارة', s7d:'تنظيف عميق وتعقيم المقاعد والسجاد وكامل مقصورة السيارة',
     whyBadge:'لماذا نحن', whyT1:'خيار من', whyT2:'يطلب الجودة',
     w1t:'ضمان الرضا الكامل', w1d:'إذا لم تكن راضياً عن الخدمة، نعود بدون تكلفة إضافية.',
     w2t:'فريق موثق ومدرب', w2d:'جميع الموظفين يخضعون لفحص الخلفيات والتدريب المتخصص.',
@@ -756,7 +756,7 @@ const TR: Record<Lang, Record<string, string>> = {
     s4t:'Мойка окон', s4d:'Профессиональная мойка окон и фасадов',
     s5t:'Уборка после строительства', s5d:'Тяжёлая уборка после строительных и ремонтных работ',
     s6t:'Обслуживание зданий', s6d:'Постоянная уборка жилых комплексов и зданий',
-    s7t:'Детейлинг салона автомобиля', s7d:'Глубокая чистка и дезинфекция сидений, ковриков и всего салона',
+    s7t:'Профессиональная чистка салона автомобиля', s7d:'Глубокая чистка и дезинфекция сидений, ковриков и всего салона автомобиля',
     whyBadge:'Почему мы', whyT1:'Выбор тех,', whyT2:'Кто ценит качество',
     w1t:'Полная гарантия удовлетворённости', w1d:'Если услуга вас не устроила, мы вернёмся без дополнительной оплаты.',
     w2t:'Проверенная и обученная команда', w2d:'Все сотрудники проходят проверку биографических данных и специальную подготовку.',
@@ -846,7 +846,7 @@ const TR: Record<Lang, Record<string, string>> = {
     s4t:"Pulizia Vetri", s4d:"Pulizia professionale di vetri e facciate",
     s5t:"Post-Costruzione", s5d:"Pulizia pesante dopo costruzioni e ristrutturazioni",
     s6t:"Manutenzione Edifici", s6d:"Pulizia continua di condomini ed edifici",
-    s7t:"Detailing Interno Veicolo", s7d:"Pulizia profonda e disinfezione di sedili, tappetini e abitacolo",
+    s7t:"Pulizia Professionale Abitacolo Auto", s7d:"Pulizia profonda e disinfezione di sedili, tappetini e abitacolo del veicolo",
     whyBadge:"Perché Noi", whyT1:"La Scelta di Chi", whyT2:"Esige Qualità",
     w1t:"Garanzia di Soddisfazione Totale", w1d:"Se il servizio non è di suo gradimento, torniamo senza costi aggiuntivi.",
     w2t:"Team Verificato e Formato", w2d:"Tutto il personale viene verificato e riceve formazione specializzata.",
@@ -936,7 +936,7 @@ const TR: Record<Lang, Record<string, string>> = {
     s4t:'玻璃清洁', s4d:'专业清洁窗户和外立面',
     s5t:'施工后清洁', s5d:'建筑和装修后的深度清洁',
     s6t:'楼宇维护', s6d:'公寓楼和建筑物的持续清洁',
-    s7t:'汽车内饰深度清洁', s7d:'座椅、地毯及全车内饰的深度清洁与消毒',
+    s7t:'专业汽车内饰清洁', s7d:'汽车座椅、地毯及全车内饰的专业深度清洁与消毒',
     whyBadge:'为何选择我们', whyT1:'追求品质者', whyT2:'的首选',
     w1t:'完全满意保证', w1d:'如果服务不符合您的期望，我们将免费返工。',
     w2t:'经过验证的专业团队', w2d:'所有员工均经过背景调查和专业培训。',
@@ -1026,7 +1026,7 @@ const TR: Record<Lang, Record<string, string>> = {
     s4t:'Curățenie Geamuri', s4d:'Curățenie profesională a geamurilor și fațadelor',
     s5t:'Post-Construcție', s5d:'Curățenie grea după construcții și renovări',
     s6t:'Întreținere Clădiri', s6d:'Curățenie continuă a condominiilor și clădirilor',
-    s7t:'Detailing Interior Auto', s7d:'Curățenie profundă și dezinfecție a scaunelor, covorașelor și habitaclului',
+    s7t:'Curățenie Profesională Interior Auto', s7d:'Curățenie profundă și dezinfecție a scaunelor, covorașelor și habitaclului mașinii',
     whyBadge:'De ce Noi', whyT1:'Alegerea Celor', whyT2:'Care Cer Calitate',
     w1t:'Garanție Totală de Satisfacție', w1d:'Dacă serviciul nu este pe placul tău, revenim fără costuri suplimentare.',
     w2t:'Echipă Verificată și Instruită', w2d:'Toți angajații trec prin verificări de antecedente și formare specializată.',
@@ -1190,25 +1190,25 @@ export default function LimpsZoneApp() {
 
   // Service data
   const services = [
-    { id:'residencial', t:T.s1t, d:T.s1d, icon:Home,          img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=260&fit=crop',
+    { id:'residencial', t:T.s1t, d:T.s1d, icon:Home,          img:'https://images.pexels.com/photos/35929306/pexels-photo-35929306/free-photo-of-cantinho-aconchegante-da-sala-de-estar-com-iluminacao-suave.jpeg?auto=compress&cs=tinysrgb&w=400',
       mats:es?['Aspirador profesional','Productos biodegradables','Paños de microfibra','Equipos de seguridad']:['Aspirador profissional','Produtos biodegradáveis','Panos de microfibra','Equipamentos de segurança'],
       areas:es?['Dormitorios','Salones','Cocinas','Baños','Áreas externas']:['Quartos','Salas','Cozinhas','Casas de banho','Áreas externas'] },
     { id:'comercial',   t:T.s2t, d:T.s2d, icon:Building2,     img:'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=260&fit=crop',
       mats:es?['Máquinas industriales','Desinfectantes profesionales','Equipos de limpieza','Productos especializados']:['Máquinas industriais','Desinfetantes profissionais','Equipamentos de limpeza','Produtos especializados'],
       areas:es?['Oficinas','Recepciones','Baños','Pasillos','Áreas comunes']:['Escritórios','Recepções','Casas de banho','Corredores','Áreas comuns'] },
-    { id:'restaurantes',t:T.s3t, d:T.s3d, icon:UtensilsCrossed,img:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=260&fit=crop',
+    { id:'restaurantes',t:T.s3t, d:T.s3d, icon:UtensilsCrossed,img:'https://images.pexels.com/photos/6196687/pexels-photo-6196687.jpeg?auto=compress&cs=tinysrgb&w=400',
       mats:es?['Sanitizantes alimentarios','Equipos industriales','Productos antibacterianos','Materiales certificados']:['Sanitizantes alimentares','Equipamentos industriais','Produtos anti-bacterianos','Materiais certificados'],
       areas:es?['Cocinas','Salones','Habitaciones','Baños','Áreas de servicio']:['Cozinhas','Salões','Quartos','Casas de banho','Áreas de serviço'] },
-    { id:'vidros',      t:T.s4t, d:T.s4d, icon:Sparkles,      img:'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=400&h=260&fit=crop',
+    { id:'vidros',      t:T.s4t, d:T.s4d, icon:Sparkles,      img:'https://images.pexels.com/photos/6195105/pexels-photo-6195105.jpeg?auto=compress&cs=tinysrgb&w=400',
       mats:es?['Rastrillos profesionales','Productos específicos','Equipos de altura','Paños especiales']:['Rodos profissionais','Produtos específicos','Equipamentos de altura','Panos especiais'],
       areas:es?['Ventanas','Fachadas','Escaparates','Divisorias','Espejos']:['Janelas','Fachadas','Montras','Divisórias','Espelhos'] },
-    { id:'pos-obra',    t:T.s5t, d:T.s5d, icon:Shield,        img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=260&fit=crop',
+    { id:'pos-obra',    t:T.s5t, d:T.s5d, icon:Shield,        img:'https://images.pexels.com/photos/3616746/pexels-photo-3616746.jpeg?auto=compress&cs=tinysrgb&w=400',
       mats:es?['Equipos pesados','Productos específicos','Herramientas especializadas','EPIs completos']:['Equipamentos pesados','Produtos específicos','Ferramentas especializadas','EPIs completos'],
       areas:es?['Retirada de escombros','Limpieza de paredes','Pavimentos','Acabados','Detallado']:['Remoção de entulho','Limpeza de paredes','Pavimentos','Acabamentos','Detalhamento'] },
     { id:'manutencao',  t:T.s6t, d:T.s6d, icon:Award,         img:'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&h=260&fit=crop',
       mats:es?['Máquinas industriales','Productos profesionales','Equipos de seguridad','Herramientas especializadas']:['Máquinas industriais','Produtos profissionais','Equipamentos de segurança','Ferramentas especializadas'],
       areas:es?['Áreas comunes','Garajes','Ascensores','Escaleras','Fachadas']:['Áreas comuns','Garagens','Elevadores','Escadas','Fachadas'] },
-    { id:'auto-detailing', t:T.s7t, d:T.s7d, icon:Sparkles, img:'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?w=400&h=260&fit=crop',
+    { id:'auto-detailing', t:T.s7t, d:T.s7d, icon:Sparkles, img:'https://images.pexels.com/photos/4056593/pexels-photo-4056593.jpeg?auto=compress&cs=tinysrgb&w=400',
       mats:es?['Aspirador industrial','Ozono y aromas premium','Desinfectantes certificados','Microfibras especiales']:['Aspirador industrial','Ozono e aromas premium','Desinfetantes certificados','Microfibras especiais'],
       areas:es?['Asientos y tapicería','Alfombrillas y suelo','Techo y laterales','Maletero completo','Volante y salpicadero']:['Bancos e estofos','Tapetes e chão','Teto e laterais','Mala completa','Volante e tablier'] },
   ]
@@ -1257,10 +1257,10 @@ export default function LimpsZoneApp() {
       name:es?'Limpieza General Completa de Vivienda':'Limpeza Geral Completa de Casa Mobilada',
       basePrice: lang==='es'?80:50 },
     { id:'auto-interior',
-      name:es?'Detailing Interior de Vehículo (bancos, tapetes, desinfección)':'Detailing Interior Automóvel (bancos, tapetes, desinfeção)',
+      name:es?'Limpeza Interior de Coche (bancos, alfombrillas, desinfección)':'Limpeza Interior de Carro (bancos, tapetes, desinfeção)',
       basePrice: lang==='es'?120:80 },
     { id:'auto-completo',
-      name:es?'Detailing Completo Premium (interior + aromas + ozono)':'Detailing Completo Premium (interior + aromas + ozono)',
+      name:es?'Limpeza Premium de Coche (interior completo + aromas + ozono)':'Limpeza Premium de Carro (interior completo + aromas + ozono)',
       basePrice: lang==='es'?180:130 },
   ]
   const materialTypes = [
@@ -2192,14 +2192,38 @@ export default function LimpsZoneApp() {
             <div><Label className="text-xs font-bold">{T.fAddr}</Label><Input required value={formData.address} onChange={e=>setF('address',e.target.value)} placeholder={T.phAddr} className="mt-1"/></div>
             <div>
               <Label className="text-xs font-bold block mb-2">{T.fSvc}</Label>
+              {/* Pre-selected service — shown first and highlighted */}
+              {formData.services.length>0&&(
+                <div className="mb-3 p-3 rounded-xl border-2" style={{borderColor:C.blue,background:C.iceBg}}>
+                  <p className="text-xs font-bold mb-2" style={{color:C.blue}}>
+                    {es?'✅ Servicio seleccionado:':'✅ Serviço selecionado:'}
+                  </p>
+                  {serviceTypes.filter(s=>formData.services.includes(s.name)).map(s=>(
+                    <div key={s.id} className="flex items-center gap-2 mb-1">
+                      <Checkbox id={`fm-sel-${s.id}`} checked={true} onCheckedChange={()=>togFSvc(s.name)}/>
+                      <Label htmlFor={`fm-sel-${s.id}`} className="text-xs font-semibold cursor-pointer" style={{color:C.navy}}>{s.name}</Label>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {/* Crossell — other services */}
+              <p className="text-xs font-semibold mb-2" style={{color:C.muted}}>
+                {es?'💡 Adiciona mais serviços e poupa até 20%:':'💡 Adiciona mais serviços e poupa até 20%:'}
+              </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2 max-h-40 overflow-y-auto border rounded-xl p-3" style={{borderColor:C.border}}>
-                {serviceTypes.map(s=>(
+                {serviceTypes.filter(s=>!formData.services.includes(s.name)).map(s=>(
                   <div key={s.id} className="flex items-center gap-2">
-                    <Checkbox id={`fm-${s.id}`} checked={formData.services.includes(s.name)} onCheckedChange={()=>togFSvc(s.name)}/>
+                    <Checkbox id={`fm-${s.id}`} checked={false} onCheckedChange={()=>togFSvc(s.name)}/>
                     <Label htmlFor={`fm-${s.id}`} className="text-xs cursor-pointer">{s.name}</Label>
                   </div>
                 ))}
               </div>
+              {formData.services.length===1&&(
+                <div className="mt-2 p-2 rounded-lg border text-xs font-semibold flex items-center gap-2" style={{background:'#fffbeb',borderColor:'#fde68a',color:'#92400e'}}>
+                  <Zap className="h-3 w-3"/>
+                  {es?'Añade 1 servicio más y obtén 10% de descuento automático!':'Adiciona 1 serviço e obténs 10% desconto automático!'}
+                </div>
+              )}
               {formData.services.length>=2&&(
                 <div className="mt-2 p-2 rounded-lg border text-xs font-bold text-green-700 flex items-center gap-2" style={{background:'#f0fdf4',borderColor:'#bbf7d0'}}>
                   <Zap className="h-3 w-3"/>{T.promoA} {formData.services.length>=4?'20%':formData.services.length>=3?'15%':'10%'} {T.promoD}
